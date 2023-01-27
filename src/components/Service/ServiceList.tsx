@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Service from "./Service";
+import Service  from "./Service";
+import ServiceClass from "../../classes/Service";
 
-export default function ServiceList(): JSX.Element {
+interface ServiceListProps {
+    data: ServiceClass[],
+}
+
+export default function ServiceList(props: ServiceListProps): JSX.Element {
+    const { data } = props;
+    const loyaltyService = useMemo(() => new ServiceClass({ en: 'Loyalty', fr: 'Loyalty', tnfr: 'Loyalty', tnar: 'Loyalty', ar: 'Loyalty'}, 'example/service/food.jpg'), []);
+
     return (
         <View style={styles.container}>
             <View style={styles.subContainer}>
-                <Service />
-                <Service />
-            </View>
-            <View style={{...styles.subContainer, marginTop: 30}}>
-                <Service />
-                <Service />
+                <View style={styles.sectionContainer}>
+                    <Service data={data[0]} />
+                    <Service data={data[2]} />
+                </View>
+                <View style={{...styles.sectionContainer, marginTop: 30}}>
+                    <Service data={data[1]} />
+                    <Service data={loyaltyService}/>
+                </View>
             </View>
         </View>
     );
@@ -19,11 +29,13 @@ export default function ServiceList(): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        height: '100%',
-        paddingHorizontal: 5,
+        marginHorizontal: 5,
     },
     subContainer: {
+        flexDirection: 'row',
+    },
+    sectionContainer: {
+        flexBasis: 1,
         flexGrow: 1,
         paddingVertical: 10,
         paddingHorizontal: 5,

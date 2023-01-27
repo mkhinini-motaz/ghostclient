@@ -1,0 +1,7 @@
+export const API_CLIENT_URL = 'https://api.ghostchef.shop/api/client/';
+export const API_URL = 'https://api.ghostchef.shop/';
+
+export const BOX_SHADOW_CSS_RULE = "0 0 10px 2px #434258";
+export const BOX_SHADOW_SIDE_DOWN_CSS_RULE = "10px 7px 24px -5px #434258" ;
+export const COLOR_PRIMARY = "#ff6600";
+export const COLOR_SECONDARY = "#36454f";
