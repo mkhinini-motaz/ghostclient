@@ -1,0 +1,19 @@
+import Translated from "./Translated";
+
+export default class Service {
+    id: number;
+    name: string;
+    description: Translated;
+    photo: string;
+    service_area: number[][];
+    menu_displayed_lang: keyof Translated;
+
+    constructor(id: number, name: string, description: Translated, photo: string, service_area: number[][], menu_displayed_lang: keyof Translated) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.photo = photo;
+        this.service_area = service_area;
+        this.menu_displayed_lang = menu_displayed_lang;
+    }
+}

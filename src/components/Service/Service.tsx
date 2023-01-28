@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import ServiceClass from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
@@ -10,12 +11,15 @@ interface ServiceProps {
 
 export default function Service(props: ServiceProps): JSX.Element {
     const { data } = props;
+    const navigation = useNavigation();
 
     return (
-        <View style={styles.container} >
-            <Text style={styles.text}>{data.name.fr}</Text>
-            <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('ShopList', { service: data })}>
+            <View style={styles.container} >
+                <Text style={styles.text}>{data.name.fr}</Text>
+                <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+            </View>
+        </TouchableOpacity>
     );
 };
 

@@ -9,7 +9,7 @@ interface ServiceListProps {
 
 export default function ServiceList(props: ServiceListProps): JSX.Element {
     const { data } = props;
-    const loyaltyService = useMemo(() => new ServiceClass({ en: 'Loyalty', fr: 'Loyalty', tnfr: 'Loyalty', tnar: 'Loyalty', ar: 'Loyalty'}, 'example/service/food.jpg'), []);
+    const loyaltyService = useMemo(() => new ServiceClass({ en: 'Loyalty', fr: 'Loyalty', tnfr: 'Loyalty', tnar: 'Loyalty', ar: 'Loyalty'}, 'example/service/food.jpg', []), []);
 
     return (
         <View style={styles.container}>

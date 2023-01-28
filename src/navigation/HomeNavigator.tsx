@@ -2,6 +2,8 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "../screens/HomeScreen";
+import ShopListScreen from "../screens/ShopListScreen";
+import ShopScreen from "../screens/ShopScreen";
 
 export default function HomeNavigator(): JSX.Element {
     const Stack = createNativeStackNavigator();
@@ -9,6 +11,8 @@ export default function HomeNavigator(): JSX.Element {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="ShopList" component={ShopListScreen} service={({ params }) => params.service} />
+            <Stack.Screen name="Shop" component={ShopScreen} />
         </Stack.Navigator>
     );
 }
