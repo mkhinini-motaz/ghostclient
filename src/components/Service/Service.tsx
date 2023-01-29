@@ -24,7 +24,9 @@ export default function Service(props: ServiceProps): JSX.Element {
     return (
         <TouchableOpacity onPress={navigate}>
             <View style={styles.container} >
-                <Text style={styles.text}>{data.name.fr}</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>{data.name.fr}</Text>
+                </View>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
             </View>
         </TouchableOpacity>
@@ -35,18 +37,36 @@ const styles = StyleSheet.create({
     container: {
         margin: 5,
         height: 250,
-        borderRadius: 10,
-        borderColor: 'black',
-        borderWidth: 3,
+        backgroundColor: 'white',
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+        elevation: 14,
+        borderRadius: 20,
+    },
+    textContainer: {
+        position: 'absolute',
+        zIndex: 2,
+        padding: 5,
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
     },
     text: {
         fontSize: 30,
-        color: COLOR_PRIMARY,
+        fontWeight: '700',
+        color: 'white',
         textAlign: 'center',
+        backgroundColor: '#33333366',
+        borderRadius: 20,
     },
     image: {
-        height: 150,
-        width: '95%',
-        margin: 5,
+        flexGrow: 1,
+        width: '100%',
+        resizeMode: 'stretch',
+        borderRadius: 20,
     },
 });

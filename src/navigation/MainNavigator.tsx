@@ -11,7 +11,7 @@ export default function MainNavigator(): JSX.Element {
 
     return (
         <NavigationContainer >
-            <Tab.Navigator>
+            <Tab.Navigator screenOptions={{ headerShown: false }}>
                 <Tab.Screen name="HomeNavigator" component={HomeNavigator} />
                 <Tab.Screen name="CartNavigator" component={CartNavigator} />
                 <Tab.Screen name="UserNavigator" component={UserNavigator} />

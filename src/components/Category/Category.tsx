@@ -20,14 +20,12 @@ export default function Category({ data }: CategoryProps): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
-        borderColor: 'grey',
-        borderWidth: 3,
         padding: 5,
         marginVertical: 5,
         marginHorizontal: 10,
     },
     title: {
-        fontSize: 20,
+        fontSize: 40,
         color: COLOR_PRIMARY,
     },
 });

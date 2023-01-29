@@ -9,7 +9,6 @@ interface ShopListProps {
 }
 
 export default function ShopList(props: ShopListProps): JSX.Element {
-    const navigation = useNavigation();
     const { data } = props;
 
     return (

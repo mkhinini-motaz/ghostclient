@@ -21,7 +21,6 @@ export default function HomeScreen(): JSX.Element {
     return (
         <SafeAreaView>
             <ScrollView style={styles.container}>
-                <Text>home screen</Text>
                 <ServiceList data={data} />
             </ScrollView>
         </SafeAreaView>

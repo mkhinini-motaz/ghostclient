@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextStyle} from 'react-native';
+import { StyleSheet, Text, TextStyle, ImageStyle} from 'react-native';
 import {translate} from "../../i18n";
 import Translatable from "../../classes/Translatable";
 

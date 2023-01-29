@@ -1,12 +1,15 @@
 import Translatable from "./Translatable";
 import Category from "./Category";
+import OptionGroup from "./OptionGroup";
 
 export default class Product {
     id: number;
     name: Translatable;
     photo: string;
     category_id: number;
+    type: number;
     category: Category;
+    option_groups: OptionGroup[];
     price: number;
     added_loyalty_points: number;
     // TODO: options_groups
@@ -18,11 +21,13 @@ export default class Product {
             'category_id' => $this->category_id,
             'added_loyalty_points' => $this->added_loyalty_points,
 * */
-    constructor(id: number, name: Translatable, photo: string, category_id: number, category: Category, price: number, added_loyalty_points: number) {
+    constructor(id: number, name: Translatable, type: number, photo: string, category_id: number, category: Category, option_groups: OptionGroup[],price: number, added_loyalty_points: number) {
         this.id = id;
         this.name = name;
+        this.type = type;
         this.photo = photo;
         this.category = category;
+        this.option_groups = option_groups;
         this.price = price;
         this.category_id = category_id;
         this.added_loyalty_points = added_loyalty_points;

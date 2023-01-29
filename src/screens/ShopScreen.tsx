@@ -27,7 +27,6 @@ export default function ShopScreen(props: ShopScreenProps): JSX.Element {
 
     return (
         <ScrollView style={styles.container}>
-            <Text>shop show screen</Text>
             <CategoryList data={data} />
         </ScrollView>
     );
