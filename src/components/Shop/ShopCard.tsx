@@ -9,7 +9,7 @@ interface ShopProps {
     navigation: any,
 }
 
-export default function Shop(props: ShopProps): JSX.Element {
+export default function ShopCard(props: ShopProps): JSX.Element {
     const { data } = props;
     const navigation = useNavigation();
 

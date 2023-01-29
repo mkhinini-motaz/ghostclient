@@ -5,7 +5,7 @@ import {useQuery} from "react-query";
 import index from "../api/service";
 
 export default function HomeScreen(): JSX.Element {
-    const { isLoading, error, data } = useQuery('service.index', index);
+    const { isLoading, error, data } = useQuery('service.index.ts', index);
     if (isLoading) {
         return (
             <Text>Loading ...</Text>

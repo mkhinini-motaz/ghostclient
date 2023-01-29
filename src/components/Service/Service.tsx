@@ -13,8 +13,16 @@ export default function Service(props: ServiceProps): JSX.Element {
     const { data } = props;
     const navigation = useNavigation();
 
+    const navigate = () => {
+        if (data.shops.length === 1) {
+            navigation.navigate('Shop', { shopId: data.shops[0].id });
+        } else {
+            navigation.navigate('ShopList', { service: data });
+        }
+    };
+
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('ShopList', { service: data })}>
+        <TouchableOpacity onPress={navigate}>
             <View style={styles.container} >
                 <Text style={styles.text}>{data.name.fr}</Text>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />

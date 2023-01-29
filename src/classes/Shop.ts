@@ -1,14 +1,14 @@
-import Translated from "./Translated";
+import Translatable from "./Translatable";
 
 export default class Service {
     id: number;
     name: string;
-    description: Translated;
+    description: Translatable;
     photo: string;
     service_area: number[][];
-    menu_displayed_lang: keyof Translated;
+    menu_displayed_lang: keyof Translatable;
 
-    constructor(id: number, name: string, description: Translated, photo: string, service_area: number[][], menu_displayed_lang: keyof Translated) {
+    constructor(id: number, name: string, description: Translatable, photo: string, service_area: number[][], menu_displayed_lang: keyof Translatable) {
         this.id = id;
         this.name = name;
         this.description = description;

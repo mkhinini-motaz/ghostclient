@@ -1,14 +1,14 @@
-import Translated from "./Translated";
+import Translatable from "./Translatable";
 import Product from "./Product";
 
 export default class Category {
     id: number;
-    name: Translated;
-    description: Translated;
+    name: Translatable;
+    description: Translatable;
     photo: string;
     products: Product[];
 
-    constructor(id: number, name: Translated, description: Translated, photo: string, products: Product[]) {
+    constructor(id: number, name: Translatable, description: Translatable, photo: string, products: Product[]) {
         this.id = id;
         this.name = name;
         this.description = description;

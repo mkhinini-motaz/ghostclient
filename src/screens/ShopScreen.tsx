@@ -4,6 +4,8 @@ import {useQuery} from "react-query";
 import index from "../api/service";
 import ServiceList from "../components/Service/ServiceList";
 import category from "../api/shop";
+import Category from "../components/Category/Category";
+import CategoryList from "../components/Category/CategoryList";
 
 interface ShopScreenProps {
 
@@ -22,12 +24,11 @@ export default function ShopScreen(props: ShopScreenProps): JSX.Element {
             <Text>{JSON.stringify(error)}</Text>
         );
     }
-console.log('#####  : ', data)
+
     return (
         <ScrollView style={styles.container}>
             <Text>shop show screen</Text>
-            {data.map(category => <Text key={'category_' + category.id}>{JSON.stringify(category)}</Text>)}
-            <Text>---------------------------------------------</Text>
+            <CategoryList data={data} />
         </ScrollView>
     );
 };

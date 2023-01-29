@@ -1,4 +1,4 @@
-export default interface Translated {
+export default interface Translatable {
     en: string,
     fr: string,
     tnfr: string,
