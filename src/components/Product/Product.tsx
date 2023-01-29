@@ -15,12 +15,12 @@ export default function Product({ data }: ProductProps): JSX.Element {
             <View style={styles.container}>
                 <View style={styles.textContainer}>
                     <View style={styles.nameContainer}>
-                        <TranslatableText data={data.category.name} />
-                        <Text> - </Text>
-                        <TranslatableText data={data.name} />
+                        <TranslatableText data={data.category.name} style={styles.nameText} />
+                        <Text style={styles.nameText} > - </Text>
+                        <TranslatableText data={data.name} style={styles.nameText} />
                     </View>
                     <View>
-                        <MoneyFormatter data={data.price}/>
+                        <MoneyFormatter data={data.price} style={styles.money} />
                     </View>
                 </View>
                 <View style={styles.imageContainer}>
@@ -43,6 +43,9 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         flexDirection: 'row',
     },
+    nameText: {
+        fontSize: 18,
+    },
     textContainer: {
         flexBasis: 1,
         flexGrow: 1,
@@ -56,5 +59,9 @@ const styles = StyleSheet.create({
         height: 100,
         width: '95%',
         margin: 5,
+    },
+    money: {
+        fontSize: 15,
+        fontWeight: '500',
     },
 });
