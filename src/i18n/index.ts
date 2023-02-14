@@ -15,6 +15,8 @@ export const availableLangs = {
     ar: { code: 'ar', writeFrom: 'right' },
 };
 
+export const defaultLang = availableLangs.fr;
+
 /**
  * @see {i18n folder} function requires a translations object,
  *

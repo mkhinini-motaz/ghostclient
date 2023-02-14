@@ -1,6 +1,6 @@
 import Translatable from "./Translatable";
 
-export default class Service {
+export default class Shop {
     id: number;
     name: string;
     description: Translatable;
