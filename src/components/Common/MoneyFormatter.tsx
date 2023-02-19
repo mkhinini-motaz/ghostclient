@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, TextStyle} from 'react-native';
 import {LOCAL, LOCAL_CURRENCY} from "../../constants";
 import {translate} from "../../i18n";
+import {useSelector} from "../../store/hooks";
 
 interface MoneyFormatterProps {
     data: number,
@@ -14,10 +15,12 @@ export default function MoneyFormatter({ data, style }: MoneyFormatterProps): JS
         currency: LOCAL_CURRENCY,
     });
 
+    const { selectedLang } = useSelector((state) => state.I18n);
+
     return (
         <Text style={style}>
             {formatter.format(data / 1000).replace(LOCAL_CURRENCY, '') + ' ' +
-            translate(LOCAL_CURRENCY, 'fr', true)}
+            translate(LOCAL_CURRENCY, selectedLang, true)}
         </Text>
     );
 };

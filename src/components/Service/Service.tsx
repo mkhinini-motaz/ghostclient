@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import RNBounceable from "@freakycoder/react-native-bounceable";
 
 import ServiceClass from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
@@ -23,14 +24,14 @@ export default function Service(props: ServiceProps): JSX.Element {
     };
 
     return (
-        <TouchableOpacity onPress={navigate}>
+        <RNBounceable onPress={navigate}>
             <View style={styles.container} >
                 <View style={styles.textContainer}>
                     <TranslatableText style={styles.text} data={data.name} />
                 </View>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
             </View>
-        </TouchableOpacity>
+        </RNBounceable>
     );
 };
 

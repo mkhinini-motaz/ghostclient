@@ -1,28 +1,44 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import OptionClass from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import {API_URL} from "../../constants";
+import {useSelector} from "../../store/hooks";
+import LangAwareView from "../Common/LangAwareView";
+import RNBounceable from "@freakycoder/react-native-bounceable";
 
 interface OptionProps {
     data: OptionClass,
 }
 
 export default function Option({ data }: OptionProps): JSX.Element {
+    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+
+    const imageStyle = useMemo(() => {
+        const dynamicStyle = (selectedLangWriteFrom === 'left' ?
+                { borderTopRightRadius: 20, borderBottomRightRadius: 20, } :
+                { borderTopLeftRadius: 20, borderBottomLeftRadius: 20, }
+        );
+        return { ...styles.image, ...dynamicStyle, };
+    }, [selectedLangWriteFrom]);
+
     return (
-        <TouchableOpacity>
-            <View style={styles.container}>
-                <View style={styles.textContainer}>
+        <RNBounceable>
+            <LangAwareView style={styles.container}>
+                <LangAwareView style={styles.textContainer}>
                     <TranslatableText data={data.name} style={styles.nameText} />
                     {! data.price ? <></> : <MoneyFormatter data={data.price} style={styles.money} />}
-                </View>
+                </LangAwareView>
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+                    <View style={styles.checkboxContainer}>
+                        <BouncyCheckbox size={50} onPress={(isChecked: boolean) => {}} />
+                    </View>
+                    <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
                 </View>
-
-            </View>
-        </TouchableOpacity>
+            </LangAwareView>
+        </RNBounceable>
     );
 };
 
@@ -38,7 +54,6 @@ const styles = StyleSheet.create({
         elevation: 14,
         borderRadius: 20,
         margin: 5,
-        flexDirection: 'row',
     },
     nameText: {
         fontSize: 18,
@@ -53,15 +68,19 @@ const styles = StyleSheet.create({
     imageContainer: {
         flexBasis: 1,
         flexGrow: 1,
+        position: 'relative',
     },
     image: {
         height: 120,
         width: '100%',
-        borderTopRightRadius: 20,
-        borderBottomRightRadius: 20,
     },
     money: {
         fontSize: 15,
         fontWeight: '500',
     },
+    checkboxContainer: {
+        position: 'absolute',
+        zIndex: 3,
+        alignSelf: 'flex-end',
+    }
 });

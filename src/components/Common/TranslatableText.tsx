@@ -10,10 +10,10 @@ interface TranslatableTextProps {
 }
 
 export default function TranslatableText({ style, data }: TranslatableTextProps): JSX.Element {
-    const selectedLang = useSelector((state) => state.I18n.selectedLang);
+    const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
 
     return (
-        <Text style={style}>{translate(data, selectedLang)}</Text>
+        <Text style={{ textAlign: selectedLangWriteFrom, ...style }}>{translate(data, selectedLang)}</Text>
     );
 };
 
