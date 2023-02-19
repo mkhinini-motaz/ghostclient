@@ -16,6 +16,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
         if (data.type === 2) { // TODO: constants
             navigation.navigate('ProductWithOptions', { product: data });
         }
+        // Todo: else add to cart
     };
 
     return (

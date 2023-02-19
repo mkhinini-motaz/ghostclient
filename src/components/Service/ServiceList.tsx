@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Service  from "./Service";
 import ServiceClass from "../../classes/Service";
+import LangAwareView from "../Common/LangAwareView";
 
 interface ServiceListProps {
     data: ServiceClass[],
@@ -13,7 +14,7 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
 
     return (
         <View style={styles.container}>
-            <View style={styles.subContainer}>
+            <LangAwareView>
                 <View style={styles.sectionContainer}>
                     <Service data={data[0]} />
                     <Service data={data[2]} />
@@ -22,7 +23,7 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
                     <Service data={data[1]} />
                     <Service data={loyaltyService}/>
                 </View>
-            </View>
+            </LangAwareView>
         </View>
     );
 };
@@ -30,9 +31,6 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 5,
-    },
-    subContainer: {
-        flexDirection: 'row',
     },
     sectionContainer: {
         flexBasis: 1,

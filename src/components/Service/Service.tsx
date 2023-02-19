@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import ServiceClass from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
+import TranslatableText from "../Common/TranslatableText";
 
 interface ServiceProps {
     data: ServiceClass,
@@ -25,7 +26,7 @@ export default function Service(props: ServiceProps): JSX.Element {
         <TouchableOpacity onPress={navigate}>
             <View style={styles.container} >
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>{data.name.fr}</Text>
+                    <TranslatableText style={styles.text} data={data.name} />
                 </View>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
             </View>

@@ -12,15 +12,7 @@ export default class Product {
     option_groups: OptionGroup[];
     price: number;
     added_loyalty_points: number;
-    // TODO: options_groups
-/*
-            'id'          => $this->id,
-            'type'        => $this->type,
-            'photo'       => $this->photo,
-            'price'       => $this->price,
-            'category_id' => $this->category_id,
-            'added_loyalty_points' => $this->added_loyalty_points,
-* */
+
     constructor(id: number, name: Translatable, type: number, photo: string, category_id: number, category: Category, option_groups: OptionGroup[],price: number, added_loyalty_points: number) {
         this.id = id;
         this.name = name;
