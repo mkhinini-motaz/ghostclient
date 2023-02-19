@@ -4,7 +4,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import OptionClass from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
-import {API_URL} from "../../constants";
+import {API_URL, COLOR_PRIMARY} from "../../constants";
 import {useSelector} from "../../store/hooks";
 import LangAwareView from "../Common/LangAwareView";
 import RNBounceable from "@freakycoder/react-native-bounceable";
@@ -25,20 +25,22 @@ export default function Option({ data }: OptionProps): JSX.Element {
     }, [selectedLangWriteFrom]);
 
     return (
-        <RNBounceable>
+        <View>
             <LangAwareView style={styles.container}>
                 <LangAwareView style={styles.textContainer}>
                     <TranslatableText data={data.name} style={styles.nameText} />
                     {! data.price ? <></> : <MoneyFormatter data={data.price} style={styles.money} />}
                 </LangAwareView>
                 <View style={styles.imageContainer}>
-                    <View style={styles.checkboxContainer}>
-                        <BouncyCheckbox size={50} onPress={(isChecked: boolean) => {}} />
-                    </View>
-                    <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
+                    <RNBounceable>
+                        <View style={styles.checkboxContainer}>
+                            <BouncyCheckbox size={50} fillColor={COLOR_PRIMARY} isChecked={!! data.is_selected_by_default} iconImageStyle={{ height: 30, width: 30 }} textContainerStyle={{ marginLeft: 0, }} onPress={(isChecked: boolean) => {}} disableBuiltInState />
+                        </View>
+                        <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
+                    </RNBounceable>
                 </View>
             </LangAwareView>
-        </RNBounceable>
+        </View>
     );
 };
 
