@@ -1,6 +1,7 @@
 import Translatable from "./Translatable";
 import Category from "./Category";
 import OptionGroup from "./OptionGroup";
+import Option from "./Option";
 
 export default class Product {
     id: number;
@@ -25,3 +26,16 @@ export default class Product {
         this.added_loyalty_points = added_loyalty_points;
     }
 }
+
+export const TYPE_WITH_OPTIONS = 2;
+
+export const productPrice = (product: Product, count: number, options: Option[]) : number => {
+    let price = product.price;
+    if (product.type === TYPE_WITH_OPTIONS) {
+        for (let option of options) {
+            price += option.price;
+        }
+    }
+
+    return price * count;
+};

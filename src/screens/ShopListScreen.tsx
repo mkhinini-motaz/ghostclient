@@ -5,12 +5,13 @@ import ServiceClass from "../classes/Service";
 
 interface ShopListScreenProps {
     service: ServiceClass,
+    route: any,
 }
 
-export default function ShopListScreen(props: ShopListScreenProps): JSX.Element {
+export default function ShopListScreen({ service, route }: ShopListScreenProps): JSX.Element {
     return (
         <View>
-            <ShopList data={props.route.params.service.shops} />
+            <ShopList data={route.params.service.shops} />
         </View>
     );
 };
