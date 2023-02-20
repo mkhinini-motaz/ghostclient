@@ -11,9 +11,12 @@ import RNBounceable from "@freakycoder/react-native-bounceable";
 
 interface OptionProps {
     data: OptionClass,
+    isSelected: boolean,
+    onPress: (value: boolean) => any|void,
 }
 
-export default function Option({ data }: OptionProps): JSX.Element {
+export default function Option({ data, isSelected, onPress }: OptionProps): JSX.Element {
+    console.log('inside element', {option: data.name.fr, isSelected})
     const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
 
     const imageStyle = useMemo(() => {
@@ -24,6 +27,7 @@ export default function Option({ data }: OptionProps): JSX.Element {
         return { ...styles.image, ...dynamicStyle, };
     }, [selectedLangWriteFrom]);
 
+    let bouncyCheckboxRef: BouncyCheckbox | null = null;
     return (
         <View>
             <LangAwareView style={styles.container}>
@@ -32,9 +36,9 @@ export default function Option({ data }: OptionProps): JSX.Element {
                     {! data.price ? <></> : <MoneyFormatter data={data.price} style={styles.money} />}
                 </LangAwareView>
                 <View style={styles.imageContainer}>
-                    <RNBounceable>
+                    <RNBounceable onPress={() => bouncyCheckboxRef.onPress(! isSelected)}>
                         <View style={styles.checkboxContainer}>
-                            <BouncyCheckbox size={50} fillColor={COLOR_PRIMARY} isChecked={!! data.is_selected_by_default} iconImageStyle={{ height: 30, width: 30 }} textContainerStyle={{ marginLeft: 0, }} onPress={(isChecked: boolean) => {}} disableBuiltInState />
+                            <BouncyCheckbox disableBuiltInState size={50} fillColor={COLOR_PRIMARY} isChecked={isSelected} iconImageStyle={{ height: 30, width: 30 }} textContainerStyle={{ marginLeft: 0, }} onPress={(value) => onPress(! isSelected)} ref={(ref: any) => (bouncyCheckboxRef = ref)}/>
                         </View>
                         <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
                     </RNBounceable>

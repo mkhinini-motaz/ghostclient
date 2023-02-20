@@ -8,9 +8,10 @@ export default class Option {
     option_group_id: number;
     order: number;
     price: number;
+    quantity?: number;
     is_selected_by_default: number;
 
-    constructor(id: number, photo: string, name: Translatable, description: Translatable, option_group_id: number, order: number, price: number, is_selected_by_default: number) {
+    constructor(id: number, photo: string, name: Translatable, description: Translatable, option_group_id: number, order: number, price: number, is_selected_by_default: number, quantity?: number) {
         this.id = id;
         this.photo = photo;
         this.name = name;
@@ -19,5 +20,8 @@ export default class Option {
         this.order = order;
         this.price = price;
         this.is_selected_by_default = is_selected_by_default;
+        this.quantity = quantity;
     }
 }
+
+export const DEFAULT_QUANTITY = 2;
