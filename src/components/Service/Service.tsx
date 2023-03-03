@@ -27,7 +27,9 @@ export default function Service(props: ServiceProps): JSX.Element {
         <RNBounceable onPress={navigate}>
             <View style={styles.container} >
                 <View style={styles.textContainer}>
-                    <TranslatableText style={styles.text} data={data.name} />
+                    <View style={styles.textBackground}>
+                        <TranslatableText style={styles.text} data={data.name} />
+                    </View>
                 </View>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
             </View>
@@ -38,7 +40,7 @@ export default function Service(props: ServiceProps): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         margin: 5,
-        height: 250,
+        height: 170,
         backgroundColor: 'white',
         shadowOffset: {
             width: 0,
@@ -52,18 +54,20 @@ const styles = StyleSheet.create({
     textContainer: {
         position: 'absolute',
         zIndex: 2,
-        padding: 5,
         height: '100%',
         width: '100%',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
+    },
+    textBackground: {
+        backgroundColor: '#33333366',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
     text: {
         fontSize: 30,
         fontWeight: '700',
-        color: 'white',
+        color: '#fefefe',
         textAlign: 'center',
-        backgroundColor: '#33333366',
-        borderRadius: 20,
     },
     image: {
         flexGrow: 1,

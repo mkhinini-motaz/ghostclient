@@ -6,13 +6,14 @@ import ServiceList from "../components/Service/ServiceList";
 import category from "../api/shop";
 import Category from "../components/Category/Category";
 import CategoryList from "../components/Category/CategoryList";
+import {translate} from "../i18n";
 
 interface ShopScreenProps {
-
+    route: any,
 }
 
-export default function ShopScreen(props: ShopScreenProps): JSX.Element {
-    const { isLoading, error, data } = useQuery('shop.category', category);
+export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
+    const { isLoading, error, data } = useQuery(['shop.category', route.params.shopId], category(route.params.shopId));
     if (isLoading) {
         return (
             <Text>Loading ...</Text>

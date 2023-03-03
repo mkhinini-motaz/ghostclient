@@ -10,7 +10,7 @@ interface ServiceListProps {
 
 export default function ServiceList(props: ServiceListProps): JSX.Element {
     const { data } = props;
-    const loyaltyService = useMemo(() => new ServiceClass({ en: 'Loyalty', fr: 'Loyalty', tnfr: 'Loyalty', tnar: 'Loyalty', ar: 'Loyalty'}, 'example/service/loyalty.png', []), []);
+    const loyaltyService = useMemo(() => new ServiceClass({ en: 'Loyalty', fr: 'Loyalty', tnfr: 'Loyalty', tnar: 'Loyalty', ar: 'Loyalty'}, 'example/service/happyghost.png', []), []);
 
     return (
         <View style={styles.container}>
@@ -18,9 +18,11 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
                 <View style={styles.sectionContainer}>
                     <Service data={data[0]} />
                     <Service data={data[2]} />
+                    <Service data={data[4]} />
                 </View>
                 <View style={{...styles.sectionContainer, marginTop: 30}}>
                     <Service data={data[1]} />
+                    <Service data={data[3]} />
                     <Service data={loyaltyService}/>
                 </View>
             </LangAwareView>
