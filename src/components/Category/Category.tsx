@@ -10,22 +10,11 @@ interface CategoryProps {
 }
 
 export default function Category({ data }: CategoryProps): JSX.Element {
-    const renderItem = useCallback(({ item }) => <Product data={item} key={'product_' + item.id} />, []);
-    const keyExtractor = useCallback(product => 'product_show_' + product.id, []);
-    const getItemLayout = useCallback((data, index) => ({ length: 130, offset: 130 * index, index }), []);
-
     return (
         <View style={styles.container}>
             <TranslatableText data={data.name} style={styles.title} />
-            <FlatList
-                maxToRenderPerBatch={5}
-                initialNumToRender={5}
-                updateCellsBatchingPeriod={100}
-                data={data.products}
-                renderItem={renderItem}
-                keyExtractor={keyExtractor}
-                getItemLayout={getItemLayout}
-            />
+            {data.products.map(product => <Product key={'product_' + product.id} data={product} />)}
+
         </View>
     );
 };

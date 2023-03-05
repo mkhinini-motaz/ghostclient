@@ -38,7 +38,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
             />
             <FlatList
                 maxToRenderPerBatch={2}
-                initialNumToRender={1}
+                initialNumToRender={2}
                 data={data}
                 renderItem={renderVerticalItem}
                 keyExtractor={verticalKeyExtractor}
