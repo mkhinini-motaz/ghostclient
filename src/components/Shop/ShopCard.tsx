@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Text, Image} from 'react-native';
+import FastImage from 'react-native-fast-image'
 import { useNavigation } from '@react-navigation/native';
 import ShopClass from "../../classes/Shop";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
@@ -19,7 +20,7 @@ export default function ShopCard(props: ShopProps): JSX.Element {
                 <Text>{data.id}</Text>
                 <Text style={styles.title}>{data.name}</Text>
                 <Text>{data.description.fr}</Text>
-                <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+                <FastImage source={{ uri: API_URL + data.photo }} style={styles.image} />
             </View>
         </TouchableOpacity>
     );

@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
+import FastImage from 'react-native-fast-image'
 import TranslatableText from "../Common/TranslatableText";
 import ProductClass from "../../classes/Product";
 import {API_URL, BOX_SHADOW_CSS_RULE, BOX_SHADOW_SIDE_DOWN_CSS_RULE} from "../../constants";
@@ -46,7 +47,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
                     </LangAwareView>
                 </View>
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
+                    <FastImage source={{ uri: API_URL + data.photo }} style={imageStyle} />
                 </View>
             </LangAwareView>
         </RNBounceable>

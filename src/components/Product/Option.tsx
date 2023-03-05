@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import FastImage from 'react-native-fast-image'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import OptionClass, {DEFAULT_QUANTITY} from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
@@ -75,7 +76,7 @@ export default function Option({ data, isSelected, isQuantifiable, onPress, onQu
                                             ref={(ref: any) => (bouncyCheckboxRef = ref)}
                             />
                         </View>
-                        <Image source={{ uri: API_URL + data.photo }} style={imageStyle} />
+                        <FastImage source={{ uri: API_URL + data.photo }} style={imageStyle} />
                     </RNBounceable>
                 </View>
             </LangAwareView>
