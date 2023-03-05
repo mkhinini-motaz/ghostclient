@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, { useCallback } from 'react';
+import {StyleSheet, View, Text, FlatList} from 'react-native';
 import CategoryClass from "../../classes/Category";
 import TranslatableText from "../Common/TranslatableText";
 import Product from "../Product/Product";
@@ -10,10 +10,22 @@ interface CategoryProps {
 }
 
 export default function Category({ data }: CategoryProps): JSX.Element {
+    const renderItem = useCallback(({ item }) => <Product data={item} key={'product_' + item.id} />, []);
+    const keyExtractor = useCallback(product => 'product_show_' + product.id, []);
+    const getItemLayout = useCallback((data, index) => ({ length: 130, offset: 130 * index, index }), []);
+
     return (
         <View style={styles.container}>
             <TranslatableText data={data.name} style={styles.title} />
-            {data.products.map(product => <Product key={'product_' + product.id} data={product} />)}
+            <FlatList
+                maxToRenderPerBatch={5}
+                initialNumToRender={5}
+                updateCellsBatchingPeriod={100}
+                data={data.products}
+                renderItem={renderItem}
+                keyExtractor={keyExtractor}
+                getItemLayout={getItemLayout}
+            />
         </View>
     );
 };
@@ -25,7 +37,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     title: {
-        fontSize: 40,
+        fontSize: 37,
         color: COLOR_PRIMARY,
     },
 });

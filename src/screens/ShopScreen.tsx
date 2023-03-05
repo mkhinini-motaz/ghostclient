@@ -1,12 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import {useQuery} from "react-query";
-import index from "../api/service";
-import ServiceList from "../components/Service/ServiceList";
 import category from "../api/shop";
-import Category from "../components/Category/Category";
 import CategoryList from "../components/Category/CategoryList";
-import {translate} from "../i18n";
 
 interface ShopScreenProps {
     route: any,
@@ -27,9 +23,9 @@ export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <CategoryList data={data} />
-        </ScrollView>
+        <View style={styles.container}>
+            <CategoryList data={data || []} />
+        </View>
     );
 };
 
