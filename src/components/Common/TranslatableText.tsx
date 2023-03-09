@@ -9,11 +9,11 @@ interface TranslatableTextProps {
     style?: TextStyle;
 }
 
-export default function TranslatableText({ style, data }: TranslatableTextProps): JSX.Element {
+export default function TranslatableText(props: TranslatableTextProps): JSX.Element {
     const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
 
     return (
-        <Text style={{ textAlign: selectedLangWriteFrom, ...style }}>{translate(data, selectedLang)}</Text>
+        <Text {...props} style={{ textAlign: selectedLangWriteFrom, ...props.style }}>{translate(props.data, selectedLang)}</Text>
     );
 };
 

@@ -38,6 +38,8 @@
     "product:delete:confirm:title": "Product delete confirmation",
     "product:delete:confirm:content": "This product will be deleted from your car, continue ?",
 
+    "product:kg": "Kg",
+
     "form:address:label": "Address",
     "form:email:label": "Email",
     "form:first_name:label": "First name",

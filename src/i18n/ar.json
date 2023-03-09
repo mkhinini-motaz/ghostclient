@@ -38,6 +38,8 @@
     "product:delete:confirm:title": "تأكيد حذف المنتج",
     "product:delete:confirm:content": "ستتم إزالة هذا المنتج من سلة التسوق الخاصة بك ، هل تريد المتابعة ؟",
 
+    "product:kg": "كغ",
+
     "form:address:label": "العنوان",
     "form:email:label": "البريد الإلكتروني",
     "form:first_name:label": "الاسم",

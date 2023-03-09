@@ -1,16 +1,16 @@
-import React, {useMemo} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import React, { useMemo } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import FastImage from 'react-native-fast-image'
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import TranslatableText from "../Common/TranslatableText";
-import ProductClass from "../../classes/Product";
-import {API_URL, BOX_SHADOW_CSS_RULE, BOX_SHADOW_SIDE_DOWN_CSS_RULE} from "../../constants";
+import ProductClass, { TYPE_WEIGHTABLE } from "../../classes/Product";
+import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
-import {useSelector} from "../../store/hooks";
+import { useSelector } from "../../store/hooks";
 
 const Image = createImageProgress(FastImage);
 
@@ -48,6 +48,10 @@ export default function Product({ data }: ProductProps): JSX.Element {
                     </LangAwareView>
                     <LangAwareView>
                         <MoneyFormatter data={data.price} style={styles.money} />
+                        {data.type !== TYPE_WEIGHTABLE ? '' : <>
+                            <Text style={styles.money}> / </Text>
+                            <TranslatableText data={'product:kg'} style={styles.money} />
+                        </>}
                     </LangAwareView>
                 </View>
                 <View style={styles.imageContainer}>

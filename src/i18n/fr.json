@@ -38,6 +38,8 @@
     "product:delete:confirm:title": "Confirmation suppression produit",
     "product:delete:confirm:content": "Ce produit sera supprimé de votre panier, continuer ?",
 
+    "product:kg": "Kg",
+
     "form:address:label": "Adresse",
     "form:email:label": "Email",
     "form:first_name:label": "Prénom",
