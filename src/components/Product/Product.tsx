@@ -3,12 +3,16 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import FastImage from 'react-native-fast-image'
+import { createImageProgress } from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
 import TranslatableText from "../Common/TranslatableText";
 import ProductClass from "../../classes/Product";
 import {API_URL, BOX_SHADOW_CSS_RULE, BOX_SHADOW_SIDE_DOWN_CSS_RULE} from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useSelector} from "../../store/hooks";
+
+const Image = createImageProgress(FastImage);
 
 interface ProductProps {
     data: ProductClass
@@ -47,7 +51,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
                     </LangAwareView>
                 </View>
                 <View style={styles.imageContainer}>
-                    <FastImage source={{ uri: API_URL + data.photo }} style={imageStyle} />
+                    <Image source={{ uri: API_URL + data.photo }} style={styles.image} imageStyle={imageStyle} renderIndicator={() => <Progress.Circle size={100} fill={'white'} thickness={15} showsText color={COLOR_PRIMARY} borderWidth={0} />} />
                 </View>
             </LangAwareView>
         </RNBounceable>
