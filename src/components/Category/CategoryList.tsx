@@ -4,6 +4,9 @@ import CategoryClass from "../../classes/Category";
 import Category from "./Category";
 import TranslatableText from "../Common/TranslatableText";
 import CategoryHorizontal from "./CategoryHorizontal";
+import * as Progress from 'react-native-progress';
+import {COLOR_PRIMARY} from "../../constants";
+import {useSelector} from "../../store/hooks";
 
 interface CategoryListProps {
     data: CategoryClass[],
@@ -11,6 +14,7 @@ interface CategoryListProps {
 
 
 export default function CategoryList({ data }: CategoryListProps): JSX.Element {
+    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
     const horizontalFlatListRef = useRef();
     const renderVerticalItem = useCallback(({ item }) => <Category data={item} key={'category_' + item.id} />, []);
     const verticalKeyExtractor = useCallback(category => 'category_show_' + category.id, []);
@@ -35,6 +39,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 renderItem={renderHorizontalItem}
                 keyExtractor={horizontalKeyExtractor}
                 horizontal
+                inverted={selectedLangWriteFrom === 'right'}
             />
             <FlatList
                 maxToRenderPerBatch={2}
@@ -44,6 +49,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 keyExtractor={verticalKeyExtractor}
                 getItemLayout={getVerticalItemLayout}
                 ref={horizontalFlatListRef}
+                contentContainerStyle={{ paddingBottom: 130 }}
             />
         </View>
     );
