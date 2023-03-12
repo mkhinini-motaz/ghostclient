@@ -25,6 +25,8 @@
     "common:female": "إمرأة",
     "common:order": "طلب",
     "common:orders": "طلبات",
+    "common:kg": "كغ",
+    "common:g": "غ",
 
     "shop:closed": "أوقات العمل من الاثنين إلى السبت من الساعة 12 ظهرًا حتى منتصف الليل",
 
@@ -37,8 +39,6 @@
     "product:delete:type_with_options": "حذف منتج",
     "product:delete:confirm:title": "تأكيد حذف المنتج",
     "product:delete:confirm:content": "ستتم إزالة هذا المنتج من سلة التسوق الخاصة بك ، هل تريد المتابعة ؟",
-
-    "product:kg": "كغ",
 
     "form:address:label": "العنوان",
     "form:email:label": "البريد الإلكتروني",

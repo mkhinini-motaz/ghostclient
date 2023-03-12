@@ -25,6 +25,8 @@
     "common:female": "مرا",
     "common:order": "كماندا",
     "common:orders": "كماندات",
+    "common:kg": "كغ",
+    "common:g": "غ",
 
     "shop:closed": "نخدمو من الاثنين إلى السبت من نص نهار حتى نص الليل",
 
@@ -37,8 +39,6 @@
     "product:delete:type_with_options": "حذف منتج",
     "product:delete:confirm:title": "تأكيد حذف المنتج",
     "product:delete:confirm:content": "المنتج هاذا بش يتنحى من سلة التسوق ، تكمل ؟",
-
-    "product:kg": "كغ",
 
     "form:address:label": "العنوان",
     "form:email:label": "البريد الإلكتروني",

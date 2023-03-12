@@ -11,6 +11,7 @@ import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import { useSelector } from "../../store/hooks";
+import QuantityButton from "../Common/QuantityButton";
 
 const Image = createImageProgress(FastImage);
 
@@ -50,12 +51,20 @@ export default function Product({ data }: ProductProps): JSX.Element {
                         <MoneyFormatter data={data.price} style={styles.money} />
                         {data.type !== TYPE_WEIGHTABLE ? '' : <>
                             <Text style={styles.money}> / </Text>
-                            <TranslatableText data={'product:kg'} style={styles.money} />
+                            <TranslatableText data={'common:kg'} style={styles.money} />
                         </>}
                     </LangAwareView>
+                    <QuantityButton key={"quantity-button-" + data.id}
+                                    data={2} // TODO
+                                    onPress={(newValue, addedValue) => console.log({ newValue, addedValue })} // TODO
+                                    forWeight={data.type === TYPE_WEIGHTABLE}/>
                 </View>
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: API_URL + data.photo }} style={styles.image} imageStyle={imageStyle} renderIndicator={() => <Progress.Circle size={100} fill={'white'} thickness={15} showsText color={COLOR_PRIMARY} borderWidth={0} />} />
+                    <Image source={{ uri: API_URL + data.photo }}
+                           style={styles.image}
+                           imageStyle={imageStyle}
+                           renderIndicator={() => <Progress.Circle size={100} fill={'white'} thickness={15} showsText color={COLOR_PRIMARY} borderWidth={0} />}
+                    />
                 </View>
             </LangAwareView>
         </RNBounceable>
@@ -92,11 +101,11 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     image: {
-        height: 120,
+        minHeight: 130,
         width: '100%',
     },
     money: {
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: '500',
     },
 });

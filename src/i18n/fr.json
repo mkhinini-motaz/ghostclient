@@ -25,6 +25,8 @@
     "common:female": "Femme",
     "common:order": "Commande",
     "common:orders": "Commandes",
+    "common:kg": "Kg",
+    "common:g": "g",
 
     "shop:closed": "Nous sommes ouvert du lundi au samedi de 12h jusqu'à minuit",
 
@@ -37,8 +39,6 @@
     "product:delete:type_with_options": "Supression produit",
     "product:delete:confirm:title": "Confirmation suppression produit",
     "product:delete:confirm:content": "Ce produit sera supprimé de votre panier, continuer ?",
-
-    "product:kg": "Kg",
 
     "form:address:label": "Adresse",
     "form:email:label": "Email",

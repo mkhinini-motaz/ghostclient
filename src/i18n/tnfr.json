@@ -25,6 +25,8 @@
     "common:female": "Mra",
     "common:order": "Kmanda",
     "common:orders": "Kmandet",
+    "common:kg": "Kg",
+    "common:g": "g",
 
     "shop:closed": "Ne5dmou men nhar lethni li nhar sebt men noss nhar li noss lil",
 
@@ -37,8 +39,6 @@
     "product:delete:type_with_options": "Tafsi5 produit",
     "product:delete:confirm:title": "Confirmation ten7it produit",
     "product:delete:confirm:content": "Produit hadha bech yetna7a mel panier",
-
-    "product:kg": "Kg",
 
     "form:address:label": "Adress",
     "form:email:label": "Email",

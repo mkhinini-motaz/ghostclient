@@ -25,6 +25,8 @@
     "common:female": "Woman",
     "common:order": "Order",
     "common:orders": "Orders",
+    "common:kg": "Kg",
+    "common:g": "g",
 
     "shop:closed": "We are open from monday to saturday from 12am to 12pm",
 
@@ -37,8 +39,6 @@
     "product:delete:type_with_options": "Product delete",
     "product:delete:confirm:title": "Product delete confirmation",
     "product:delete:confirm:content": "This product will be deleted from your car, continue ?",
-
-    "product:kg": "Kg",
 
     "form:address:label": "Address",
     "form:email:label": "Email",
