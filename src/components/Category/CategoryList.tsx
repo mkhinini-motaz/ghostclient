@@ -22,7 +22,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
         const length = 67 + 130 * data[index].products.length;
         let offset = 0;
         for (let i = 0; i < index; i++) {
-            offset +=  67 + 130 * data[i].products.length;
+            offset +=  67 + 140 * data[i].products.length;
         }
         return { length, offset, index };
     }, []);
@@ -49,7 +49,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 keyExtractor={verticalKeyExtractor}
                 getItemLayout={getVerticalItemLayout}
                 ref={horizontalFlatListRef}
-                contentContainerStyle={{ paddingBottom: 130 }}
+                contentContainerStyle={{ paddingBottom: 220 }}
             />
         </View>
     );
