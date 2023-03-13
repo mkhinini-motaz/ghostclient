@@ -7,7 +7,6 @@ import {setLang} from "../../store/actions/i18n";
 import {COLOR_PRIMARY} from "../../constants";
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import LangAwareView from "./LangAwareView";
 
 interface I18nSelectProps {
 
