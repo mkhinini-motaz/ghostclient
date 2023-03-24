@@ -1,15 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "../screens/HomeScreen";
 import ShopListScreen from "../screens/ShopListScreen";
 import ShopScreen from "../screens/ShopScreen";
 import ProductWithOptionsScreen from "../screens/ProductWithOptionsScreen";
-import {translate} from "../i18n";
-import {useSelector} from "../store/hooks";
-import {COLOR_PRIMARY} from "../constants";
 
-export default function HomeNavigator(): JSX.Element {
+export default function HomeNavigator({ navigation }): JSX.Element {
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator>
