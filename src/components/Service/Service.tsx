@@ -6,6 +6,7 @@ import RNBounceable from "@freakycoder/react-native-bounceable";
 import ServiceClass from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
+import {useSelector} from "../../store/hooks";
 
 interface ServiceProps {
     data: ServiceClass,
@@ -14,6 +15,15 @@ interface ServiceProps {
 export default function Service(props: ServiceProps): JSX.Element {
     const { data } = props;
     const navigation = useNavigation();
+    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { choices } = useSelector((state) => state.Cart);
+    const shopIds = data.shops.map(shop => shop.id);
+    let countInCart = 0;
+    for (let choice of choices) {
+        if (-1 !== shopIds.indexOf(choice.shop_id)) {
+            countInCart++;
+        }
+    }
 
     const navigate = () => {
         if (data.shops.length === 1) {
@@ -32,6 +42,11 @@ export default function Service(props: ServiceProps): JSX.Element {
                     </View>
                 </View>
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+                {countInCart === 0 ? '' :
+                    <View style={{ ...styles.badge, [selectedLangWriteFrom]: -10 }}>
+                        <Text style={styles.badgeText}>{countInCart}</Text>
+                    </View>
+                }
             </View>
         </RNBounceable>
     );
@@ -39,7 +54,7 @@ export default function Service(props: ServiceProps): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 5,
+        margin: 8,
         height: 170,
         backgroundColor: 'white',
         shadowOffset: {
@@ -75,4 +90,17 @@ const styles = StyleSheet.create({
         resizeMode: 'stretch',
         borderRadius: 20,
     },
+    badge: {
+        position: 'absolute',
+        backgroundColor: COLOR_PRIMARY,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 50,
+        top: -10,
+    },
+    badgeText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '600',
+    }
 });

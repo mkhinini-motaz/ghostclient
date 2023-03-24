@@ -6,12 +6,14 @@ import FastImage from 'react-native-fast-image'
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import TranslatableText from "../Common/TranslatableText";
-import ProductClass, { TYPE_WEIGHTABLE } from "../../classes/Product";
+import ProductClass, {TYPE_FIXED, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../../classes/Product";
 import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
-import { useSelector } from "../../store/hooks";
+import {useDispatch, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
+import {createChoiceTypeFixed} from "../../store/actions/cart";
+import {translate} from "../../i18n";
 
 const Image = createImageProgress(FastImage);
 
@@ -20,14 +22,59 @@ interface ProductProps {
 }
 
 export default function Product({ data }: ProductProps): JSX.Element {
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
+    const { shopId } = useSelector((state) => state.Cart);
+
+    const { productCount, hasDifferentOptions = false } = useSelector(state => {
+        if (data.type === TYPE_FIXED || data.type === TYPE_WEIGHTABLE) {
+            const fixedProduct = state.Cart.choices
+                    .find(productInfo => productInfo.product_id === data.id) ||
+                { product_count: 0 };
+            return { productCount: fixedProduct.product_count };
+        }
+
+        if (data.type === TYPE_WITH_OPTIONS) {
+            const choices = state.Cart.choices.filter(element => element.product_id === data.id);
+            if (0 === choices.length) {
+                return { productCount: 0 };
+            }
+
+            let productCount = 0;
+            let hasDifferentOptions = false;
+            let productIdInCart;
+            for (let choice of choices) {
+                productCount += choice.product_count;
+                if (productIdInCart && productIdInCart !== choice.id_in_cart) {
+                    hasDifferentOptions = true;
+                }
+                productIdInCart = choice.id_in_cart;
+            }
+            return { productCount, hasDifferentOptions };
+        }
+    });
 
     const onPress = () => {
-        if (data.type === 2) { // TODO: constants
-            navigation.navigate('ProductWithOptions', { product: data });
+        const addedValue = data.type === TYPE_WEIGHTABLE ? 200 : 1;
+        quantityButtonOnClick(productCount + addedValue, addedValue);
+    };
+
+    const quantityButtonOnClick = (newValue, addedValue) => {
+        if (data.type === TYPE_FIXED || data.type === TYPE_WEIGHTABLE) {
+            return dispatch(createChoiceTypeFixed({ product_id: data.id, product_count: newValue, shop_id: shopId }));
         }
-        // Todo: else add to cart
+
+        if (data.type === TYPE_WITH_OPTIONS) {
+            if (addedValue > 0) {
+                navigation.navigate('ProductWithOptions', { product: data });
+            }
+
+            if (addedValue < 0 && ! hasDifferentOptions) {
+                return dispatch(createChoiceTypeFixed({ product_id: data.id, product_count: newValue, shop_id: shopId }));
+            }
+//            return dispatch(showProductDeleteDialog(product)); // TODO: implement
+        }
     };
 
     const imageStyle = useMemo(() => {
@@ -38,15 +85,13 @@ export default function Product({ data }: ProductProps): JSX.Element {
         return { ...styles.image, ...dynamicStyle, };
     }, [selectedLangWriteFrom]);
 
+    let productName = [ translate(data.category.name, selectedLang), '-', translate(data.name, selectedLang) ];
+
     return (
         <RNBounceable onPress={onPress}>
             <LangAwareView style={styles.container}>
                 <View style={styles.textContainer}>
-                    <LangAwareView style={styles.nameContainer}>
-                        <TranslatableText data={data.category.name} style={styles.nameText} />
-                        <Text style={styles.nameText} > - </Text>
-                        <TranslatableText data={data.name} style={styles.nameText} />
-                    </LangAwareView>
+                    <Text style={{ ...styles.nameText, textAlign: selectedLangWriteFrom }} >{productName.join(' ')}</Text>
                     <LangAwareView>
                         <MoneyFormatter data={data.price} style={styles.money} />
                         {data.type !== TYPE_WEIGHTABLE ? '' : <>
@@ -54,9 +99,9 @@ export default function Product({ data }: ProductProps): JSX.Element {
                             <TranslatableText data={'common:kg'} style={styles.money} />
                         </>}
                     </LangAwareView>
-                    <QuantityButton key={"quantity-button-" + data.id}
-                                    data={2} // TODO
-                                    onPress={(newValue, addedValue) => console.log({ newValue, addedValue })} // TODO
+                    <QuantityButton key={"product-quantity-button-" + data.id}
+                                    data={productCount}
+                                    onPress={quantityButtonOnClick}
                                     forWeight={data.type === TYPE_WEIGHTABLE}/>
                 </View>
                 <View style={styles.imageContainer}>

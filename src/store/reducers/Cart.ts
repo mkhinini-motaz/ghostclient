@@ -1,10 +1,26 @@
-import { SET_CART_PRODUCT_TYPE_FIXED, SET_CART_PRODUCTS, SET_CART_ADDRESS, PERSIST_REHYDRATE, CREATE_CART_PRODUCT_WITH_OPTIONS, DELETE_CART_PRODUCT_WITH_OPTIONS, SET_CART_PROMO_CODE, SET_CART_PROMO_CODE_IS_LOADING, SET_ADDITIONAL_NOTE, SET_ORDER_IN_PROGRESS, EMPTY_CART, UPDATE_COUNT_CART_PRODUCT_WITH_OPTIONS, SET_TYPE } from '../actions/types';
+import {
+    SET_CHOICE_TYPE_FIXED,
+    SET_CART_CHOICES,
+    SET_CART_ADDRESS,
+    PERSIST_REHYDRATE,
+    CREATE_CHOICE_TYPE_WITH_OPTIONS,
+    DELETE_CART_CHOICE_TYPE_WITH_OPTIONS,
+    SET_CART_PROMO_CODE,
+    SET_CART_PROMO_CODE_IS_LOADING,
+    SET_ADDITIONAL_NOTE,
+    SET_ORDER_IN_PROGRESS,
+    EMPTY_CART,
+    UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS,
+    SET_TYPE,
+    SET_CART_SHOP
+} from '../actions/types';
 import { TYPE_DELIVERY } from "../../classes/Order";
 import { Action } from "./index";
 
 export const initialCartReducerState = {
-    products: [ ],
-    address: {},
+    shopId: 0,
+    choices: [ ],
+    address: { },
     promoCode: null,
     type: TYPE_DELIVERY,
     promoCodeIsLoading: false,
@@ -13,47 +29,56 @@ export const initialCartReducerState = {
 };
 
 export default (state = initialCartReducerState, action: Action) => {
-    if (action.type === SET_CART_PRODUCTS) {
-        return { ...state, products: action.payload };
+    if (action.type === SET_CART_SHOP) {
+        return { ...state, shopId: action.payload };
     }
 
-    if (action.type === SET_CART_PRODUCT_TYPE_FIXED) {
-        let productDoesntExist = true;
-        let cartProducts = state.products.map(cartProduct => {
-            if (cartProduct.product_id === action.payload.product_id) {
-                productDoesntExist = false;
-                return { ...cartProduct, product_id: action.payload.product_id, product_count: action.payload.product_count };
-            }
-            return cartProduct;
-        });
-        cartProducts = cartProducts.filter(productInfo => productInfo.product_count > 0);
+    if (action.type === SET_CART_CHOICES) {
+        return { ...state, choices: action.payload };
+    }
 
-        if (productDoesntExist) {
-            cartProducts.push({ product_id: action.payload.product_id, product_count: action.payload.product_count });
+    if (action.type === SET_CHOICE_TYPE_FIXED) {
+        let productDoesntExist = true;
+        let choices = [];
+        for (let choice of state.choices) {
+            if (choice.product_id === action.payload.product_id) {
+                productDoesntExist = false;
+                if (action.payload.product_count > 0) {
+                    choices.push({ ...choice, ...action.payload });
+                }
+                continue;
+            }
+            choices.push(choice);
         }
 
-        return { ...state, products: cartProducts };
+        if (productDoesntExist) {
+            choices.push(action.payload);
+        }
+
+        choices = choices.sort((choice1, choice2) => choice1.shop_id - choice2.shop_id); // TODO: order by shopOrder instead of id
+
+        return { ...state, choices: choices };
     }
 
-    if (action.type === CREATE_CART_PRODUCT_WITH_OPTIONS) {
+    if (action.type === CREATE_CHOICE_TYPE_WITH_OPTIONS) {
         action.payload.id_in_cart = action.payload.product_id + '_' + Date.now();
-        return { ...state, products: [ ...state.products, action.payload ] };
+        return { ...state, choices: [ ...state.choices, action.payload ].sort((choice1, choice2) => choice1.shop_id - choice2.shop_id) }; // TODO: order by shopOrder instead of id
     }
 
-    if (action.type === DELETE_CART_PRODUCT_WITH_OPTIONS) {
-        const cartProducts = state.products.filter(productInfo => productInfo.id_in_cart !== action.payload);
-        return { ...state, products: cartProducts };
+    if (action.type === DELETE_CART_CHOICE_TYPE_WITH_OPTIONS) {
+        const choices = state.choices.filter(productInfo => productInfo.id_in_cart !== action.payload);
+        return { ...state, choices: choices };
     }
 
-    if (action.type === UPDATE_COUNT_CART_PRODUCT_WITH_OPTIONS) {
-        const cartProducts = state.products.map(productInfo => {
+    if (action.type === UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS) {
+        const choices = state.choices.map(productInfo => {
             if (productInfo.id_in_cart === action.payload.product_id_in_cart) {
                 productInfo.product_count = action.payload.product_count;
             }
 
             return productInfo;
         });
-        return { ...state, products: cartProducts };
+        return { ...state, choices: choices };
     }
 
     if (action.type === SET_CART_ADDRESS) {

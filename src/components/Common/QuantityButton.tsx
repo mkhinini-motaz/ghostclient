@@ -40,11 +40,8 @@ export default function QuantityButton({ data, onPress, hideCount = false, forWe
                 </LangAwareView>
             ));
         }
-    }
 
-    return (
-        <LangAwareView style={styles.container} >
-            {icons}
+        icons.push((
             <Icon
                 color={COLOR_PRIMARY}
                 size={30}
@@ -52,11 +49,21 @@ export default function QuantityButton({ data, onPress, hideCount = false, forWe
                 name={'pluscircleo'}
                 onPress={() => {onPress(data + step, step)}}
             />
+        ));
+
+    }
+
+    return (
+        <LangAwareView style={styles.container} >
+            {icons}
         </LangAwareView>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        gap: 5,
+    },
     text: {
         fontSize: 20,
     }

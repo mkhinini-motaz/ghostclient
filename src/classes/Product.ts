@@ -39,5 +39,9 @@ export const productPrice = (product: Product, count: number, options: Option[])
         }
     }
 
+    if (product.type === TYPE_WEIGHTABLE) {
+        return (price / 1000) * count;
+    }
+
     return price * count;
 };
