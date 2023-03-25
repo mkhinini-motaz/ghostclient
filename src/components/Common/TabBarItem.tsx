@@ -38,7 +38,7 @@ export default function TabBarItem({ route, isRouteActive, tintColor, navigation
         (isRouteActive && route.state?.routes && route.state?.routes.length > 1) ?
             navigation.goBack() :
             navigation.navigate(route.name, route.params);
-    }, [route.name]);
+    }, [route.key, route.state?.routes.length]);
 
     return (
         <RNBounceable style={styles.tabButton} onPress={onPress} >
