@@ -40,7 +40,6 @@ export default function MainNavigator(): JSX.Element {
                     activeTintColor: COLOR_PRIMARY,
                     inactiveTintColor: "gray"
                 },
-                tabBarComponent: TabBar,
             })}
                tabBar={props => <TabBar {...props} />}
             >

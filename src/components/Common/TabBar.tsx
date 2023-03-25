@@ -28,10 +28,15 @@ const Scaler = posed.View({
 
 const S = StyleSheet.create({
     container: {
-        flexDirection: "row",
-        height: 60,
+        height: 75,
         elevation: 2,
-        alignItems: "center"
+        backgroundColor: 'white',
+    },
+    routesContainer: {
+        paddingBottom: 5,
+        height: 70,
+        flexDirection: "row",
+        alignItems: "center",
     },
     tabButton: { flex: 1 },
     spotLight: {
@@ -41,10 +46,11 @@ const S = StyleSheet.create({
         alignItems: "center"
     },
     spotLightInner: {
-        width: 55,
-        height: 55,
+        width: 52,
+        height: 52,
         backgroundColor: COLOR_PRIMARY,
-        borderRadius: 24
+        borderRadius: 24,
+        marginBottom: 10,
     },
     scaler: { flex: 1, alignItems: "center", justifyContent: "center" }
 });
@@ -80,32 +86,34 @@ const TabBar = props => {
                 </SpotLight>
             </View>
 
-            {routes.map((route, routeIndex) => {
-                const isRouteActive = routeIndex === activeRouteIndex;
-                const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
-                const { options } = descriptors[route.key];
-                return (
-                    <RNBounceable
-                        key={routeIndex}
-                        style={S.tabButton}
-                        onPress={() => {
-                            if (isRouteActive && route.state?.routes && route.state?.routes.length > 1) {
-                                navigation.goBack()
-                            } else {
-                                navigation.navigate(route.name, route.params);
-                            }
-                        }}
-                        accessibilityLabel={options.tabBarAccessibilityLabel}
-                    >
-                        <Scaler
-                            pose={isRouteActive ? "active" : "inactive"}
-                            style={S.scaler}
+            <View style={S.routesContainer}>
+                {routes.map((route, routeIndex) => {
+                    const isRouteActive = routeIndex === activeRouteIndex;
+                    const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
+                    const { options } = descriptors[route.key];
+                    return (
+                        <RNBounceable
+                            key={routeIndex}
+                            style={S.tabButton}
+                            onPress={() => {
+                                if (isRouteActive && route.state?.routes && route.state?.routes.length > 1) {
+                                    navigation.goBack()
+                                } else {
+                                    navigation.navigate(route.name, route.params);
+                                }
+                            }}
+                            accessibilityLabel={options.tabBarAccessibilityLabel}
                         >
-                            {renderIcon({ route, focused: isRouteActive, color: isRouteActive ? 'white' : tintColor })}
-                        </Scaler>
-                    </RNBounceable>
-                );
-            })}
+                            <Scaler
+                                pose={isRouteActive ? "active" : "inactive"}
+                                style={S.scaler}
+                            >
+                                {renderIcon({ route, focused: isRouteActive, color: isRouteActive ? 'white' : tintColor })}
+                            </Scaler>
+                        </RNBounceable>
+                    );
+                })}
+            </View>
         </View>
     );
 };
