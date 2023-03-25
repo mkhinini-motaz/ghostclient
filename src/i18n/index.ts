@@ -10,12 +10,12 @@ export const i18n = { fr, en, tnar, tnfr, ar, };
 export const availableLangs = {
     fr: { code: 'fr', writeFrom: 'left' },
     en: { code: 'en', writeFrom: 'left' },
-    tnfr: { code: 'tn-fr', writeFrom: 'left' },
-    tnar: { code: 'tn-ar', writeFrom: 'right' },
+    tnfr: { code: 'tnfr', writeFrom: 'left' },
+    tnar: { code: 'tnar', writeFrom: 'right' },
     ar: { code: 'ar', writeFrom: 'right' },
 };
 
-export const defaultLang = availableLangs.fr;
+export const defaultLang = availableLangs.tnfr;
 
 /**
  * @see {i18n folder} function requires a translations object,
