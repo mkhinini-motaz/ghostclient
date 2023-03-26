@@ -26,7 +26,7 @@ export const defaultLang = availableLangs.tnfr;
  *
  * @returns {string}
  */
-export function translate(translationKey: string|Translatable, languageCode: keyof Translatable, params = {}) {
+export function translate(translationKey: string|Translatable, languageCode: keyof Translatable, params = {}): string {
     const translations = i18n[languageCode];
     if (! translations || typeof translations !== 'object') {
         return translationKey;
