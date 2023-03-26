@@ -22,13 +22,12 @@ export default function QuantityButton({ data, onPress, hideCount = false, forWe
     const icons = [];
     if (data > 0) {
         icons.push((
-            <Icon
-                color={COLOR_SECONDARY}
-                size={30}
-                key={"quantity-button-count-minus"}
-                name={'minuscircleo'}
-                onPress={() => {onPress(data - step, -step)}}
-            />
+            <RNBounceable key={"quantity-button-count-minus"} onPress={() => {onPress(data - step, -step)}}>
+                <Icon color={COLOR_SECONDARY}
+                      size={30}
+                      name={'minuscircleo'}
+                />
+            </RNBounceable>
         ));
 
         if (! hideCount) {
@@ -43,13 +42,13 @@ export default function QuantityButton({ data, onPress, hideCount = false, forWe
         }
 
         icons.push((
-            <Icon
-                color={COLOR_PRIMARY}
-                size={30}
-                key={"quantity-button-count-plus"}
-                name={'pluscircleo'}
-                onPress={() => {onPress(data + step, step)}}
-            />
+            <RNBounceable key={"quantity-button-count-plus"} onPress={() => {onPress(data + step, step)}}>
+                <Icon
+                    color={COLOR_PRIMARY}
+                    size={30}
+                    name={'pluscircleo'}
+                />
+            </RNBounceable>
         ));
 
     }
