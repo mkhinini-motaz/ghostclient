@@ -1,7 +1,7 @@
 import React from 'react';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import Icon from 'react-native-vector-icons/AntDesign';
-import { StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, ViewStyle} from 'react-native';
 import LangAwareView from "./LangAwareView";
 import {translate} from "../../i18n";
 import {useSelector} from "../../store/hooks";
@@ -12,9 +12,10 @@ interface QuantityButtonProps {
     onPress: (newValue: number, addedValue: number) => void,
     hideCount?: boolean,
     forWeight?: boolean,
+    style?: ViewStyle,
 }
 
-export default function QuantityButton({ data, onPress, hideCount = false, forWeight = false }: QuantityButtonProps): JSX.Element {
+export default function QuantityButton({ data, onPress, hideCount = false, forWeight = false, style }: QuantityButtonProps): JSX.Element {
     const { selectedLang } = useSelector((state) => state.I18n);
     const step = forWeight ? 200 : 1;
 
@@ -54,7 +55,7 @@ export default function QuantityButton({ data, onPress, hideCount = false, forWe
     }
 
     return (
-        <LangAwareView style={styles.container} >
+        <LangAwareView style={{ ...styles.container, ...style }} >
             {icons}
         </LangAwareView>
     );
