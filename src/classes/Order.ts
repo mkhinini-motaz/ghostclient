@@ -67,11 +67,7 @@ export const STATUS_CAN_GO_TO = {
     [STATUS_CLIENT_NOT_FOUND]: [],
 };
 
-export const TYPES = {
-    [TYPE_ON_SITE]: 'order:type:on_site',
-    [TYPE_TAKE_AWAY]: 'order:type:take_away',
-    [TYPE_DELIVERY]: 'order:type:delivery',
-};
+export const SHOWN_TYPES = [TYPE_TAKE_AWAY, TYPE_DELIVERY];
 
 export const SOURCES = {
     [SOURCE_ONLINE]: 'order:source:online',
