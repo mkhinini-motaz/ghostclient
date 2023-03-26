@@ -46,7 +46,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 keyExtractor={verticalKeyExtractor}
                 getItemLayout={getVerticalItemLayout}
                 ref={horizontalFlatListRef}
-                contentContainerStyle={{ paddingBottom: 220, paddingTop: 50 }}
+                contentContainerStyle={{ paddingBottom: 15, paddingTop: 50 }}
             />
         </View>
     );
