@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, } from 'react-native';
 import { product } from "../api/shop";
 import { useQuery } from "react-query";
 import { useSelector } from "../store/hooks";
@@ -10,6 +10,7 @@ import Total from "../components/Cart/Total";
 import Type from "../components/Cart/Type";
 import Map from "../components/Cart/Map";
 import AdditionalNote from "../components/Cart/AdditionalNote";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 interface CartScreenProps {
     route: any,
@@ -44,7 +45,7 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
     }
 
     return (
-        <ScrollView>
+        <KeyboardAwareScrollView>
             <View style={styles.container}>
                 {Object.keys(shops).map((shopId) => {
                     return (
@@ -63,7 +64,7 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
                 <Map />
                 <AdditionalNote />
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 };
 
