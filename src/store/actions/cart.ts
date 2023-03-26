@@ -1,4 +1,3 @@
-
 import {
     SET_CHOICE_TYPE_FIXED,
     CREATE_CHOICE_TYPE_WITH_OPTIONS,
@@ -24,14 +23,13 @@ export interface CartChoiceTypeFixedPayload {
     product_id: number,
     product_count: number,
     shop_id: number,
-
 }
 
 export interface CartChoiceTypeWithOptionsPayload {
     product_id: number,
     product_count: number,
+    shop_id: number,
     options: Option[],
-
 }
 
 export interface CartChoiceUpdateTypeWithOptionsPayload {

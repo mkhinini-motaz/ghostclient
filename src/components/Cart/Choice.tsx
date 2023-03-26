@@ -11,6 +11,7 @@ import {translate} from "../../i18n";
 import QuantityButton from "../Common/QuantityButton";
 import ChoiceClass from "../../classes/Choice";
 import { createChoiceTypeFixed, deleteChoiceTypeWithOptions, updateCountChoiceTypeWithOptions } from "../../store/actions/cart";
+import Option, {optionOutput} from "../../classes/Option";
 
 interface ChoiceProps {
     data: ChoiceClass
@@ -98,6 +99,13 @@ export default function Choice({ data, product }: ChoiceProps): JSX.Element {
                                     hideCount
                     />
                 </LangAwareView>
+                {product.type !== TYPE_WITH_OPTIONS ? '' :
+                    <View>
+                        <Text>
+                            {data.options.map(option => optionOutput(option, selectedLang, selectedLangWriteFrom)).join(', ')}
+                        </Text>
+                    </View>
+                }
             </View>
         </LangAwareView>
     );
@@ -119,6 +127,7 @@ const styles = StyleSheet.create({
     },
     image: {
         minHeight: 80,
+        flex: 1,
         borderRadius: 20,
     },
     imageContainer: {

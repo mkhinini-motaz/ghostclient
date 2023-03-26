@@ -39,7 +39,7 @@ export default function ProductWithOptionsScreen({ route }: ProductWithOptionsSc
 
     return (
         <View>
-            <ProductWithOptions data={product} />
+            <ProductWithOptions data={product} onConfirm={() => navigation.goBack()} />
         </View>
     );
 };
