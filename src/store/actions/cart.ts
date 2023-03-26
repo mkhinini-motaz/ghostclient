@@ -18,6 +18,7 @@ import {Alert} from "react-native";
 import {useDispatch, useSelector} from "../hooks";
 import {translate} from "../../i18n";
 import Option from "../../classes/Option";
+import PromoCode from "../../classes/PromoCode";
 
 export interface CartChoiceTypeFixedPayload {
     product_id: number,
@@ -65,7 +66,7 @@ export function setCartAddress(address) {
     return { type: SET_CART_ADDRESS, payload: address };
 }
 
-export function setCartPromoCode(promoCode) {
+export function setCartPromoCode(promoCode: PromoCode) {
     return { type: SET_CART_PROMO_CODE, payload: promoCode };
 }
 

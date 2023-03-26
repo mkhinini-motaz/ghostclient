@@ -16,7 +16,7 @@ interface CartScreenProps {
 }
 
 export default function CartScreen({ route }: CartScreenProps): JSX.Element {
-    const { choices } = useSelector((state) => state.Cart);
+    const { choices, promoCode } = useSelector((state) => state.Cart);
     const productIds = choices.map(choice => choice.product_id);
     const productCallback = useCallback(product(productIds), [productIds.join(',')]);
     const { isLoading, error, data = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, { enabled: choices.length > 0 });
@@ -58,12 +58,10 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
                     );
                 })}
                 <PromoCode />
-                <Total />
+                <Total data={choices} products={data} promoCode={promoCode} />
                 <Type />
                 <Map />
                 <AdditionalNote />
-                <Text>------------------------</Text>
-                <Text>{JSON.stringify(choices)}</Text>
             </View>
         </ScrollView>
     );

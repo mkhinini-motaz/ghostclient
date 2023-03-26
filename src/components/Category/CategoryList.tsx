@@ -9,7 +9,6 @@ interface CategoryListProps {
     data: CategoryClass[],
 }
 
-
 export default function CategoryList({ data }: CategoryListProps): JSX.Element {
     const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
     const horizontalFlatListRef = useRef();
