@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, {memo, useCallback} from 'react';
 import {StyleSheet, View, Text, FlatList} from 'react-native';
 import CategoryClass from "../../classes/Category";
 import TranslatableText from "../Common/TranslatableText";
@@ -9,7 +9,7 @@ interface CategoryProps {
     data: CategoryClass,
 }
 
-export default function Category({ data }: CategoryProps): JSX.Element {
+function Category({ data }: CategoryProps): JSX.Element {
     return (
         <View style={styles.container}>
             <TranslatableText data={data.name} style={styles.title} />
@@ -30,3 +30,5 @@ const styles = StyleSheet.create({
         color: COLOR_PRIMARY,
     },
 });
+
+export default memo(Category, (prevProps, nextProps) => prevProps.data.id !== nextProps.data.id);

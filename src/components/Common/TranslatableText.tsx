@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { StyleSheet, Text, TextStyle, ImageStyle} from 'react-native';
 import {translate} from "../../i18n";
 import Translatable from "../../classes/Translatable";
@@ -9,7 +9,7 @@ interface TranslatableTextProps {
     style?: TextStyle;
 }
 
-export default function TranslatableText(props: TranslatableTextProps): JSX.Element {
+function TranslatableText(props: TranslatableTextProps): JSX.Element {
     const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
 
     return (
@@ -20,3 +20,5 @@ export default function TranslatableText(props: TranslatableTextProps): JSX.Elem
 const styles = StyleSheet.create({
 
 });
+
+export default memo(TranslatableText);

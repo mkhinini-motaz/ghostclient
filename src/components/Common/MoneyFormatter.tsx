@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, View, Text, TextStyle} from 'react-native';
 import {LOCAL, LOCAL_CURRENCY} from "../../constants";
 import {translate} from "../../i18n";
@@ -9,7 +9,7 @@ interface MoneyFormatterProps {
     style: TextStyle,
 }
 
-export default function MoneyFormatter({ data, style }: MoneyFormatterProps): JSX.Element {
+function MoneyFormatter({ data, style }: MoneyFormatterProps): JSX.Element {
     const formatter = new Intl.NumberFormat(LOCAL, {
         style: 'currency',
         currency: LOCAL_CURRENCY,
@@ -26,3 +26,5 @@ export default function MoneyFormatter({ data, style }: MoneyFormatterProps): JS
 };
 
 const styles = StyleSheet.create({});
+
+export default memo(MoneyFormatter)

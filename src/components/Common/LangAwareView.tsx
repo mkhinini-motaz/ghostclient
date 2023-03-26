@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, ViewStyle, View } from 'react-native';
 import {useSelector} from "../../store/hooks";
 
@@ -8,7 +8,7 @@ interface LangAwareViewProps {
     children?: any,
 }
 
-export default function LangAwareView({ style, direction = 'row', children }: LangAwareViewProps): JSX.Element {
+function LangAwareView({ style, direction = 'row', children }: LangAwareViewProps): JSX.Element {
     const selectedLangWriteFrom = useSelector((state) => state.I18n.selectedLangWriteFrom);
     return (
         <View style={{ flexDirection: direction + (selectedLangWriteFrom === 'right' ? '-reverse' : ''), ...style }}>
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
 
     },
 });
+
+export default memo(LangAwareView);
