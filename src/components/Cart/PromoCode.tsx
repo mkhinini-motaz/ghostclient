@@ -1,12 +1,11 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, StyleSheet, TextInput, View} from 'react-native';
+import {ActivityIndicator, KeyboardAvoidingView, StyleSheet, TextInput, View, Platform} from 'react-native';
 import TranslatableText from "../Common/TranslatableText";
 import {useDispatch, useSelector} from "../../store/hooks";
 import {setCartPromoCode} from "../../store/actions/cart";
 import {useQuery} from "react-query";
-import {product} from "../../api/shop";
 import {show} from "../../api/promoCode";
-import {API_URL, COLOR_PRIMARY} from "../../constants";
+import {COLOR_PRIMARY} from "../../constants";
 import Image from "../Common/Image";
 import LangAwareView from "../Common/LangAwareView";
 
@@ -38,22 +37,19 @@ console.log({input, data, code})
 
     return (
         <LangAwareView style={styles.container}>
-            <View style={{ width: isLoading ? '55%' : '65%' }}>
+            <View style={{ width: isLoading ? '55%' : '65%' }} >
                 <TranslatableText data={"cart:promo_code:label"} style={styles.label} />
                 <TextInput
                     autoCorrect={false}
-                    numberOfLines={4}
                     maxLength={10}
                     onChangeText={onChange}
                     value={input}
                     style={styles.textInput}
                 />
             </View>
-            {! isLoading ? '' :
-                <View style={{ width: '10%' }}>
-                        <ActivityIndicator size="large" color={COLOR_PRIMARY} />
-                </View>
-            }
+            <View style={{ width: isLoading ? '10%' : 0 }}>
+                <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} />
+            </View>
             <View style={{ width: '35%' }}>
                 <Image source={require('../../images/coins.png')}
                        style={imageStyle}
