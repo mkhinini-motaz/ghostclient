@@ -3,9 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import {useSelector} from "../../store/hooks";
 import Product, {TYPE_WITH_OPTIONS} from "../../classes/Product";
 import Choice from "./Choice";
+import ChoiceClass from "../../classes/Choice";
 
 interface ChoicesProps {
-    data: any[], // TODO: remove type any
+    data: ChoiceClass[],
     products: Product[],
 }
 

@@ -9,15 +9,11 @@ import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import {translate} from "../../i18n";
 import QuantityButton from "../Common/QuantityButton";
-import {
-    createChoiceTypeFixed,
-    deleteChoiceTypeWithOptions,
-    updateCountChoiceTypeWithOptions
-} from "../../store/actions/cart";
-
+import ChoiceClass from "../../classes/Choice";
+import { createChoiceTypeFixed, deleteChoiceTypeWithOptions, updateCountChoiceTypeWithOptions } from "../../store/actions/cart";
 
 interface ChoiceProps {
-    data: any, // TOOD: remove type any
+    data: ChoiceClass
     product: Product,
 }
 
@@ -82,22 +78,23 @@ export default function Choice({ data, product }: ChoiceProps): JSX.Element {
             <View style={styles.textContainer}>
                 <Text style={{ ...styles.text, textAlign: selectedLangWriteFrom }} >{productName}</Text>
                 <LangAwareView>
-                    <MoneyFormatter data={product.price} style={styles.money} />
-                    {product.type !== TYPE_WEIGHTABLE ? '' : <>
-                        <Text style={styles.money}> / </Text>
-                        <TranslatableText data={'common:kg'} style={styles.money} />
-                    </>}
+                    <Text style={styles.quantity}>{quantity}</Text>
+                    <Text style={styles.quantity}> - </Text>
+                    <MoneyFormatter data={productPrice(product, data.product_count, data.options)} style={styles.money} />
                 </LangAwareView>
                 <LangAwareView style={styles.quantityContainer}>
-                    <LangAwareView>
-                        <Text style={styles.quantity}>{quantity}</Text>
-                        <Text style={styles.quantity}> - </Text>
-                        <MoneyFormatter data={productPrice(product, data.product_count, data.options)} style={styles.money} />
+                    <LangAwareView >
+                        <MoneyFormatter data={product.price} style={styles.money} />
+                        {product.type !== TYPE_WEIGHTABLE ? '' : <>
+                            <Text style={styles.money}> / </Text>
+                            <TranslatableText data={'common:kg'} style={styles.money} />
+                        </>}
                     </LangAwareView>
                     <QuantityButton key={"quantity-button-" + data.id}
                                     data={data.product_count}
                                     onPress={quantityButtonOnClick}
                                     forWeight={product.type === TYPE_WEIGHTABLE}
+                                    style={{ marginHorizontal: 10 }}
                                     hideCount
                     />
                 </LangAwareView>
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
         elevation: 14,
     },
     image: {
-        minHeight: 100,
+        minHeight: 80,
         borderRadius: 20,
     },
     imageContainer: {
@@ -136,16 +133,16 @@ const styles = StyleSheet.create({
         fontSize: 17,
         flexWrap: 'wrap',
     },
-    money: {
+    quantity: {
         fontSize: 20,
         fontWeight: '500',
     },
-    quantity: {
+    money: {
         fontSize: 18,
         fontWeight: '500',
     },
     quantityContainer: {
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         flexWrap: 'wrap'
     }
 });
