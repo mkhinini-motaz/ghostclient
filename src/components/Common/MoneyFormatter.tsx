@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {StyleSheet, View, Text, TextStyle} from 'react-native';
 import {LOCAL, LOCAL_CURRENCY} from "../../constants";
 import {translate} from "../../i18n";
-import {useSelector} from "../../store/hooks";
+import {useLang, useSelector} from "../../store/hooks";
 
 interface MoneyFormatterProps {
     data: number,
@@ -15,7 +15,7 @@ function MoneyFormatter({ data, style }: MoneyFormatterProps): JSX.Element {
         currency: LOCAL_CURRENCY,
     });
 
-    const { selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLang } = useLang();
 
     return (
         <Text style={style}>

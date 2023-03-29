@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import posed from "react-native-pose";
 import Icon from "react-native-vector-icons/AntDesign";
-import {useSelector} from "../../store/hooks";
+import {useLang, useSelector} from "../../store/hooks";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 
 interface TabBarItemProps {
@@ -32,7 +32,7 @@ const Scaler = posed.View({
 });
 
 export default function TabBarItem({ route, isRouteActive, tintColor, navigation, badgeCount }: TabBarItemProps): JSX.Element {
-    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom } = useLang();
     const badgeStyle = { ...styles.badge, [selectedLangWriteFrom === 'right' ? 'left' : 'right']: -20, ...(isRouteActive ? styles.badgeActive : styles.badgeInactive) };
     const onPress = useCallback(() => {
         (isRouteActive && route.state?.routes && route.state?.routes.length > 1) ?

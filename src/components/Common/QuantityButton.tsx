@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {StyleSheet, View, Text, ViewStyle} from 'react-native';
 import LangAwareView from "./LangAwareView";
 import {translate} from "../../i18n";
-import {useSelector} from "../../store/hooks";
+import {useLang, useSelector} from "../../store/hooks";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 
 interface QuantityButtonProps {
@@ -16,7 +16,7 @@ interface QuantityButtonProps {
 }
 
 export default function QuantityButton({ data, onPress, hideCount = false, forWeight = false, style }: QuantityButtonProps): JSX.Element {
-    const { selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLang } = useLang();
     const step = forWeight ? 200 : 1;
 
     const icons = [];

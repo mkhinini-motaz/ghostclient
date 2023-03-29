@@ -11,7 +11,7 @@ import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import QuantityButton from "../Common/QuantityButton";
-import {useDispatch, useSelector} from "../../store/hooks";
+import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import {
     createChoiceTypeFixed,
     createChoiceTypeWithOptions,
@@ -27,7 +27,7 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
     const dispatch = useDispatch();
     const [ options, setOptions ] = useState<OptionClass[]>([]);
     const [ count, setCount ] = useState<number>(1);
-    const { selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLang } = useLang();
     let bounceableMoneyRef: RNBounceable | null = null;
     const { shopId } = useSelector((state) => state.Cart);
 

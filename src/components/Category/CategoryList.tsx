@@ -3,14 +3,14 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import CategoryClass from "../../classes/Category";
 import Category from "./Category";
 import CategoryHorizontal from "./CategoryHorizontal";
-import {useSelector} from "../../store/hooks";
+import { useLang, } from "../../store/hooks";
 
 interface CategoryListProps {
     data: CategoryClass[],
 }
 
 export default function CategoryList({ data }: CategoryListProps): JSX.Element {
-    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom } = useLang();
     const horizontalFlatListRef = useRef();
     const renderVerticalItem = useCallback(({ item }) => <Category data={item} key={'category_' + item.id} />, []);
     const verticalKeyExtractor = useCallback(category => 'category_show_' + category.id, []);

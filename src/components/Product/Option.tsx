@@ -6,7 +6,7 @@ import OptionClass, {DEFAULT_QUANTITY} from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
-import {useSelector} from "../../store/hooks";
+import {useLang, useSelector} from "../../store/hooks";
 import LangAwareView from "../Common/LangAwareView";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import {Slider} from '@miblanchard/react-native-slider';
@@ -20,7 +20,7 @@ interface OptionProps {
 }
 
 export default function Option({ data, isSelected, isQuantifiable, onPress, onQuantityChange }: OptionProps): JSX.Element {
-    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom } = useLang();
 
     const imageStyle = useMemo(() => {
         const dynamicStyle = (selectedLangWriteFrom === 'left' ?

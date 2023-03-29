@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {Alert, StyleSheet, Text, View} from 'react-native';
 import Image from "../Common/Image";
 import {API_URL} from "../../constants";
-import {useDispatch, useSelector} from "../../store/hooks";
+import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import Product, {productPrice, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../../classes/Product";
 import LangAwareView from "../Common/LangAwareView";
 import TranslatableText from "../Common/TranslatableText";
@@ -20,7 +20,7 @@ interface ChoiceProps {
 
 export default function Choice({ data, product }: ChoiceProps): JSX.Element {
     const dispatch = useDispatch();
-    const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom, selectedLang } = useLang();
     const productName = [ translate(product.category.name, selectedLang), '-', translate(product.name, selectedLang) ].join(' ');
     const quantity = product.type !== TYPE_WEIGHTABLE ? data.product_count :
         (data.product_count > 999 ?

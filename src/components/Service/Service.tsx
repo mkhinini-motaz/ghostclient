@@ -6,7 +6,7 @@ import RNBounceable from "@freakycoder/react-native-bounceable";
 import ServiceClass from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
-import {useSelector} from "../../store/hooks";
+import {useLang, useSelector} from "../../store/hooks";
 
 interface ServiceProps {
     data: ServiceClass,
@@ -15,7 +15,7 @@ interface ServiceProps {
 export default function Service(props: ServiceProps): JSX.Element {
     const { data } = props;
     const navigation = useNavigation();
-    const { selectedLangWriteFrom } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom } = useLang();
     const { choices } = useSelector((state) => state.Cart);
     const shopIds = data.shops.map(shop => shop.id);
     let countInCart = 0;

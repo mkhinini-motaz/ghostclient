@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import LangAwareView from "../Common/LangAwareView";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import Choice from "../../classes/Choice";
-import Product, {productPrice} from "../../classes/Product";
+import Product, { productPrice } from "../../classes/Product";
 import TranslatableText from "../Common/TranslatableText";
 import PromoCode from "../../classes/PromoCode";
-import {COLOR_PRIMARY} from "../../constants";
+import { COLOR_PRIMARY } from "../../constants";
 
 interface TotalProps {
     data: Choice[],

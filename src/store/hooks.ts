@@ -1,8 +1,14 @@
 import { useContext } from "react";
 import StoreContext from "./StoreContext";
+import I18nContext from "./I18nContext";
+import {availableLangs} from "../i18n";
 
 export function useStoreContext() {
     return useContext(StoreContext);
+}
+
+export function useI18nContext() {
+    return useContext(I18nContext);
 }
 
 export function useSelector(selector: (state: object) => any) {
@@ -13,4 +19,24 @@ export function useSelector(selector: (state: object) => any) {
 export function useDispatch() {
     const { dispatch } = useStoreContext();
     return dispatch;
+}
+
+export function useLangWriteFrom() {
+    const { lang } = useI18nContext();
+    return availableLangs[lang].writeFrom;
+}
+
+export function useLangCode() {
+    const { lang } = useI18nContext();
+    return lang;
+}
+
+export function useLang() {
+    const { lang } = useI18nContext();
+    return { selectedLang: lang, selectedLangWriteFrom: availableLangs[lang].writeFrom };
+}
+
+export function useSetLang() {
+    const { setLang } = useI18nContext();
+    return setLang;
 }

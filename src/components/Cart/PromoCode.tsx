@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, KeyboardAvoidingView, StyleSheet, TextInput, View, Platform} from 'react-native';
 import TranslatableText from "../Common/TranslatableText";
-import {useDispatch, useSelector} from "../../store/hooks";
+import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import {setCartPromoCode} from "../../store/actions/cart";
 import {useQuery} from "react-query";
 import {show} from "../../api/promoCode";
@@ -16,13 +16,13 @@ interface PromoCodeProps {
 export default function PromoCode({}: PromoCodeProps): JSX.Element {
     const dispatch = useDispatch();
     const { promoCode } = useSelector(state => state.Cart);
+    const { selectedLangWriteFrom } = useLang();
     const [code, setCode] = useState(promoCode?.code);
     const [input, setInput] = useState(code);
 
     const promoCodeCallback = useCallback(show(code), [code]);
     const { isLoading, error, data } = useQuery(['promoCode.show', code], promoCodeCallback, { enabled: !! code, onSuccess: (data) => dispatch(setCartPromoCode(data)) });
 
-console.log({input, data, code})
 
     const timeoutId = useRef(0);
     const onChange = useCallback((text: string) => {
@@ -45,6 +45,7 @@ console.log({input, data, code})
                     onChangeText={onChange}
                     value={input}
                     style={styles.textInput}
+                    textAlign={selectedLangWriteFrom}
                 />
             </View>
             <View style={{ width: isLoading ? '10%' : 0 }}>

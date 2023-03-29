@@ -10,7 +10,7 @@ import ProductClass, {TYPE_FIXED, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../.
 import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
-import {useDispatch, useSelector} from "../../store/hooks";
+import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
 import {createChoiceTypeFixed} from "../../store/actions/cart";
 import {translate} from "../../i18n";
@@ -24,7 +24,7 @@ interface ProductProps {
 export default function Product({ data }: ProductProps): JSX.Element {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const { selectedLangWriteFrom, selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLangWriteFrom, selectedLang } = useLang();
     const { shopId } = useSelector((state) => state.Cart);
 
     const { productCount, hasDifferentOptions = false } = useSelector(state => {

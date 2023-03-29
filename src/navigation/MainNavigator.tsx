@@ -8,11 +8,11 @@ import UserNavigator from "./UserNavigator";
 import Icon from 'react-native-vector-icons/AntDesign';
 import {COLOR_PRIMARY} from "../constants";
 import {translate} from "../i18n";
-import {useSelector} from "../store/hooks";
+import {useLang, useSelector} from "../store/hooks";
 import TabBar from "../components/Common/TabBar";
 
 export default function MainNavigator(): JSX.Element {
-    const { selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLang } = useLang();
     const Tab = createBottomTabNavigator();
 
     return (

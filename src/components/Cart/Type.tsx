@@ -3,9 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import {SHOWN_TYPES} from "../../classes/Order";
 import {translate} from "../../i18n";
-import {useDispatch, useSelector} from "../../store/hooks";
+import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import LangAwareView from "../Common/LangAwareView";
 import {COLOR_PRIMARY} from "../../constants";
+import {setOrderType} from "../../store/actions/cart";
 
 interface TypeProps {
 
@@ -13,7 +14,7 @@ interface TypeProps {
 
 export default function Type({}: TypeProps): JSX.Element {
     const dispatch = useDispatch();
-    const { selectedLang } = useSelector((state) => state.I18n);
+    const { selectedLang } = useLang();
     const { type } = useSelector((state) => state.Cart);
     const [radioButtons, setRadioButtons] = useState(SHOWN_TYPES.map((value) => ({
         id: 'type_' + value,
@@ -25,13 +26,19 @@ export default function Type({}: TypeProps): JSX.Element {
     })));
 
     const onPress = useCallback((newRadioButtons) => {
-
+        for (let radioButton of newRadioButtons) {
+            if (radioButton.selected) {
+                dispatch(setOrderType(radioButton.value));
+                break;
+            }
+        }
+        setRadioButtons(newRadioButtons);
     }, []);
     return (
         <LangAwareView style={styles.container}>
             <RadioGroup
                 radioButtons={radioButtons}
-                onPress={setRadioButtons}
+                onPress={onPress}
                 value={type}
                 layout={'row'}
             />
