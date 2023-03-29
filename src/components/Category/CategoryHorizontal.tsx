@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     subContainer: {
         borderColor: COLOR_PRIMARY,
         backgroundColor: 'white',
-        borderWidth: 0.18,
+        borderWidth: 0.4,
         borderRadius: 20,
         padding: 10,
         shadowOffset: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.35,
         shadowRadius: 2,
-        elevation: 4,
+        elevation: 6,
     },
     text: {
         textAlign: 'center',

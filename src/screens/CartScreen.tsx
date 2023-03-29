@@ -59,9 +59,8 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
                     );
                 })}
                 <PromoCode />
-                <Total data={choices} products={data} promoCode={promoCode} />
-                <Type />
                 <Map />
+                <Total data={choices} products={data} promoCode={promoCode} />
                 <AdditionalNote />
             </View>
         </KeyboardAwareScrollView>
@@ -70,6 +69,6 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: 110
+        paddingBottom: 20
     }
 });
