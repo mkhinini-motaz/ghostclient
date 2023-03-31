@@ -1,6 +1,7 @@
 import {defaultLang, translate} from "../i18n";
 import {LOCAL, LOCAL_CURRENCY} from "../constants";
 import Translatable from "../classes/Translatable";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 /**
  * @param amount                {number}
@@ -22,4 +23,12 @@ export function formatMoneyDisplay(amount: number, selectedLang: keyof Translata
     }
 
     return formatter.format(amount / 1000).replace(LOCAL_CURRENCY, '') + ' ' + translate(LOCAL_CURRENCY, selectedLang, true);
+}
+
+export function setClientToken(token: string) : Promise<void> {
+    return AsyncStorage.setItem('client_access_token', token);
+}
+
+export function getClientToken() : Promise<string|null> {
+    return AsyncStorage.getItem('client_access_token');
 }
