@@ -4,8 +4,8 @@ import I18nSelect from "../components/Common/I18nSelect";
 import TranslatableText from "../components/Common/TranslatableText";
 import {COLOR_PRIMARY} from "../constants";
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import {setClientToken} from "../support/utils";
 import {useSetClient} from "../store/hooks";
+import {setClientToken} from "../support/auth";
 
 export default function UserScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();

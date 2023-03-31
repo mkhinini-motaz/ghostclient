@@ -6,8 +6,8 @@ import AuthContext from './context/AuthContext'
 import reducer from "./reducers";
 import ServiceClass from "../classes/Service";
 import {defaultLang} from "../i18n";
-import {getClientToken} from "../support/utils";
 import {profile} from "../api/auth";
+import {getClientToken} from "../support/auth";
 
 interface StoreProps {
     children: any,

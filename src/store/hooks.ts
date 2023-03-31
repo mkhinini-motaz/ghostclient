@@ -4,7 +4,7 @@ import I18nContext from "./context/I18nContext";
 import {availableLangs} from "../i18n";
 import AuthContext from "./context/AuthContext";
 import Client from "../classes/Client";
-import {setClientToken} from "../support/utils";
+import {setClientToken} from "../support/auth";
 
 export function useStoreContext() {
     return useContext(StoreContext);

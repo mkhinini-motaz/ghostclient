@@ -5,7 +5,7 @@ import ServiceClass from "../classes/Service";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../constants";
 import TranslatableText from "../components/Common/TranslatableText";
 import {translate} from "../i18n";
-import {useAuthenticateClient, useLang, useSetClient} from "../store/hooks";
+import {useAuthenticateClient, useLang} from "../store/hooks";
 import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBounceable";
 import Image from "../components/Common/Image";
 import Logo from "../components/Common/Logo";
