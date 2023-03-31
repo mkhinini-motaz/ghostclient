@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import ProductWithOptions from "../components/Product/ProductWithOptions";
 import { RouteProp } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -34,9 +34,9 @@ export default function ProductWithOptionsScreen({ route }: ProductWithOptionsSc
     }, [selectedLang]);
 
     return (
-        <View style={{ paddingBottom: 50 }}>
+        <SafeAreaView >
             <ProductWithOptions data={product} onConfirm={() => navigation.goBack()} />
-        </View>
+        </SafeAreaView>
     );
 };
 

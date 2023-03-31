@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, SafeAreaView} from 'react-native';
 import {useQuery} from "react-query";
 import { category }from "../api/shop";
 import CategoryList from "../components/Category/CategoryList";
@@ -32,12 +32,13 @@ export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <CategoryList data={data || []} />
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+    },
 });

@@ -23,9 +23,9 @@ export default function HomeScreen(): JSX.Element {
 
     return (
         <SafeAreaView>
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 <ServiceList data={data} />
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };

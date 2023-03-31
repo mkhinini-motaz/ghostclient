@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
+import {StyleSheet, View, Text, SafeAreaView,} from 'react-native';
 import { product } from "../api/shop";
 import { useQuery } from "react-query";
 import { useSelector } from "../store/hooks";
@@ -45,25 +45,28 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
     }
 
     return (
-        <KeyboardAwareScrollView>
-            <View style={styles.container}>
-                {Object.keys(shops).map((shopId) => {
-                    return (
-                        <View key={'shop_' + shopId}>
-                            <Text>{'shop : ' + shopId}</Text>
-                            <Choices
-                                data={shops[shopId]}
-                                products={data}
-                            />
-                        </View>
-                    );
-                })}
-                <PromoCode />
-                <Map />
-                <Total data={choices} products={data} promoCode={promoCode} />
-                <AdditionalNote />
-            </View>
-        </KeyboardAwareScrollView>
+        <SafeAreaView>
+
+            <KeyboardAwareScrollView>
+                <View style={styles.container}>
+                    {Object.keys(shops).map((shopId) => {
+                        return (
+                            <View key={'shop_' + shopId}>
+                                <Text>{'shop : ' + shopId}</Text>
+                                <Choices
+                                    data={shops[shopId]}
+                                    products={data}
+                                />
+                            </View>
+                        );
+                    })}
+                    <PromoCode />
+                    <Map />
+                    <Total data={choices} products={data} promoCode={promoCode} />
+                    <AdditionalNote />
+                </View>
+            </KeyboardAwareScrollView>
+        </SafeAreaView>
     );
 };
 
