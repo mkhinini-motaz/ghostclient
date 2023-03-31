@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Icon from 'react-native-vector-icons/AntDesign';
 import OptionClass, {DEFAULT_QUANTITY} from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
@@ -69,7 +70,7 @@ export default function Option({ data, isSelected, isQuantifiable, onPress, onQu
                                             size={50}
                                             fillColor={COLOR_PRIMARY}
                                             isChecked={isSelected}
-                                            iconImageStyle={{ height: 38, width: 38 }}
+                                            iconComponent={!isSelected ? '' : <Icon size={38} name={'check'} color={'white'} />}
                                             innerIconStyle={checkBoxStyle}
                                             textContainerStyle={{ marginLeft: 0, }}
                                             onPress={(value) => onPress(! isSelected)}
