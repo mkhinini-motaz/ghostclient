@@ -24,4 +24,6 @@ export function formatMoneyDisplay(amount: number, selectedLang: keyof Translata
     return formatter.format(amount / 1000).replace(LOCAL_CURRENCY, '') + ' ' + translate(LOCAL_CURRENCY, selectedLang, true);
 }
 
+export function phoneMask() {
+    return [ '+', '2', '1', '6', ' ', /[234579]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, ];
 }

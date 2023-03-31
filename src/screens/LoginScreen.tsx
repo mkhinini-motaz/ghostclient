@@ -1,24 +1,22 @@
-import React from 'react';
-import {ActivityIndicator, Alert, Button, StyleSheet, TextInput, View} from 'react-native';
-import ShopList from "../components/Shop/ShopList";
-import ServiceClass from "../classes/Service";
-import {COLOR_PRIMARY, COLOR_SECONDARY} from "../constants";
+import React, {useCallback, useMemo} from 'react';
+import { ActivityIndicator, Alert, Button, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import MaskInput from 'react-native-mask-input';
+import { COLOR_PRIMARY } from "../constants";
 import TranslatableText from "../components/Common/TranslatableText";
 import {translate} from "../i18n";
 import {useAuthenticateClient, useLang} from "../store/hooks";
 import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBounceable";
-import Image from "../components/Common/Image";
 import Logo from "../components/Common/Logo";
 import {useMutation} from "react-query";
 import { login } from "../api/auth";
-import Client from "../classes/Client";
+import {phoneMask} from "../support/utils";
 
 interface LoginScreenProps {
     navigation: any,
 }
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-    const [phone, setPhone] = React.useState('+21628852800');
+    const [phone, setPhone] = React.useState('+21628852800'); // TODO: set to '+216 '
     const [password, setPassword] = React.useState('moniabohlel');
     const { selectedLang, selectedLangWriteFrom } = useLang();
     const authenticateClient = useAuthenticateClient();
@@ -33,59 +31,75 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             );
         }
     });
-    const onLoginPress = () => mutate({ phone, password });
+    const onLoginPress = () => mutate({ phone: phone.replaceAll(' ', ''), password });
+
+    const setPhoneCallback = useCallback((nextPhone) => {
+        setPhone((previousPhone) => {
+            if (previousPhone === '+216 ' && nextPhone === '+216') {
+                return '+216 ';
+            }
+            return nextPhone;
+        });
+    }, [setPhone]);
+    const phoneMaskMemo = useMemo(phoneMask, []);
 
     return (
-        <View style={styles.container}>
-            <Logo />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
+            <KeyboardAvoidingView style={styles.container} >
+                <Logo />
 
-            <View style={styles.section}>
-                <TranslatableText data={"form:phone:label"} style={styles.label} />
-                <TextInput
-                    value={phone}
-                    onChangeText={setPhone}
-                    keyboardType={'phone-pad'}
-                    style={styles.textInput}
-                    textAlign={selectedLangWriteFrom}
-                />
-            </View>
-            <View style={styles.section}>
-                <TranslatableText data={"form:password:label"} style={styles.label} />
-                <TextInput
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                    style={styles.textInput}
-                    textAlign={selectedLangWriteFrom}
-                />
-            </View>
-            <View style={styles.section}>
-                <RNBounceable onPress={onLoginPress} >
-                    {isLoading ?
-                        <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
-                        <View style={styles.buttonContained}>
-                            <TranslatableText style={styles.buttonTextContained} data={'common:login'} />
+                <View style={styles.section}>
+                    <TranslatableText data={"form:phone:label"} style={styles.label} />
+                    <MaskInput
+                        value={phone}
+                        onChangeText={setPhoneCallback}
+                        keyboardType={'phone-pad'}
+                        style={styles.textInput}
+                        textAlign={selectedLangWriteFrom}
+                        mask={phoneMaskMemo}
+                        maskAutoComplete
+
+
+                    />
+                </View>
+                <View style={styles.section}>
+                    <TranslatableText data={"form:password:label"} style={styles.label} />
+                    <TextInput
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                        style={styles.textInput}
+                        textAlign={selectedLangWriteFrom}
+                    />
+                </View>
+                <View style={styles.section}>
+                    <RNBounceable onPress={onLoginPress} >
+                        {isLoading ?
+                            <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
+                            <View style={styles.buttonContained}>
+                                <TranslatableText style={styles.buttonTextContained} data={'common:login'} />
+                            </View>
+                        }
+                    </RNBounceable>
+                </View>
+                <View style={styles.section}>
+                    <RNBounceable >{/* TODO: navigate to register */}
+                        <View style={styles.buttonOutlined}>
+                            <TranslatableText style={styles.buttonTextOutlined} data={'common:register'} />
                         </View>
-                    }
-                </RNBounceable>
-            </View>
-            <View style={styles.section}>
-                <RNBounceable >{/* TODO: navigate to register */}
-                    <View style={styles.buttonOutlined}>
-                        <TranslatableText style={styles.buttonTextOutlined} data={'common:register'} />
-                    </View>
-                </RNBounceable>
-            </View>
-            <View style={styles.section}>
-                <RNBounceable >
-                    <TranslatableText style={styles.forgetPasswordText} data={'common:forgot-password?'} />
-                </RNBounceable>
-            </View>
+                    </RNBounceable>
+                </View>
+                <View style={styles.section}>
+                    <RNBounceable >
+                        <TranslatableText style={styles.forgetPasswordText} data={'common:forgot-password?'} />
+                    </RNBounceable>
+                </View>
 
-            <View style={styles.section}>
-                {/* TODO: legal consent */}
-            </View>
-        </View>
+                <View style={styles.section}>
+                    {/* TODO: legal consent */}
+                </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 }
 
