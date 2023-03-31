@@ -60,7 +60,6 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
                 }),
                 [{
                     text: translate('common:ok', selectedLang),
-                    style: 'destructive',
                 }],
             );
             return;
