@@ -8,7 +8,7 @@ export default function UserNavigator(): JSX.Element {
     const Stack = createNativeStackNavigator();
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="UserScreen" component={UserScreen} />
             {/* TODO: conditional render based on auth status */}
         </Stack.Navigator>

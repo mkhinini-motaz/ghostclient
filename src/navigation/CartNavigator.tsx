@@ -7,7 +7,7 @@ export default function CartNavigator(): JSX.Element {
     const Stack = createNativeStackNavigator();
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="CartScreen" component={CartScreen} />
         </Stack.Navigator>
     );
