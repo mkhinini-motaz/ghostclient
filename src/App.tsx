@@ -1,5 +1,5 @@
 import React from 'react';
-import MainNavigator from "./navigation/MainNavigator";
+import RootNavigator from "./navigation/RootNavigator";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Store from "./store/Store";
 
@@ -9,7 +9,7 @@ export default function App(): JSX.Element {
     return (
         <QueryClientProvider client={queryClient}>
             <Store>
-                <MainNavigator />
+                <RootNavigator />
             </Store>
         </QueryClientProvider>
     );
