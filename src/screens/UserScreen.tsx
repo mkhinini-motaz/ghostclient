@@ -19,20 +19,22 @@ export default function UserScreen({ navigation }): JSX.Element {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <RNBounceable onPress={onProfilePress}>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <RNBounceable onPress={onProfilePress}>
+                    <View style={styles.card}>
+                        <TranslatableText data={'common:profile'} style={styles.title} />
+                    </View>
+                </RNBounceable>
+                <RNBounceable onPress={onLogoutPress}>
+                    <View style={styles.card}>
+                        <TranslatableText data={'common:logout'} style={styles.title} />
+                    </View>
+                </RNBounceable>
                 <View style={styles.card}>
-                    <TranslatableText data={'common:profile'} style={styles.title} />
+                    <TranslatableText data={'common:language'} style={styles.title} />
+                    <I18nSelect />
                 </View>
-            </RNBounceable>
-            <RNBounceable onPress={onLogoutPress}>
-                <View style={styles.card}>
-                    <TranslatableText data={'common:logout'} style={styles.title} />
-                </View>
-            </RNBounceable>
-            <View style={styles.card}>
-                <TranslatableText data={'common:language'} style={styles.title} />
-                <I18nSelect />
             </View>
         </SafeAreaView>
     );

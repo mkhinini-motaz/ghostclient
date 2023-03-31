@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import { ActivityIndicator, Alert, Button, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import MaskInput from 'react-native-mask-input';
 import { COLOR_PRIMARY } from "../constants";
@@ -10,6 +10,7 @@ import Logo from "../components/Common/Logo";
 import {useMutation} from "react-query";
 import { login } from "../api/auth";
 import {phoneMask} from "../support/utils";
+import PhoneInput from "../components/Form/PhoneInput";
 
 interface LoginScreenProps {
     navigation: any,
@@ -33,16 +34,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     });
     const onLoginPress = () => mutate({ phone: phone.replaceAll(' ', ''), password });
 
-    const setPhoneCallback = useCallback((nextPhone) => {
-        setPhone((previousPhone) => {
-            if (previousPhone === '+216 ' && nextPhone === '+216') {
-                return '+216 ';
-            }
-            return nextPhone;
-        });
-    }, [setPhone]);
-    const phoneMaskMemo = useMemo(phoneMask, []);
-
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
             <KeyboardAvoidingView style={styles.container} >
@@ -50,14 +41,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
                 <View style={styles.section}>
                     <TranslatableText data={"form:phone:label"} style={styles.label} />
-                    <MaskInput
+                    <PhoneInput
                         value={phone}
-                        onChangeText={setPhoneCallback}
-                        keyboardType={'phone-pad'}
+                        onChangeText={setPhone}
                         style={styles.textInput}
-                        textAlign={selectedLangWriteFrom}
-                        mask={phoneMaskMemo}
-                        maskAutoComplete
                     />
                 </View>
                 <View style={styles.section}>
