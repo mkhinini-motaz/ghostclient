@@ -7,7 +7,7 @@ export default function LoginNavigator(): JSX.Element {
     const Stack = createNativeStackNavigator();
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
         </Stack.Navigator>
     );

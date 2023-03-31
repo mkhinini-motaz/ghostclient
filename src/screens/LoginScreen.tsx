@@ -58,8 +58,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         textAlign={selectedLangWriteFrom}
                         mask={phoneMaskMemo}
                         maskAutoComplete
-
-
                     />
                 </View>
                 <View style={styles.section}>
@@ -72,7 +70,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         textAlign={selectedLangWriteFrom}
                     />
                 </View>
-                <View style={styles.section}>
+                <View style={styles.buttonSection}>
                     <RNBounceable onPress={onLoginPress} >
                         {isLoading ?
                             <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
@@ -81,15 +79,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             </View>
                         }
                     </RNBounceable>
-                </View>
-                <View style={styles.section}>
                     <RNBounceable >{/* TODO: navigate to register */}
                         <View style={styles.buttonOutlined}>
                             <TranslatableText style={styles.buttonTextOutlined} data={'common:register'} />
                         </View>
                     </RNBounceable>
-                </View>
-                <View style={styles.section}>
                     <RNBounceable >
                         <TranslatableText style={styles.forgetPasswordText} data={'common:forgot-password?'} />
                     </RNBounceable>
@@ -108,13 +102,18 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         backgroundColor: 'white',
         padding: 10,
-        gap: 15,
+        paddingTop: '17%',
+        gap: 30,
     },
     section: {
         width: '90%',
+    },
+    buttonSection: {
+        width: '90%',
+        gap: 20,
     },
     label: {
         fontSize: 25,
