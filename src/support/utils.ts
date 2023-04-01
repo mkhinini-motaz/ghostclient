@@ -27,3 +27,7 @@ export function formatMoneyDisplay(amount: number, selectedLang: keyof Translata
 export function phoneMask() {
     return [ '+', '2', '1', '6', ' ', /[234579]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, ];
 }
+
+export function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
