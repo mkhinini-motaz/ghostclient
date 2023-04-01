@@ -33,6 +33,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }
     });
     const onLoginPress = () => mutate({ phone: phone.replaceAll(' ', ''), password });
+    const onRegisterPress =  () => navigation.replace('RegisterScreen');
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
@@ -66,7 +67,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             </View>
                         }
                     </RNBounceable>
-                    <RNBounceable >{/* TODO: navigate to register */}
+                    <RNBounceable onPress={onRegisterPress} >
                         <View style={styles.buttonOutlined}>
                             <TranslatableText style={styles.buttonTextOutlined} data={'common:register'} />
                         </View>
