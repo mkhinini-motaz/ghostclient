@@ -9,11 +9,11 @@ interface DateFieldProps {
     label: string,
     onChange: (newValue: Date) => void
     maxDate: Date|undefined,
-    error: boolean,
-    helperText: string,
+    error?: boolean,
+    helperText?: string,
 }
 
-function DateField({ value, label, onChange, error, helperText, maxDate = undefined }: DateFieldProps): JSX.Element {
+function DateField({ value, label, onChange, error = false, helperText = '', maxDate = undefined }: DateFieldProps): JSX.Element {
     const newDate = useMemo(() => new Date(), []);
     return (
         <View style={styles.container}>

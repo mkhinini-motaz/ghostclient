@@ -10,8 +10,8 @@ interface TextFieldProps {
     label: string,
     onChange: (newValue: string) => void,
     keyboardType?: KeyboardType,
-    error: boolean,
-    helperText: string,
+    error?: boolean,
+    helperText?: string,
 }
 
 function TextField({ value, label, onChange, error = false, helperText = '', keyboardType = undefined }: TextFieldProps): JSX.Element {

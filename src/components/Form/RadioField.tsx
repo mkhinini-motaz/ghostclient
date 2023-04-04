@@ -13,17 +13,17 @@ interface RadioFieldProps {
     label: string,
     options: { label: string, value: number }[],
     onChange: (newValue: number) => void,
-    error: boolean,
-    helperText: string,
+    error?: boolean,
+    helperText?: string,
 }
 
-function RadioField({ value, label, onChange, options, error, helperText }: RadioFieldProps): JSX.Element {
+function RadioField({ value, label, onChange, options, error = false, helperText = '' }: RadioFieldProps): JSX.Element {
     const buttonsComponents = [];
 
     for (let option of options) {
         const isSelected = value === option.value;
         buttonsComponents.push(<RNBounceable onPress={() => onChange(option.value)} key={'checkbox_' + option.value} style={styles.checkboxContainer} >
-            <TranslatableText data={option.label} style={styles.checkboxLabel} />
+            <TranslatableText data={option.label} style={{ ...styles.checkboxLabel, ...(error ? styles.checkboxLabelError : {})}} />
             <BouncyCheckbox disableBuiltInState
                             size={50}
                             fillColor={error ? COLOR_SECONDARY :COLOR_PRIMARY}
@@ -41,6 +41,9 @@ function RadioField({ value, label, onChange, options, error, helperText }: Radi
             <LangAwareView >
                 {buttonsComponents}
             </LangAwareView>
+            {! helperText ? '' :
+                <TranslatableText data={helperText} style={styles.helperText} />
+            }
         </View>
     );
 };
@@ -59,6 +62,9 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#333333',
     },
+    checkboxLabelError: {
+        color: COLOR_SECONDARY,
+    },
     checkboxContainer: {
         flexDirection: 'row',
         padding: 5,
@@ -69,6 +75,12 @@ const styles = StyleSheet.create({
     checkboxIconContainer: {
         height: 60,
         width: 60,
+    },
+    helperText: {
+        color: COLOR_SECONDARY,
+        fontSize: 16,
+        marginTop: 5,
+        marginHorizontal: 5,
     },
 });
 

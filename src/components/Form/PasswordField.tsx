@@ -8,11 +8,11 @@ interface PasswordFieldProps {
     value: string,
     label: string,
     onChange: (newValue: string) => void,
-    error: boolean,
-    helperText: string,
+    error?: boolean,
+    helperText?: string,
 }
 
-function PasswordField({ value, label, onChange, error, helperText }: PasswordFieldProps): JSX.Element {
+function PasswordField({ value, label, onChange, error = false, helperText = '' }: PasswordFieldProps): JSX.Element {
     const { selectedLangWriteFrom } = useLang();
 
     return (
