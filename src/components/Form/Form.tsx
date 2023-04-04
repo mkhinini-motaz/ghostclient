@@ -1,42 +1,63 @@
-import React, {memo} from 'react';
-import {Keyboard, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import React, {memo, useCallback} from 'react';
+import { StyleSheet, View} from 'react-native';
 import FormField from "./FormField";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import KeyboardDismissibleAwareScrollView from "../Common/KeyboardDismissibleAwareScrollView";
+import {FORM_FIELD_TYPE_SUBMIT, formIsValid} from "../../support/form";
+import {useLang} from "../../store/hooks";
 
 interface FormProps {
     fields: any[], // TODO: change type any
     value: any, // TODO: change type any
     onChange: (newValue: any) => void
+    onSubmit: () => void
 }
 
-function Form({ fields, value, onChange }: FormProps): JSX.Element {
+function Form({ fields, value, onChange, onSubmit }: FormProps): JSX.Element {
+    let [errors, setErrors] = React.useState({});
+    let [helperTexts, setHelperTexts] = React.useState({});
+
+    const onSubmitClicked = async () => {
+        const { errors, helperTexts, isValid } = await formIsValid(value, fields);
+        if (isValid) {
+            onSubmit();
+            return;
+        }
+        setErrors(errors);
+        setHelperTexts(helperTexts);
+    };
+
     const fieldsComponents = [];
     for (let field of fields) {
         fieldsComponents.push(<FormField {...field}
             key={'form_field_' + field.label + '_' + field.value}
             value={value[field.name]}
             onChange={(newValue) => {
-                onChange({ ...value, [field.name]: newValue })
-            }
-            }
+                onChange({ ...value, [field.name]: newValue });
+                if (errors[field.name]) {
+                    const { [field.name]: omitted1, ...newErrors } = errors;
+                    const { [field.name]: omitted2, ...newHelperTexts } = helperTexts;
+                    setErrors(newErrors);
+                    setHelperTexts(newHelperTexts);
+                }
+            }}
+            onPress={field.type === FORM_FIELD_TYPE_SUBMIT ? onSubmitClicked : field.onPress}
+            error={errors[field.name]}
+            helperText={helperTexts[field.name]}
         />)
     }
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-            <KeyboardAwareScrollView style={{ backgroundColor: 'white' }}>
-                <View style={styles.container} >
-                    {fieldsComponents}
-                </View>
-            </KeyboardAwareScrollView>
-        </TouchableWithoutFeedback>
+        <KeyboardDismissibleAwareScrollView>
+            <View style={styles.container} >
+                {fieldsComponents}
+            </View>
+        </KeyboardDismissibleAwareScrollView>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
         gap: 30,
-        paddingVertical: 15,
     }
 });
 
