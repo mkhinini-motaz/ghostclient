@@ -1,16 +1,20 @@
 import React, {memo} from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {KeyboardType, StyleSheet, TextInput, View} from 'react-native';
 import TranslatableText from "../Common/TranslatableText";
-import {COLOR_PRIMARY} from "../../constants";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 import {useLang} from "../../store/hooks";
+import MaskInput from "react-native-mask-input";
 
 interface TextFieldProps {
     value: string,
     label: string,
     onChange: (newValue: string) => void,
+    keyboardType?: KeyboardType,
+    error: boolean,
+    helperText: string,
 }
 
-function TextField({ value, label, onChange }: TextFieldProps): JSX.Element {
+function TextField({ value, label, onChange, error = false, helperText = '', keyboardType = undefined }: TextFieldProps): JSX.Element {
     const { selectedLangWriteFrom } = useLang();
 
     return (
@@ -19,9 +23,13 @@ function TextField({ value, label, onChange }: TextFieldProps): JSX.Element {
             <TextInput
                 value={value}
                 onChangeText={onChange}
-                style={styles.textInput}
+                style={{ ...styles.textInput, ...(error ? styles.textInputError : {}) }}
                 textAlign={selectedLangWriteFrom}
+                keyboardType={keyboardType}
             />
+            {! helperText ? '' :
+                <TranslatableText data={helperText} style={styles.helperText} />
+            }
         </View>
     );
 };
@@ -39,10 +47,19 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         fontSize: 22,
     },
+    textInputError: {
+        borderColor: COLOR_SECONDARY + '88',
+    },
     label: {
         fontSize: 25,
         fontWeight: '500',
         color: COLOR_PRIMARY
+    },
+    helperText: {
+        color: COLOR_SECONDARY,
+        fontSize: 16,
+        marginTop: 5,
+        marginHorizontal: 5,
     },
 });
 
