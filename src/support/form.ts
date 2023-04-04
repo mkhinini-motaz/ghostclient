@@ -1,20 +1,53 @@
 import {GENDERS} from "../classes/Client";
 import {translate} from "../i18n";
-import {COLOR_PRIMARY} from "../constants";
+import {API_CLIENT_URL, COLOR_PRIMARY, PHONE_REGEX} from "../constants";
 import Translatable from "../classes/Translatable";
+import axios from "axios";
 
 export const FORM_FIELD_TYPE_TEXT = 'FORM_FIELD_TYPE_TEXT';
 export const FORM_FIELD_TYPE_PHONE = 'FORM_FIELD_TYPE_PHONE';
 export const FORM_FIELD_TYPE_PASSWORD = 'FORM_FIELD_TYPE_PASSWORD';
 export const FORM_FIELD_TYPE_DATE = 'FORM_FIELD_TYPE_DATE';
 export const FORM_FIELD_TYPE_RADIO = 'FORM_FIELD_TYPE_RADIO';
+export const FORM_FIELD_TYPE_SUBMIT = 'FORM_FIELD_TYPE_SUBMIT';
 export const FORM_FIELD_TYPE_BUTTON = 'FORM_FIELD_TYPE_BUTTON';
 
-export const genderRadioButtons = (selectedLang: keyof Translatable, selectedValue: number) => GENDERS.map((value) => ({
-    id: 'type_' + value,
-    label: translate('common:gender:' + value, selectedLang),
-    value: value,
-    selected: value === selectedValue,
-    color: COLOR_PRIMARY,
-    labelStyle: { fontSize: 19 },
-}));
+export const formIsValid = async (value: any, fields: any) => {
+    const errors = {};
+    const helperTexts = {};
+    for (let field of fields) {
+        if ([FORM_FIELD_TYPE_SUBMIT, FORM_FIELD_TYPE_BUTTON].includes(field.type)) {
+            continue;
+        }
+
+        if (field.required !== false && !value[field.name]) {
+            errors[field.name] = true;
+            helperTexts[field.name] = 'validation:required';
+        } else if (field.type === FORM_FIELD_TYPE_PHONE) {
+            if (! PHONE_REGEX.test(value[field.name])) {
+                errors[field.name] = true;
+                helperTexts[field.name] = 'validation:phone:invalid';
+            } else {
+                const response = await axios.post(API_CLIENT_URL + 'phone', { phone: value[field.name].replaceAll(' ', '') });
+                if (response.data.data) {
+                    errors[field.name] = true;
+                    helperTexts[field.name] = 'validation:phone:used';
+                }
+            }
+        } else if (
+            field.name === 'password' &&
+            value['password'] !== value['password_confirmation']
+        ) {
+            errors['password'] = true;
+            helperTexts['password'] = 'validation:password:confirmation';
+        } else if (
+            field.name === 'password_confirmation' &&
+            value['password'] !== value['password_confirmation']
+        ) {
+            errors['password_confirmation'] = true;
+            helperTexts['password_confirmation'] = 'validation:password:confirmation';
+        }
+    }
+
+    return { errors, helperTexts, isValid: 0 === Object.keys(errors).length }
+};

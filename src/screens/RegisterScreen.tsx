@@ -1,26 +1,20 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import { ActivityIndicator, Alert, Button, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import RadioGroup from 'react-native-radio-buttons-group';
-import DatePicker from 'react-native-date-picker'
 import { COLOR_PRIMARY } from "../constants";
-import TranslatableText from "../components/Common/TranslatableText";
 import {translate} from "../i18n";
 import {useLang} from "../store/hooks";
-import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBounceable";
 import Logo from "../components/Common/Logo";
 import {useMutation} from "react-query";
 import { login } from "../api/auth";
-import PhoneInput from "../components/Form/PhoneInput";
-import {SHOWN_TYPES} from "../classes/Order";
 import {GENDERS} from "../classes/Client";
-import {setOrderType} from "../store/actions/cart";
 import {
     FORM_FIELD_TYPE_BUTTON,
-    FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_PASSWORD,
+    FORM_FIELD_TYPE_DATE,
+    FORM_FIELD_TYPE_PASSWORD,
     FORM_FIELD_TYPE_PHONE,
     FORM_FIELD_TYPE_RADIO,
-    genderRadioButtons
+    FORM_FIELD_TYPE_SUBMIT
 } from "../support/form";
 import Form from "../components/Form/Form";
 
@@ -29,14 +23,7 @@ interface LoginScreenProps {
 }
 
 export default function RegisterScreen({ navigation }: LoginScreenProps) {
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
-    const [gender, setGender] = React.useState<number>();
-    const [birthDate, setBirthDate] = React.useState(new Date());
-    const [phone, setPhone] = React.useState('+216 ');
-    const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const { selectedLang, selectedLangWriteFrom } = useLang();
+    const { selectedLang } = useLang();
 
     const maxDate = useMemo(() => {
         const date = new Date();
@@ -49,31 +36,17 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
         mutationFn: login, // Todo: register
         onError: (error) => {
             // TODO: handle each input error
-            Alert.alert(
-                '',
-                translate('login:error', selectedLang),
-                [{ text: translate('common:ok', selectedLang), }],
-            );
+            Alert.alert('', translate('login:error', selectedLang), [{ text: translate('common:ok', selectedLang), }],);
         }
     });
 
     const onSubmit = () => { /* TODO: implement */ };
     const onLoginPress =  () => navigation.replace('LoginScreen');
-    const onRadioButtonPressed = useCallback((newRadioButtons) => {
-        for (let radioButton of newRadioButtons) {
-            if (radioButton.selected) {
-                setGender(radioButton.value);
-                break;
-            }
-        }
-        setRadioButtons(newRadioButtons);
-    }, [])
 
     const [ formData, setFormData ] = useState({});
-    const [radioButtons, setRadioButtons] = useState(genderRadioButtons(selectedLang, formData.gender));
-    const buttons = useMemo(() => GENDERS.map(gender => ({ label: 'common:gender:' + gender, value: gender })), []);
+    const options = GENDERS.map(gender => ({ label: 'common:gender:' + gender, value: gender }));
 
-    const fields = useMemo(() => [
+    const fields = [
         {
             name: 'first_name',
             label: 'form:first_name:label',
@@ -86,7 +59,7 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
             name: 'gender',
             label: 'form:gender:label',
             type: FORM_FIELD_TYPE_RADIO,
-            buttons
+            options
         },
         {
             name: 'birth_date',
@@ -111,8 +84,7 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
         },
         {
             label: 'common:register',
-            type: FORM_FIELD_TYPE_BUTTON,
-            onPress: onSubmit,
+            type: FORM_FIELD_TYPE_SUBMIT,
             isLoading,
         },
         {
@@ -121,24 +93,19 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
             onPress: onLoginPress,
             buttonType: 'outlined',
         },
-    ], []);
-
+    ];
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-            <KeyboardAwareScrollView style={{ backgroundColor: 'white' }}>
-                <View style={styles.container} >
-                    <Logo />
+        <View style={styles.container} >
+            <Logo />
 
-                    {/* TODO: description */}
-                    <Form value={formData} fields={fields} onChange={setFormData} />
+            {/* TODO: description */}
+            <Form value={formData} fields={fields} onChange={setFormData} onSubmit={onSubmit} />
 
-                    <View style={styles.section}>
-                        {/* TODO: legal consent */}
-                    </View>
-                </View>
-            </KeyboardAwareScrollView>
-        </TouchableWithoutFeedback>
+            <View style={styles.section}>
+                {/* TODO: legal consent */}
+            </View>
+        </View>
     );
 }
 
