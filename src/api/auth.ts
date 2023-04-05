@@ -9,6 +9,11 @@ export function login({ phone, password }) : Promise<Client> {
         .then(response => response.data.data)
 }
 
+export function register({ first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, }) : Promise<Client> {
+    return axios.post(API_CLIENT_URL + 'register', { first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, })
+        .then(response => response.data.data)
+}
+
 export function profile(): Promise<Client> {
     return getClientToken().then(token => {
         return axios.get(API_CLIENT_URL + 'profile', { headers: { Authorization: 'Bearer ' + token }}).then(response => response.data.data);

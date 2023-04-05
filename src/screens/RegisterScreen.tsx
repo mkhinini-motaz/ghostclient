@@ -6,7 +6,7 @@ import {translate} from "../i18n";
 import {useLang} from "../store/hooks";
 import Logo from "../components/Common/Logo";
 import {useMutation} from "react-query";
-import { login } from "../api/auth";
+import {login, requestOtp} from "../api/auth";
 import {GENDERS} from "../classes/Client";
 import {
     FORM_FIELD_TYPE_BUTTON,
@@ -17,6 +17,7 @@ import {
     FORM_FIELD_TYPE_SUBMIT
 } from "../support/form";
 import Form from "../components/Form/Form";
+import {formatDate} from "../support/utils";
 
 interface LoginScreenProps {
     navigation: any,
@@ -31,16 +32,24 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
         return date;
     }, []);
 
+    const [otpIsLoading, setOtpIsLoading] = useState(false);
 
-    const { mutate, isLoading } = useMutation({
-        mutationFn: login, // Todo: register
-        onError: (error) => {
-            // TODO: handle each input error
-            Alert.alert('', translate('login:error', selectedLang), [{ text: translate('common:ok', selectedLang), }],);
-        }
-    });
-
-    const onSubmit = () => { /* TODO: implement */ };
+    const onSubmit = () => {
+        setOtpIsLoading(true);
+        requestOtp(formData.phone.replaceAll(' ', ''), selectedLang)
+            .then(() => navigation.navigate('OtpScreen', { ...formData, phone: formData.phone.replaceAll(' ', ''),  birth_date: formatDate(formData.birth_date.getTime() / 1000, '-') }))
+            .catch(error => {
+                console.log({error})
+                Alert.alert(
+                    translate('otp:request:error:title', selectedLang),
+                    translate('otp:request:error:message', selectedLang),
+                    [{
+                        text: translate('common:ok', selectedLang),
+                    }],
+                );
+            })
+            .finally(() => setOtpIsLoading(false));
+    };
     const onLoginPress =  () => navigation.replace('LoginScreen');
 
     const [ formData, setFormData ] = useState({});
@@ -85,7 +94,7 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
         {
             label: 'common:register',
             type: FORM_FIELD_TYPE_SUBMIT,
-            isLoading,
+            isLoading: otpIsLoading,
         },
         {
             label: 'common:login',
