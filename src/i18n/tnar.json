@@ -35,6 +35,8 @@
     "otp:validation:description": "بش يجيك sms فيه كود confirmation",
     "otp:request:error:title": "مشكلة في بعثان كود confirmation",
     "otp:request:error:message": "صارت مشكلة في بعثان كود confirmation، هانا نشوفو في حل، عاود جرب بعد",
+    "otp:validation:didnt_receive": "ما وصلنيش ميساج",
+    "otp:validation:wrong": "كود غالط",
     "otp:submit": "إرسال",
 
     "product:delete:type_with_options": "حذف منتج",

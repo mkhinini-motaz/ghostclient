@@ -35,6 +35,8 @@
     "otp:validation:description": "Bech ijik sms fih code de confirmation",
     "otp:request:error:title": "Erreur envoi code confirmation sms",
     "otp:request:error:message": "Saret mochkla fi ba3then el code confirmation sms, hana nchoufou fi 7all, 3awed jarrab mba3d.",
+    "otp:validation:didnt_receive": "Ma wsolnich sms",
+    "otp:validation:wrong": "Code ghalet",
     "otp:submit": "Envoyer",
 
     "product:delete:type_with_options": "Tafsi5 produit",

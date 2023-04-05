@@ -35,6 +35,8 @@
     "otp:validation:description": "Vous allez recevoir un sms contenant votre code de confirmation",
     "otp:request:error:title": "Erreur d'envoi du code confirmation sms",
     "otp:request:error:message": "Il y a eu une erreur lors de l'envoi de votre code de confirmation sms, nous sommes en train de corriger le problème, veuillez réessayer plus tard.",
+    "otp:validation:didnt_receive": "J'ai pas reçu un sms",
+    "otp:validation:wrong": "Code incorrect",
     "otp:submit": "Envoyer",
 
     "product:delete:type_with_options": "Supression produit",

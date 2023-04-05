@@ -35,6 +35,8 @@
     "otp:validation:description": "ستتلقى رسالة نصية قصيرة تحتوي على رمز التأكيد الخاص بك",
     "otp:request:error:title": "خطأ في إرسال رمز تأكيد",
     "otp:request:error:message": "حدث خطأ أثناء إرسال رمز تأكيد الخاص بك ، ونحن نقوم بتصحيح المشكلة ، يرجى المحاولة مرة أخرى لاحقًا.",
+    "otp:validation:didnt_receive": "لم تصلني رسالة",
+    "otp:validation:wrong": "رمز التأكيد خاطئ",
     "otp:submit": "إرسال",
 
     "product:delete:type_with_options": "حذف منتج",
