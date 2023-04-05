@@ -16,7 +16,6 @@ function PhoneInput({ value, onChangeText, style = {} }: PhoneInputProps): JSX.E
     const onChangeTextCallback = useCallback((nextPhone: string) => {
         onChangeText(value === '+216 ' && nextPhone === '+216' ? '+216 ' : nextPhone);
     }, [onChangeText]);
-    const phoneMaskMemo = useMemo(phoneMask, []);
 
     return (
         <MaskInput
@@ -25,7 +24,7 @@ function PhoneInput({ value, onChangeText, style = {} }: PhoneInputProps): JSX.E
             keyboardType={'phone-pad'}
             style={style}
             textAlign={selectedLangWriteFrom}
-            mask={phoneMaskMemo}
+            mask={phoneMask}
             maskAutoComplete
         />
     );
