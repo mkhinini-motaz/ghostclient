@@ -58,6 +58,7 @@ function Form({ fields, value, onChange, onSubmit }: FormProps): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         gap: 30,
+        paddingBottom: 10,
     }
 });
 

@@ -31,3 +31,12 @@ export function phoneMask() {
 export function capitalize(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export const formatDate = (unixTimestamp: number, separator = '/') => {
+    const date = (new Date(unixTimestamp * 1000));
+    const day = date.getDate().toString().length > 1 ? date.getDate() : '0' + date.getDate();
+    let month = (date.getMonth() + 1).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    return day + separator + month + separator + date.getFullYear().toString();
+};
