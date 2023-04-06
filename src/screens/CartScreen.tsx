@@ -11,6 +11,10 @@ import Type from "../components/Cart/Type";
 import Map from "../components/Cart/Map";
 import AdditionalNote from "../components/Cart/AdditionalNote";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import FullScreenLoader from "../components/Common/FullScreenLoader";
+import index from "../api/service";
+import TranslatableText from "../components/Common/TranslatableText";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "../constants";
 
 interface CartScreenProps {
     route: any,
@@ -20,46 +24,50 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
     const { choices, promoCode } = useSelector((state) => state.Cart);
     const productIds = choices.map(choice => choice.product_id);
     const productCallback = useCallback(product(productIds), [productIds.join(',')]);
+    const { isLoading: servicesAreLoading, error: servicesError, data: services } = useQuery('service.index', index, { refetchOnMount: false, refetchOnWindowFocus: false });
     const { isLoading, error, data = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, { enabled: choices.length > 0 });
 
     if (choices.length === 0) {
         return <EmptyCart />;
     }
 
-    if (isLoading) {
-        return (
-            <Text>Loading ...</Text>
-        );
+    if (isLoading || servicesAreLoading) {
+        return <FullScreenLoader />;
     }
 
-    if (error) {
+    if (error || servicesError) {
         return (
             <Text>{JSON.stringify(error)}</Text>
         );
     }
 
-    let shops = {};
+    const shops = services.map(service => service.shops).flat();
+    const choicesByShop = {};
     for (let choice of choices) {
-        shops[choice.shop_id] = shops[choice.shop_id] || [];
-        shops[choice.shop_id].push(choice);
+        choicesByShop[choice.shop_id] = choicesByShop[choice.shop_id] || [];
+        choicesByShop[choice.shop_id].push(choice);
+    }
+    const choicesOutput = [];
+    for (let shop of shops) {
+        if (! choicesByShop[shop.id]) {
+            continue;
+        }
+        choicesOutput.push(<View key={'shop_' + shop.id}>
+            <View style={styles.shopDescriptionContainer}>
+                <TranslatableText data={shop.description} style={styles.shopDescription} />
+            </View>
+            <Choices
+                data={choicesByShop[shop.id]}
+                products={data}
+            />
+        </View>);
     }
 
     return (
         <SafeAreaView>
-
             <KeyboardAwareScrollView>
                 <View style={styles.container}>
-                    {Object.keys(shops).map((shopId) => {
-                        return (
-                            <View key={'shop_' + shopId}>
-                                <Text>{'shop : ' + shopId}</Text>
-                                <Choices
-                                    data={shops[shopId]}
-                                    products={data}
-                                />
-                            </View>
-                        );
-                    })}
+                    {choicesOutput}
                     <PromoCode />
                     <Map />
                     <Total data={choices} products={data} promoCode={promoCode} />
@@ -73,5 +81,22 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         paddingBottom: 20
-    }
+    },
+    shopDescriptionContainer: {
+        padding: 10,
+        marginVertical: 10,
+        backgroundColor: COLOR_PRIMARY + 'aa',
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+        elevation: 14,
+    },
+    shopDescription: {
+        fontSize: 25,
+        fontWeight: '500',
+        color: 'white',
+    },
 });
