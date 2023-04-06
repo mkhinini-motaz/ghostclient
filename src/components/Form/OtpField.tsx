@@ -30,6 +30,7 @@ function OtpField({ value, onChange }: OtpFieldProps): JSX.Element {
                         textAlign={selectedLangWriteFrom}
                         mask={otpMask}
                         maskAutoComplete
+                        textContentType="oneTimeCode"
                     />
                 </View>
             </View>

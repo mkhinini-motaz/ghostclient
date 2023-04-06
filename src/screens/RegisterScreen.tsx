@@ -1,21 +1,12 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import { ActivityIndicator, Alert, Button, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, {useMemo, useState} from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
 import { COLOR_PRIMARY } from "../constants";
 import {translate} from "../i18n";
 import {useLang} from "../store/hooks";
 import Logo from "../components/Common/Logo";
-import {useMutation} from "react-query";
-import {login, requestOtp} from "../api/auth";
+import {requestOtp} from "../api/auth";
 import {GENDERS} from "../classes/Client";
-import {
-    FORM_FIELD_TYPE_BUTTON,
-    FORM_FIELD_TYPE_DATE,
-    FORM_FIELD_TYPE_PASSWORD,
-    FORM_FIELD_TYPE_PHONE,
-    FORM_FIELD_TYPE_RADIO,
-    FORM_FIELD_TYPE_SUBMIT
-} from "../support/form";
+import { FORM_FIELD_TYPE_BUTTON, FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_PHONE, FORM_FIELD_TYPE_RADIO, FORM_FIELD_TYPE_SUBMIT } from "../support/form";
 import Form from "../components/Form/Form";
 import {formatDate} from "../support/utils";
 
@@ -37,9 +28,14 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
     const onSubmit = () => {
         setOtpIsLoading(true);
         requestOtp(formData.phone.replaceAll(' ', ''), selectedLang)
-            .then(() => navigation.navigate('OtpScreen', { ...formData, phone: formData.phone.replaceAll(' ', ''),  birth_date: formatDate(formData.birth_date.getTime() / 1000, '-') }))
+            .then(() => {
+                navigation.navigate('OtpScreen', {
+                    ...formData,
+                    phone: formData.phone.replaceAll(' ', ''),
+                    birth_date: formatDate(formData.birth_date.getTime() / 1000, '-'),
+                });
+            })
             .catch(error => {
-                console.log({error})
                 Alert.alert(
                     translate('otp:request:error:title', selectedLang),
                     translate('otp:request:error:message', selectedLang),
@@ -90,6 +86,10 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
             name: 'password_confirmation',
             label: 'form:password_confirmation:label',
             type: FORM_FIELD_TYPE_PASSWORD,
+        },
+        {
+            name: 'invite_code',
+            label: 'form:invite_code:label',
         },
         {
             label: 'common:register',

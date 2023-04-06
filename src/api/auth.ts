@@ -9,8 +9,8 @@ export function login({ phone, password }) : Promise<Client> {
         .then(response => response.data.data)
 }
 
-export function register({ first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, }) : Promise<Client> {
-    return axios.post(API_CLIENT_URL + 'register', { first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, })
+export function register({ first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, invite_code }) : Promise<Client> {
+    return axios.post(API_CLIENT_URL + 'register', { first_name, last_name, gender, birth_date, password, password_confirmation, otp, phone, invite_code })
         .then(response => response.data.data)
 }
 

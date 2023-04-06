@@ -30,7 +30,7 @@ function OtpScreen({ route }: OtpScreenProps): JSX.Element {
     useEffect(() => () => clearTimeout(timeoutIdRef.current), []);
 
     const { mutate, isLoading } = useMutation({
-        mutationFn: register, // Todo: register
+        mutationFn: register,
         onSuccess: authenticateClient,
         onError: (error) => {
             const errorMsg = error.response.data?.message === 'phone.code' ? 'otp:validation:wrong' : 'otp:request:error:title';
@@ -61,7 +61,6 @@ function OtpScreen({ route }: OtpScreenProps): JSX.Element {
         const spaceFreeOtp = newOtp.replaceAll(' ', '');
         if (spaceFreeOtp.length === 6 && ! isLoading) {
             Keyboard.dismiss();
-            console.log({ from: { ...registerFormData, otp: spaceFreeOtp } })
             mutate({ ...registerFormData, otp: spaceFreeOtp });
         }
     };

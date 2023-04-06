@@ -7,7 +7,6 @@ import {StatusBar, View} from "react-native";
 
 export default function RootNavigator(): JSX.Element {
     const client = useClient();
-    // TODO: auth logic
 
     return (
         <View style={{ flex: 1 }}>
