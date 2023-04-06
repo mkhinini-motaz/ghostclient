@@ -5,6 +5,7 @@ import { category }from "../api/shop";
 import CategoryList from "../components/Category/CategoryList";
 import {useDispatch} from "../store/hooks";
 import {setCartShop} from "../store/actions/cart";
+import FullScreenLoader from "../components/Common/FullScreenLoader";
 
 interface ShopScreenProps {
     route: any,
@@ -16,13 +17,11 @@ export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
     const { isLoading, error, data } = useQuery(['shop.category', shopId], category(shopId));
 
     useEffect(() => {
-        dispatch(setCartShop(shopId));// TODO: set shop not shop id
+        dispatch(setCartShop(shopId));
     }, [shopId, data]);
 
     if (isLoading) {
-        return (
-            <Text>Loading ...</Text>
-        );
+        return <FullScreenLoader />;
     }
 
     if (error) {

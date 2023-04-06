@@ -3,16 +3,13 @@ import {StyleSheet, View, Text, SafeAreaView, ScrollView} from 'react-native';
 import ServiceList from "../components/Service/ServiceList";
 import {useQuery} from "react-query";
 import index from "../api/service";
-import {useSelector} from "../store/hooks";
+import FullScreenLoader from "../components/Common/FullScreenLoader";
 
 export default function HomeScreen(): JSX.Element {
-    const { isLoading, error, data } = useQuery('index.ts', index);
-    const state = useSelector(state => state);
+    const { isLoading, error, data } = useQuery('service.index', index, { refetchOnMount: false, refetchOnWindowFocus: false });
 
     if (isLoading) {
-        return (
-            <Text>Loading ...</Text>
-        );
+        return <FullScreenLoader />;
     }
 
     if (error) {
