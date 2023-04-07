@@ -1,7 +1,4 @@
-import {GENDERS} from "../classes/Client";
-import {translate} from "../i18n";
-import {API_CLIENT_URL, COLOR_PRIMARY, PHONE_REGEX} from "../constants";
-import Translatable from "../classes/Translatable";
+import {API_CLIENT_URL, PHONE_REGEX} from "../constants";
 import axios from "axios";
 
 export const FORM_FIELD_TYPE_TEXT = 'FORM_FIELD_TYPE_TEXT';
@@ -34,7 +31,7 @@ export const formIsValid = async (value: any, fields: any) => {
                     helperTexts[field.name] = 'validation:phone:used';
                 }
             }
-        } else if (
+        } else if ( // TODO: improve code snippet below
             field.name === 'password' &&
             value['password'] !== value['password_confirmation']
         ) {
