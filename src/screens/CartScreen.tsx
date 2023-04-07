@@ -65,7 +65,7 @@ export default function CartScreen({ route }: CartScreenProps): JSX.Element {
 
     return (
         <SafeAreaView>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView style={{ height: '100%' }}>
                 <View style={styles.container}>
                     {choicesOutput}
                     <PromoCode />

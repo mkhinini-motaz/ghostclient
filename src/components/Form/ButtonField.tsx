@@ -14,16 +14,14 @@ interface ButtonFieldProps {
 
 function ButtonField({ label, isLoading, onPress, buttonType = 'contained' }: ButtonFieldProps): JSX.Element {
     return (
-        <View>
-            <RNBounceable onPress={onPress} >
-                {isLoading ?
-                    <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
-                    <View style={styles['button' + capitalize(buttonType)]}>
-                        <TranslatableText style={styles['buttonText' + capitalize(buttonType)]} data={label} />
-                    </View>
-                }
-            </RNBounceable>
-        </View>
+        <RNBounceable onPress={onPress} >
+            {isLoading ?
+                <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
+                <View style={styles['button' + capitalize(buttonType)]}>
+                    <TranslatableText style={styles['buttonText' + capitalize(buttonType)]} data={label} />
+                </View>
+            }
+        </RNBounceable>
     );
 };
 
