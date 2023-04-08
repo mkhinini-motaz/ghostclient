@@ -10,11 +10,11 @@ import { FORM_FIELD_TYPE_BUTTON, FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_PASSWORD,
 import Form from "../components/Form/Form";
 import {formatDate} from "../support/utils";
 
-interface LoginScreenProps {
+interface RegisterScreenProps {
     navigation: any,
 }
 
-export default function RegisterScreen({ navigation }: LoginScreenProps) {
+export default function RegisterScreen({ navigation }: RegisterScreenProps) {
     const { selectedLang } = useLang();
 
     const maxDate = useMemo(() => {

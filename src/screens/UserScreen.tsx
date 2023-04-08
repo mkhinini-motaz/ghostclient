@@ -4,15 +4,25 @@ import I18nSelect from "../components/Common/I18nSelect";
 import TranslatableText from "../components/Common/TranslatableText";
 import {COLOR_PRIMARY} from "../constants";
 import RNBounceable from "@freakycoder/react-native-bounceable";
-import {useSetClient} from "../store/hooks";
+import {useClient, useSetClient} from "../store/hooks";
 import {setClientToken} from "../support/auth";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
+import LangAwareView from "../components/Common/LangAwareView";
+import {GENDER_FEMALE} from "../classes/Client";
 
 export default function UserScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();
+    const client = useClient();
     const onProfilePress = useCallback(() => {
         // TODO: navigate to profile
         console.log('profile clicked')
     }, []);
+
+    const onLoyaltyPress = useCallback(() => {
+        navigation.navigate('LoyaltyScreen');
+    }, []);
+
 
     const onLogoutPress = useCallback(() => {
         setClientToken('').then(() => setClient({}));
@@ -22,17 +32,28 @@ export default function UserScreen({ navigation }): JSX.Element {
         <SafeAreaView>
             <View style={styles.container}>
                 <RNBounceable onPress={onProfilePress}>
-                    <View style={styles.card}>
+                    <LangAwareView style={{ ...styles.card, alignItems: 'center', }}>
+                        <SimpleLineIcon size={38} name={client.gender === GENDER_FEMALE ? 'user-female' : 'user'} color={COLOR_PRIMARY} />
                         <TranslatableText data={'common:profile'} style={styles.title} />
-                    </View>
+                    </LangAwareView>
+                </RNBounceable>
+                <RNBounceable onPress={onLoyaltyPress}>
+                    <LangAwareView style={{ ...styles.card, alignItems: 'center', }}>
+                        <Icon size={38} name={'loyalty'} color={COLOR_PRIMARY} />
+                        <TranslatableText data={'common:loyalty_program'} style={styles.title} />
+                    </LangAwareView>
                 </RNBounceable>
                 <RNBounceable onPress={onLogoutPress}>
-                    <View style={styles.card}>
+                    <LangAwareView style={{ ...styles.card, alignItems: 'center', }}>
+                        <Icon size={38} name={'logout'} color={COLOR_PRIMARY} />
                         <TranslatableText data={'common:logout'} style={styles.title} />
-                    </View>
+                    </LangAwareView>
                 </RNBounceable>
                 <View style={styles.card}>
-                    <TranslatableText data={'common:language'} style={styles.title} />
+                    <LangAwareView style={{ alignItems: 'center', gap: 10, }}>
+                        <Icon size={38} name={'language'} color={COLOR_PRIMARY} />
+                        <TranslatableText data={'common:language'} style={styles.title} />
+                    </LangAwareView>
                     <I18nSelect />
                 </View>
             </View>
@@ -61,6 +82,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: '500',
-        color: COLOR_PRIMARY
+        color: COLOR_PRIMARY,
     }
 });
