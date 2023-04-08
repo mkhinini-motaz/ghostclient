@@ -14,17 +14,13 @@ interface ProductWithOptionsScreenProps {
 export default function ProductWithOptionsScreen({ route }: ProductWithOptionsScreenProps): JSX.Element {
     const product = route.params.product;
     const navigation = useNavigation();
-    const { selectedLang, selectedLangWriteFrom } = useLang();
+    const { selectedLang } = useLang();
 
     useEffect(() => {
-        const title = [
-            translate(route.params.product.category.name, selectedLang),
-            '-',
-            translate(route.params.product.name, selectedLang),
-        ];
+        const title = [ translate(product.category.name, selectedLang), '-', translate(product.name, selectedLang), ];
 
         navigation.setOptions({
-            title: title.join(' '),
+            headerTitle: title.join(' '),
             headerTitleStyle: {
                 color: COLOR_PRIMARY,
                 fontSize: 25,

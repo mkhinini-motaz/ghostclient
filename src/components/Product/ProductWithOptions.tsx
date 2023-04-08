@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Alert, Button, ScrollView, StyleSheet, View} from 'react-native';
+import {Alert, Button, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import OptionGroup from "../../classes/OptionGroup";
 import Product, {productPrice, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../../classes/Product";
 import OptionClass, {DEFAULT_QUANTITY, indexOptionsByGroup} from "../../classes/Option";
@@ -32,20 +32,26 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
     const { shopId } = useSelector((state) => state.Cart);
 
     const onQuantityChange = (selectedOption: OptionClass, quantity: number) => {
-        let newOptions = [...options];
-        newOptions.forEach(option => {
-            if (option.id === selectedOption.id) {
-                option.quantity = quantity;
+        let newOptions = [];
+        options.forEach(option => {
+            const newOption = { ...option };
+            console.log('condition : ', newOption.id === selectedOption.id)
+            if (newOption.id === selectedOption.id) {
+                newOption.quantity = quantity;
             }
+            newOptions.push(newOption);
         });
+
         setOptions(newOptions);
     };
 
     const createOnChangeHandler = (optionGroup: OptionGroup, option: OptionClass) => (isSelected: boolean) => {
+        console.log('########################################')
+        console.log({option, isSelected})
+        console.log('########################################')
         if (! isSelected) {
             const newOptions = options.filter((element: OptionClass) => element.id !== option.id);
             setOptions(newOptions);
-// TODO:replace            props.onChange(newOptions);
             return;
         }
 
@@ -58,9 +64,7 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
                     optionCount: optionGroup.max_options,
                     optionGroupName: optionGroup.name,
                 }),
-                [{
-                    text: translate('common:ok', selectedLang),
-                }],
+                [{ text: translate('common:ok', selectedLang), }],
             );
             return;
         }
@@ -75,7 +79,6 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
             bounceableMoneyRef.bounceAnimation(1, 1, 1);
         }
         setOptions(newOptions);
-// TODO:replace            props.onChange(newOptions);
     };
 
     useEffect(() => {
@@ -83,12 +86,11 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
         for (let optionGroup of data.option_groups) {
             for (let option of optionGroup.options) {
                 if (option.is_selected_by_default) {
-                    defaultOptions.push(option)
+                    defaultOptions.push({ ...option })
                 }
             }
         }
         setOptions(defaultOptions);
-        // TODO: previous options quantities are stored
     }, []);
 
     const onConfirmPress = () => {
@@ -124,7 +126,6 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
             }
         }
 
-
         dispatch(createChoiceTypeWithOptions({ product_id: data.id, product_count: count, options, shop_id: shopId }));
         if (onConfirm) {
             onConfirm();
@@ -132,20 +133,24 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
     };
 
     return (
-        <View>
+        <View style={{ position: 'relative' }}>
             <ScrollView style={styles.scrollView}>
                 {data.option_groups.map(optionGroup => (
                     <View key={'option_group_' + optionGroup.id}>
                         <TranslatableText data={optionGroup.name} style={styles.text} />
+                        {/* display min and max */}
                         <View style={styles.optionGroupContainer} >
-                            {optionGroup.options.map(option => (
-                                <Option data={option} key={'option_' + option.id}
-                                        onPress={createOnChangeHandler(optionGroup, option)}
-                                        isSelected={!! options.filter(element => element.id === option.id).length}
-                                        onQuantityChange={(quantity) => onQuantityChange(option, quantity)}
-                                        isQuantifiable={!! optionGroup.options_are_quantifiable}
-                                />
-                            ))}
+                            {optionGroup.options.map((option) => {
+                                const optionFromChoices = options.filter(element => element.id === option.id)[0] || null
+                                return (
+                                    <Option data={{ ...option, ...optionFromChoices }} key={'option_' + option.id}
+                                            onPress={createOnChangeHandler(optionGroup, option)}
+                                            isSelected={!! optionFromChoices}
+                                            onQuantityChange={(quantity) => onQuantityChange(option, quantity)}
+                                            isQuantifiable={!! optionGroup.options_are_quantifiable}
+                                    />
+                                );
+                            })}
                         </View>
                     </View>
                 ))}
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     scrollView: {
-        height: '89%'
+        height: '86%',
     },
     text: {
         color: 'white',
