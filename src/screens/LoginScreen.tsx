@@ -20,6 +20,9 @@ interface LoginScreenProps {
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const [phone, setPhone] = React.useState('+21628852800'); // TODO: set to '+216 '
     const [password, setPassword] = React.useState('moniabohlel');
+    const [forgotPhone, setForgotPhone] = React.useState('+216 ');
+    const [modalIsVisible, setModalIsVisible] = useState(false);
+
     const { selectedLang, selectedLangWriteFrom } = useLang();
     const authenticateClient = useAuthenticateClient();
     const { mutate, isLoading } = useMutation({
@@ -33,9 +36,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             );
         }
     });
+
     const onLoginPress = () => mutate({ phone: phone.replaceAll(' ', ''), password });
     const onRegisterPress =  () => navigation.replace('RegisterScreen');
-    const onForgotPasswordPress = () => setModalIsVisible(true);
+    const onForgotPasswordPress = () => {
+        setModalIsVisible(true);
+        setForgotPhone('+216 ');
+        // TODO: auto focus on phone input
+    };
     const onForgotPasswordConfirm = () => {
         const phoneData = forgotPhone.replaceAll(' ', '');
         if (! PHONE_REGEX.test(phoneData)) {
@@ -61,9 +69,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 );
             });
     };
-
-    const [forgotPhone, setForgotPhone] = React.useState('+216 ');
-    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
