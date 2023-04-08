@@ -20,6 +20,11 @@ export function profile(): Promise<Client> {
     });
 }
 
+export function resetPassword({ password, password_confirmation, otp, phone }) : Promise<Client> {
+    return axios.post(API_CLIENT_URL + 'password/reset', { password, password_confirmation, otp, phone })
+        .then(response => response.data.data)
+}
+
 export function requestOtp(phone: string, lang: keyof Translatable): Promise<void> {
     return axios.post(API_URL + 'api/otp/request', { phone, lang })
 }

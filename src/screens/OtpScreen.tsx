@@ -1,16 +1,11 @@
 import React, {memo, useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, Alert, Keyboard, StyleSheet, View} from 'react-native';
 import {COLOR_PRIMARY} from "../constants";
-import TextField from "../components/Form/TextField";
-import TranslatableText from "../components/Common/TranslatableText";
-import MaskInput from "react-native-mask-input";
-import {otpMask, phoneMask} from "../support/utils";
 import {useAuthenticateClient, useLang} from "../store/hooks";
 import OtpField from "../components/Form/OtpField";
 import {useMutation} from "react-query";
-import {login, register, requestOtp} from "../api/auth";
+import {register, requestOtp} from "../api/auth";
 import {translate} from "../i18n";
-import LangAwareView from "../components/Common/LangAwareView";
 import ButtonField from "../components/Form/ButtonField";
 
 interface OtpScreenProps {
@@ -39,6 +34,10 @@ function OtpScreen({ route }: OtpScreenProps): JSX.Element {
     });
 
     const onOtpRequestPress = () => {
+        if (! requestOtpIsActive) {
+            Alert.alert('', translate('otp:request:timeout:message', selectedLang), [{ text: translate('common:ok', selectedLang), }]);
+            return;
+        }
         requestOtp(registerFormData.phone, selectedLang)
             .then(() => {
                 setRequestOtpIsActive(false);

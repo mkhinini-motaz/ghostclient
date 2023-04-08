@@ -1,16 +1,17 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import { ActivityIndicator, Alert, Button, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-import MaskInput from 'react-native-mask-input';
-import { COLOR_PRIMARY } from "../constants";
+import React, {useState} from 'react';
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, StyleSheet, TextInput, TouchableWithoutFeedback, View, Modal, } from 'react-native';
+import {COLOR_PRIMARY, PHONE_REGEX} from "../constants";
 import TranslatableText from "../components/Common/TranslatableText";
 import {translate} from "../i18n";
 import {useAuthenticateClient, useLang} from "../store/hooks";
 import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBounceable";
 import Logo from "../components/Common/Logo";
 import {useMutation} from "react-query";
-import { login } from "../api/auth";
-import {phoneMask} from "../support/utils";
+import {login, requestOtp} from "../api/auth";
 import PhoneInput from "../components/Form/PhoneInput";
+import ButtonField from "../components/Form/ButtonField";
+import PhoneField from "../components/Form/PhoneField";
+import LangAwareView from "../components/Common/LangAwareView";
 
 interface LoginScreenProps {
     navigation: any,
@@ -34,6 +35,35 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     });
     const onLoginPress = () => mutate({ phone: phone.replaceAll(' ', ''), password });
     const onRegisterPress =  () => navigation.replace('RegisterScreen');
+    const onForgotPasswordPress = () => setModalIsVisible(true);
+    const onForgotPasswordConfirm = () => {
+        const phoneData = forgotPhone.replaceAll(' ', '');
+        if (! PHONE_REGEX.test(phoneData)) {
+            Alert.alert(
+                '',
+                translate('validation:phone:invalid', selectedLang),
+                [{ text: translate('common:ok', selectedLang), }],
+            );
+            return;
+        }
+        requestOtp(phoneData, selectedLang)
+            .then(() => {
+                navigation.navigate('NewPasswordScreen', { phone: phoneData });
+                setModalIsVisible(false);
+            })
+            .catch(error => {
+                Alert.alert(
+                    translate('otp:request:error:title', selectedLang),
+                    translate('otp:request:error:message', selectedLang),
+                    [{
+                        text: translate('common:ok', selectedLang),
+                    }],
+                );
+            });
+    };
+
+    const [forgotPhone, setForgotPhone] = React.useState('+216 ');
+    const [modalIsVisible, setModalIsVisible] = useState(false);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
@@ -72,14 +102,30 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             <TranslatableText style={styles.buttonTextOutlined} data={'common:register'} />
                         </View>
                     </RNBounceable>
-                    <RNBounceable >
-                        <TranslatableText style={styles.forgetPasswordText} data={'common:forgot-password?'} />
+                    <RNBounceable onPress={onForgotPasswordPress} >
+                        <TranslatableText style={styles.forgotPasswordText} data={'common:forgot-password?'} />
                     </RNBounceable>
                 </View>
 
                 <View style={styles.section}>
                     {/* TODO: legal consent */}
                 </View>
+
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalIsVisible}
+                    onRequestClose={() => setModalIsVisible(!modalIsVisible)}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <PhoneField label={'form:phone:label'} value={forgotPhone} onChange={setForgotPhone} />
+                            <LangAwareView style={styles.forgotButtonsContainer}>
+                                <ButtonField label={'common:cancel'} onPress={() => setModalIsVisible(! modalIsVisible)} buttonType={'outlined'} />
+                                <ButtonField label={'common:confirm'} onPress={onForgotPasswordConfirm} />
+                            </LangAwareView>
+                        </View>
+                    </View>
+                </Modal>
             </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     );
@@ -155,12 +201,38 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontWeight: '700',
     },
-    forgetPasswordText: {
+    forgotPasswordText: {
         textAlign: 'center',
         color: 'rgba(0, 0, 0, 0.54)',
     },
     description: {
         fontSize: 17,
         textAlign: 'center',
+    },
+
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modalView: {
+        width: '80%',
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowOffset: {
+            width: 0,
+            height: 7,
+        },
+        shadowOpacity: 0.41,
+        shadowRadius: 9.11,
+        elevation: 14,
+        gap: 15,
+    },
+    forgotButtonsContainer: {
+        gap: 15,
     },
 });

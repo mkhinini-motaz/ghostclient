@@ -48,7 +48,7 @@ export default function RegisterScreen({ navigation }: LoginScreenProps) {
     };
     const onLoginPress =  () => navigation.replace('LoginScreen');
 
-    const [ formData, setFormData ] = useState({});
+    const [ formData, setFormData ] = useState({ phone: '+216 ' });
     const options = GENDERS.map(gender => ({ label: 'common:gender:' + gender, value: gender }));
 
     const fields = [
