@@ -125,9 +125,9 @@
     "validation:password:confirmation": "Mot de passe mouch kif kif",
 
     "profile:loyalty_points": "Poinet fidélité",
-    "profile:invite_url:copied:title": "Lien copié",
-    "profile:invite_url:copied:message": "Lien d'invitation copié",
-    "profile:invite_url:description": "Ab3ath lien li s7abek bech t'invitehom w erba7 poinet fidélité",
+    "profile:invite_code:copied:title": "Code copié",
+    "profile:invite_code:copied:message": "Code d'invitation copié",
+    "profile:invite_code:description": "Ab3ath code li s7abek bech t'invitehom w erba7 poinet fidélité",
 
     "client:need_login": "Connecti se3a bech tnajam tkamal",
 

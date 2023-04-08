@@ -125,9 +125,9 @@
     "validation:password:confirmation": "Les mot de passe ne sont pas identiques",
 
     "profile:loyalty_points": "Points de fidélité",
-    "profile:invite_url:copied:title": "Lien copié",
-    "profile:invite_url:copied:message": "Le lien d'invitation est copié",
-    "profile:invite_url:description": "Inviter vos amis en partageant ce lien et gagner des points de fidélité",
+    "profile:invite_code:copied:title": "Code copié",
+    "profile:invite_code:copied:message": "Le code d'invitation est copié",
+    "profile:invite_code:description": "Inviter vos amis en partageant ce code et gagner des points de fidélité",
 
     "client:need_login": "Veuillez vous connecter avant de continuer",
 

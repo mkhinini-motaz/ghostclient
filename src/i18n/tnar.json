@@ -126,9 +126,9 @@
     "validation:password:confirmation": "كلمات المرور ماهمش كيف كيف",
 
     "profile:loyalty_points": "نقاط الوفاء",
-    "profile:invite_url:copied:title": "تم نسخ الرابط",
-    "profile:invite_url:copied:message": "تم نسخ رابط الدعوة",
-    "profile:invite_url:description": "أبعث الرابط لصحابك باش تنفيتاهم باش تربح نقاط الوفاء",
+    "profile:invite_code:copied:title": "تم نسخ الكود",
+    "profile:invite_code:copied:message": "تم نسخ رابط الكود",
+    "profile:invite_code:description": "أبعث الكود لصحابك باش تنفيتاهم باش تربح نقاط الوفاء",
 
     "client:need_login": "كونكتى ساعة بش تنجم تكمل",
 

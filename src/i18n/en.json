@@ -125,9 +125,9 @@
     "validation:password:confirmation": "Passwords are not identical",
 
     "profile:loyalty_points": "Loyalty points",
-    "profile:invite_url:copied:title": "Link copied",
-    "profile:invite_url:copied:message": "Invitation link copied",
-    "profile:invite_url:description": "Invite your friends by sharing this link and earn loyalty points",
+    "profile:invite_code:copied:title": "Code copied",
+    "profile:invite_code:copied:message": "Invitation code copied",
+    "profile:invite_code:description": "Invite your friends by sharing this code and earn loyalty points",
 
     "client:need_login": "Please login before continuing",
 

@@ -126,9 +126,9 @@
     "validation:password:confirmation": "كلمات المرور ليست متطابقة",
 
     "profile:loyalty_points": "نقاط الوفاء",
-    "profile:invite_url:copied:title": "تم نسخ الرابط",
-    "profile:invite_url:copied:message": "تم نسخ رابط الدعوة",
-    "profile:invite_url:description": "قم بدعوة أصدقائك من خلال مشاركة هذا الرابط واكسب نقاط الوفاء",
+    "profile:invite_code:copied:title": "تم نسخ الكود",
+    "profile:invite_code:copied:message": "تم نسخ كود الدعوة",
+    "profile:invite_code:description": "قم بدعوة أصدقائك من خلال مشاركة هذا الكود واكسب نقاط الوفاء",
 
     "client:need_login": "الرجاء تسجيل الدخول قبل المتابعة",
 
