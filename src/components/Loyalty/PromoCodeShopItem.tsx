@@ -8,7 +8,7 @@ import LangAwareView from "../Common/LangAwareView";
 import {useClient, useLang} from "../../store/hooks";
 import {translate} from "../../i18n";
 import {useMutation} from "react-query";
-import {createPromoCode} from "../../api/loyalty";
+import {create} from "../../api/promoCode";
 
 interface PromoCodeShopItemProps {
     points: number,
@@ -19,7 +19,7 @@ function PromoCodeShopItem({ points, money }: PromoCodeShopItemProps): JSX.Eleme
     const client = useClient();
     const { selectedLang } = useLang();
 
-    const { mutate, isLoading } = useMutation({ mutationFn: createPromoCode, });
+    const { mutate, isLoading } = useMutation({ mutationFn: create, });
 
     const onPress = () => {
         if (points > client.loyalty_points_count) {

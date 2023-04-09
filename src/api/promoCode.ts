@@ -1,8 +1,7 @@
 import axios from 'axios';
-import Service from "../classes/Service";
 import {API_CLIENT_URL} from "../constants";
-import Product from "../classes/Product";
 import PromoCode from "../classes/PromoCode";
+import {getClientToken} from "../support/auth";
 
 export const show = (code: string): () => Promise<PromoCode> => {
     const url = API_CLIENT_URL + 'promo-code/' + code;
@@ -11,3 +10,10 @@ export const show = (code: string): () => Promise<PromoCode> => {
             .catch(() => ({ }));
     };
 };
+
+export function create(points: number): Promise<PromoCode> {
+    return getClientToken().then(token => {
+        return axios.post(API_CLIENT_URL + 'promo-code', {points}, { headers: { Authorization: 'Bearer ' + token } })
+            .then(response => response.data.data);
+    });
+}

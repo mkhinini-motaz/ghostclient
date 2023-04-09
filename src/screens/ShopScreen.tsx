@@ -25,6 +25,7 @@ export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
     }
 
     if (error) {
+        // TODO: implement
         return (
             <Text>{JSON.stringify(error)}</Text>
         );

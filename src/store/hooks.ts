@@ -48,7 +48,7 @@ export function useSetLang() {
     return setLang;
 }
 
-export function useClient() {
+export function useClient() : Client {
     const { client } = useAuthContext();
     return client;
 }
