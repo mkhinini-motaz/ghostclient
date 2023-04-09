@@ -38,7 +38,8 @@ export default function LoyaltyScreen({ navigation }): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
-        gap: 10
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        gap: 20
     },
 });
