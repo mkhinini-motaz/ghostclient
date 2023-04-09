@@ -40,3 +40,17 @@ export const formatDate = (unixTimestamp: number, separator = '/') => {
 
     return day + separator + month + separator + date.getFullYear().toString();
 };
+
+export const formatTime = (unixTimestamp: number) => {
+    const date = (new Date(unixTimestamp * 1000));
+    let hours = date.getHours().toString();
+    hours = hours.length > 1 ? hours : '0' + hours;
+    let  minutes = date.getMinutes().toString();
+    minutes = minutes.length > 1 ? minutes : '0' + minutes;
+
+    return hours + ':' + minutes;
+};
+
+export const formatDateTime = (unixTimestamp: number) => {
+    return formatDate(unixTimestamp) + ' ' + formatTime(unixTimestamp);
+};
