@@ -22,7 +22,7 @@ function PromoCodeShopItem({ points, money }: PromoCodeShopItemProps): JSX.Eleme
     const { mutate, isLoading } = useMutation({ mutationFn: createPromoCode, });
 
     const onPress = () => {
-        if (points < client.loyalty_points_count) {
+        if (points > client.loyalty_points_count) {
             Alert.alert('', translate('promo_code:create:points:max', selectedLang), [{ text: translate('common:ok', selectedLang), }]);
             return;
         }
@@ -51,13 +51,13 @@ function PromoCodeShopItem({ points, money }: PromoCodeShopItemProps): JSX.Eleme
                     <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} />
                 </View> : <>
                     <RNBounceable onPress={onPress} >
-                        <LangAwareView style={styles.buttonPrimary}>
+                        <LangAwareView style={styles.buttonSecondary}>
                             <Text style={styles.text} > {points} </Text>
                             <TranslatableText style={styles.text} data={'loyalty:points'} />
                         </LangAwareView>
                     </RNBounceable>
                     <RNBounceable onPress={onPress} >
-                        <View style={styles.buttonSecondary}>
+                        <View style={styles.buttonPrimary}>
                             <MoneyFormatter data={money} style={styles.text} />
                         </View>
                     </RNBounceable>

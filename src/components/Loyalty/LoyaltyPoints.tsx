@@ -35,9 +35,10 @@ function LoyaltyPoints({}: LoyaltyPointsProps): JSX.Element {
             <TranslatableText data={'profile:invite_code:description'} style={styles.description} />
 
             <LangAwareView style={styles.inviteCodeContainer}>
-                <TranslatableText data={'form:invite_code:label'} style={styles.inviteCodeLabelText} />
-                <Text style={styles.inviteCodeLabelText}>:</Text>
-                <Text style={styles.inviteCodeText}>{client.invite_code}</Text>
+                <View style={{ alignItems: 'center' }}>
+                    <TranslatableText data={'form:invite_code:label'} style={styles.inviteCodeLabelText} />
+                    <Text style={styles.inviteCodeText}>{client.invite_code}</Text>
+                </View>
                 <RNBounceable onPress={onPressCopyIcon} >
                     <LangAwareView style={styles.copyIconContainer}>
                         <Icon size={20} name={'content-copy'} color={'white'} />
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     inviteCodeContainer: {
         flexWrap: 'wrap',
         alignItems: 'center',
+        justifyContent: 'space-around',
         gap: 5,
     },
     inviteCodeLabelText: {
