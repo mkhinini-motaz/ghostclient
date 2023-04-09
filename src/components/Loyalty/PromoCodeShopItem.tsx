@@ -2,17 +2,12 @@ import React, {memo} from 'react';
 import {Text, StyleSheet, View, Alert, ActivityIndicator} from 'react-native';
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
-import ButtonField from "../Form/ButtonField";
 import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBounceable";
-import {capitalize} from "../../support/utils";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useClient, useLang} from "../../store/hooks";
 import {translate} from "../../i18n";
-import {TYPE_WITH_OPTIONS} from "../../classes/Product";
-import {createChoiceTypeFixed, deleteChoiceTypeWithOptions} from "../../store/actions/cart";
 import {useMutation} from "react-query";
-import {register} from "../../api/auth";
 import {createPromoCode} from "../../api/loyalty";
 
 interface PromoCodeShopItemProps {

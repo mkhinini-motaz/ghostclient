@@ -1,12 +1,11 @@
 import React, {memo, useEffect, useRef, useState} from 'react';
-import {Alert, Keyboard, StyleSheet, View, Text} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {COLOR_PRIMARY} from "../constants";
 import {useAuthenticateClient, useLang} from "../store/hooks";
 import OtpField from "../components/Form/OtpField";
 import {useMutation} from "react-query";
-import {register, requestOtp, resetPassword} from "../api/auth";
+import {requestOtp, resetPassword} from "../api/auth";
 import {translate} from "../i18n";
-import LangAwareView from "../components/Common/LangAwareView";
 import ButtonField from "../components/Form/ButtonField";
 import { FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_SUBMIT } from "../support/form";
 import Form from "../components/Form/Form";

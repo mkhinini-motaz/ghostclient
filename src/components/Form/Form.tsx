@@ -1,9 +1,8 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo} from 'react';
 import { StyleSheet, View} from 'react-native';
 import FormField from "./FormField";
 import KeyboardDismissibleAwareScrollView from "../Common/KeyboardDismissibleAwareScrollView";
 import {FORM_FIELD_TYPE_SUBMIT, formIsValid} from "../../support/form";
-import {useLang} from "../../store/hooks";
 
 interface FormProps {
     fields: any[], // TODO: change type any
