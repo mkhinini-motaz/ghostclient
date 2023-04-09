@@ -36,7 +36,7 @@ export default function TabBarItem({ route, isRouteActive, tintColor, navigation
     const badgeStyle = { ...styles.badge, [selectedLangWriteFrom === 'right' ? 'left' : 'right']: -20, ...(isRouteActive ? styles.badgeActive : styles.badgeInactive) };
     const onPress = useCallback(() => {
         (isRouteActive && route.state?.routes && route.state?.routes.length > 1) ?
-            navigation.goBack() :
+            navigation.navigate(route.state.routes[route.state.routes.length - 2].name, route.state.routes[route.state.routes.length - 2].params) :
             navigation.navigate(route.name, route.params);
     }, [route.key, route.state?.routes.length]);
 
