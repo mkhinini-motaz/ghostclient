@@ -2,7 +2,7 @@ import React, {memo, useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, Alert, Keyboard, StyleSheet, View} from 'react-native';
 import {COLOR_PRIMARY} from "../constants";
 import {useAuthenticateClient, useLang} from "../store/hooks";
-import OtpField from "../components/Form/OtpField";
+import OtpField from "../components/Common/Otp";
 import {useMutation} from "react-query";
 import {register, requestOtp} from "../api/auth";
 import {translate} from "../i18n";
