@@ -3,6 +3,7 @@ import { StyleSheet, View} from 'react-native';
 import FormField from "./FormField";
 import KeyboardDismissibleAwareScrollView from "../Common/KeyboardDismissibleAwareScrollView";
 import {FORM_FIELD_TYPE_SUBMIT, formIsValid} from "../../support/form";
+import {useClient} from "../../store/hooks";
 
 interface FormProps {
     fields: any[], // TODO: change type any
@@ -12,11 +13,12 @@ interface FormProps {
 }
 
 function Form({ fields, value, onChange, onSubmit }: FormProps): JSX.Element {
+    const client = useClient();
     let [errors, setErrors] = React.useState({});
     let [helperTexts, setHelperTexts] = React.useState({});
 
     const onSubmitClicked = async () => {
-        const { errors, helperTexts, isValid } = await formIsValid(value, fields);
+        const { errors, helperTexts, isValid } = await formIsValid(value, fields, client.phone);
         if (isValid) {
             onSubmit();
             return;

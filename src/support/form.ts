@@ -6,10 +6,11 @@ export const FORM_FIELD_TYPE_PHONE = 'FORM_FIELD_TYPE_PHONE';
 export const FORM_FIELD_TYPE_PASSWORD = 'FORM_FIELD_TYPE_PASSWORD';
 export const FORM_FIELD_TYPE_DATE = 'FORM_FIELD_TYPE_DATE';
 export const FORM_FIELD_TYPE_RADIO = 'FORM_FIELD_TYPE_RADIO';
+export const FORM_FIELD_TYPE_OTP = 'FORM_FIELD_TYPE_OTP';
 export const FORM_FIELD_TYPE_SUBMIT = 'FORM_FIELD_TYPE_SUBMIT';
 export const FORM_FIELD_TYPE_BUTTON = 'FORM_FIELD_TYPE_BUTTON';
 
-export const formIsValid = async (value: any, fields: any) => {
+export const formIsValid = async (value: any, fields: any, currentAuthClientPhone: string|undefined = undefined) => { // TODO: remove currentAuthClientPhone usage
     const errors = {};
     const helperTexts = {};
     for (let field of fields) {
@@ -24,7 +25,7 @@ export const formIsValid = async (value: any, fields: any) => {
             if (! PHONE_REGEX.test(value[field.name])) {
                 errors[field.name] = true;
                 helperTexts[field.name] = 'validation:phone:invalid';
-            } else {
+            } else if (! currentAuthClientPhone || currentAuthClientPhone !== value[field.name].replaceAll(' ', '')) {
                 const response = await axios.post(API_CLIENT_URL + 'phone', { phone: value[field.name].replaceAll(' ', '') });
                 if (response.data.data) {
                     errors[field.name] = true;
