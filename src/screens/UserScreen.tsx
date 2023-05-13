@@ -15,8 +15,7 @@ export default function UserScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();
     const client = useClient();
     const onProfilePress = useCallback(() => {
-        // TODO: navigate to profile
-        console.log('profile clicked')
+        navigation.navigate('ProfileScreen');
     }, []);
 
     const onLoyaltyPress = useCallback(() => {

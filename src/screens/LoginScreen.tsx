@@ -12,6 +12,7 @@ import PhoneInput from "../components/Form/PhoneInput";
 import ButtonField from "../components/Form/ButtonField";
 import PhoneField from "../components/Form/PhoneField";
 import LangAwareView from "../components/Common/LangAwareView";
+import {alertNetworkError} from "../support/utils";
 
 interface LoginScreenProps {
     navigation: any,
@@ -29,6 +30,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         mutationFn: login,
         onSuccess: authenticateClient,
         onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+
             Alert.alert(
                 '',
                 translate('login:error', selectedLang),

@@ -8,7 +8,7 @@ import {requestOtp} from "../api/auth";
 import {GENDERS} from "../classes/Client";
 import { FORM_FIELD_TYPE_BUTTON, FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_PHONE, FORM_FIELD_TYPE_RADIO, FORM_FIELD_TYPE_SUBMIT } from "../support/form";
 import Form from "../components/Form/Form";
-import {formatDate} from "../support/utils";
+import {alertNetworkError, formatDate} from "../support/utils";
 
 interface RegisterScreenProps {
     navigation: any,
@@ -36,6 +36,11 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
                 });
             })
             .catch(error => {
+                if (error.code === 'ERR_NETWORK') {
+                    alertNetworkError(selectedLang);
+                    return;
+                }
+
                 Alert.alert(
                     translate('otp:request:error:title', selectedLang),
                     translate('otp:request:error:message', selectedLang),
