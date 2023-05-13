@@ -162,6 +162,7 @@
     "common:error:happened": "There was an error, please try again later",
     "registration:closed": "Registration is closed at the moment",
     "registration:error": "Registration error, please try again later",
-    "login:error": "Wrong phone or password"
+    "login:error": "Wrong phone or password",
+    "network:error": "No internet connexion"
 
 }

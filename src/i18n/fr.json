@@ -162,5 +162,6 @@
     "common:error:happened": "Il y a eu une erreur, veuillez réessayer plus tard",
     "registration:closed": "L'inscription est fermé pour le moment",
     "registration:error": "Erreur d'inscription, veuillez réessayer plus tard",
-    "login:error": "Numéro de téléphone ou mot de passe invalide"
+    "login:error": "Numéro de téléphone ou mot de passe invalide",
+    "network:error": "Pas de connexion internet"
 }

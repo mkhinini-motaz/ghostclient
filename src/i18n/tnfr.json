@@ -162,5 +162,6 @@
     "common:error:happened": "Saret mochkla, 3awed jarrab zid chwaya",
     "registration:closed": "L'inscription mezalet ma t7alletch",
     "registration:error": "Registration error, please try again later",
-    "login:error": "Wrong phone or password"
+    "login:error": "Wrong phone or password",
+    "network:error": "Ma famech connexion internet"
 }
