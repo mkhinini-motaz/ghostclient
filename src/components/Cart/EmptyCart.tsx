@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import Image from "../Common/Image";
+import TranslatableText from "../Common/TranslatableText";
 
 interface EmptyCartProps {
 
@@ -7,10 +9,30 @@ interface EmptyCartProps {
 
 export default function EmptyCart({}: EmptyCartProps): JSX.Element {
     return (
-        <View>
-            <Text>Cart empty</Text>
-        </View>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <Image source={require('../../images/happy.png')}
+                       style={styles.image}
+                       imageStyle={styles.image}
+                />
+                <TranslatableText data={'cart:empty:description'} style={styles.text} />
+            </View>
+        </SafeAreaView>
     );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        padding: 10,
+        backgroundColor: 'white',
+        height: '100%',
+    },
+    image: {
+        height: 250,
+        borderRadius: 20,
+    },
+    text: {
+        fontSize: 20,
+        textAlign: 'center',
+    }
+});
