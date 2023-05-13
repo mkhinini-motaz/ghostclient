@@ -1,27 +1,59 @@
-import React, {memo} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {memo, useEffect, useRef, useState} from 'react';
+import {Alert, StyleSheet, View} from 'react-native';
 import MaskInput from "react-native-mask-input";
 import {otpMask} from "../../support/utils";
 import {COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
 import {useLang} from "../../store/hooks";
 import ButtonField from "./ButtonField";
+import {translate} from "../../i18n";
+import {requestOtp} from "../../api/auth";
 import LangAwareView from "../Common/LangAwareView";
 
 interface OtpFieldProps {
     value: string,
+    label: string,
     onChange: (newValue: string|((previousValue: string) => string)) => void,
+    withRequestButton: boolean,
+    phone: string|undefined,
 }
 
-function OtpField({ value, onChange }: OtpFieldProps): JSX.Element {
-    const { selectedLangWriteFrom } = useLang();
+function OtpField({ value, label, onChange, withRequestButton = false, phone = undefined }: OtpFieldProps): JSX.Element {
+    const { selectedLang, selectedLangWriteFrom } = useLang();
+
+    useEffect(() => () => clearTimeout(timeoutIdRef.current), []);
+
+    const [otpIsLoading, setOtpIsLoading] = useState(false);
+    const [requestOtpIsActive, setRequestOtpIsActive] = useState(true);
+    const timeoutIdRef = useRef(-1);
+    const onOtpRequestPress = () => {
+        if (! requestOtpIsActive) {
+            Alert.alert('', translate('otp:request:timeout:message', selectedLang), [{ text: translate('common:ok', selectedLang), }]);
+            return;
+        }
+        requestOtp(phone, selectedLang)
+            .then(() => {
+                setRequestOtpIsActive(false);
+                timeoutIdRef.current = setTimeout(() => setRequestOtpIsActive(true), 60000)
+            })
+            .catch((error) => {
+console.log({ phone})
+                Alert.alert(
+                    translate('otp:request:error:title', selectedLang),
+                    translate('otp:request:error:message', selectedLang),
+                    [{
+                        text: translate('common:ok', selectedLang),
+                    }],
+                );
+            })
+            .finally(() => setOtpIsLoading(false));
+    };
 
     return (
         <View style={styles.container}>
-            <TranslatableText data={"otp:validation:title"} style={styles.title} />
-            <TranslatableText data={"otp:validation:description"} style={styles.description} />
-            <View style={styles.fieldContainer}>
-                <View style={styles.halfWidth}>
+            <TranslatableText data={label} style={styles.label} />
+            <View style={{ alignItems: selectedLangWriteFrom === 'right' ? 'flex-end' : 'flex-start' }}>
+                <LangAwareView>
                     <MaskInput
                         value={value}
                         onChangeText={onChange}
@@ -32,7 +64,10 @@ function OtpField({ value, onChange }: OtpFieldProps): JSX.Element {
                         maskAutoComplete
                         textContentType="oneTimeCode"
                     />
-                </View>
+                    {! withRequestButton ? '' :
+                        <ButtonField label={'form:otp:request'} buttonType={requestOtpIsActive ? 'contained' : 'outlined'} onPress={onOtpRequestPress} isLoading={otpIsLoading} />
+                    }
+                </LangAwareView>
             </View>
         </View>
     );
@@ -40,6 +75,7 @@ function OtpField({ value, onChange }: OtpFieldProps): JSX.Element {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         gap: 10,
     },
     title: {
@@ -60,9 +96,11 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         fontSize: 22,
     },
-    fieldContainer: {
-        alignItems: 'center'
-    }
+    label: {
+        fontSize: 25,
+        fontWeight: '500',
+        color: COLOR_PRIMARY
+    },
 });
 
 export default memo(OtpField);

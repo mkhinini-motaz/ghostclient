@@ -20,6 +20,13 @@ export function profile(): Promise<Client> {
     });
 }
 
+export function updateProfile({ first_name, last_name, gender, birth_date, phone, otp = undefined }) : Promise<Client> {
+    return getClientToken().then(token => {
+        return axios.post(API_CLIENT_URL + 'profile', { first_name, last_name, gender, birth_date, otp, phone }, { headers: { Authorization: 'Bearer ' + token }})
+        .then(response => response.data.data)
+    });
+}
+
 export function resetPassword({ password, password_confirmation, otp, phone }) : Promise<Client> {
     return axios.post(API_CLIENT_URL + 'password/reset', { password, password_confirmation, otp, phone })
         .then(response => response.data.data)
