@@ -56,6 +56,11 @@ export const formatDateTime = (unixTimestamp: number) => {
     return formatDate(unixTimestamp) + ' ' + formatTime(unixTimestamp);
 };
 
+export const strToDate = (date: string, delimiter: string = '-') => {
+    const [day, month, year] = date.split(delimiter);
+    return new Date(year + '-' + month + '-' + day);
+};
+
 export const alertNetworkError = (selectedLang: keyof Translatable) => {
         Alert.alert(
             '',
