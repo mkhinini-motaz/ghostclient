@@ -46,9 +46,6 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
     };
 
     const createOnChangeHandler = (optionGroup: OptionGroup, option: OptionClass) => (isSelected: boolean) => {
-        console.log('########################################')
-        console.log({option, isSelected})
-        console.log('########################################')
         if (! isSelected) {
             const newOptions = options.filter((element: OptionClass) => element.id !== option.id);
             setOptions(newOptions);

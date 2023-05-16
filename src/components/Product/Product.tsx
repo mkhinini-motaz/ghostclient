@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import FastImage from 'react-native-fast-image'
@@ -12,7 +12,7 @@ import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
-import {createChoiceTypeFixed} from "../../store/actions/cart";
+import {createChoiceTypeFixed, deleteChoiceTypeWithOptions, emptyCart} from "../../store/actions/cart";
 import {translate} from "../../i18n";
 
 const Image = createImageProgress(FastImage);
@@ -27,18 +27,18 @@ export default function Product({ data }: ProductProps): JSX.Element {
     const { selectedLangWriteFrom, selectedLang } = useLang();
     const { shopId } = useSelector((state) => state.Cart);
 
-    const { productCount, hasDifferentOptions = false } = useSelector(state => {
+    const { productCount, choices, hasDifferentOptions = false } = useSelector(state => {
         if (data.type === TYPE_FIXED || data.type === TYPE_WEIGHTABLE) {
             const fixedProduct = state.Cart.choices
                     .find(productInfo => productInfo.product_id === data.id) ||
                 { product_count: 0 };
-            return { productCount: fixedProduct.product_count };
+            return { productCount: fixedProduct.product_count, choices: state.Cart.choices };
         }
 
         if (data.type === TYPE_WITH_OPTIONS) {
             const choices = state.Cart.choices.filter(element => element.product_id === data.id);
             if (0 === choices.length) {
-                return { productCount: 0 };
+                return { productCount: 0, choices: state.Cart.choices };
             }
 
             let productCount = 0;
@@ -51,7 +51,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
                 }
                 productIdInCart = choice.id_in_cart;
             }
-            return { productCount, hasDifferentOptions };
+            return { productCount, choices: state.Cart.choices, hasDifferentOptions };
         }
     });
 
@@ -61,6 +61,40 @@ export default function Product({ data }: ProductProps): JSX.Element {
     };
 
     const quantityButtonOnClick = (newValue, addedValue) => {
+        let clientHasChoicesFromDifferentShop = false;
+        for (let choice of choices) {
+            if (choice.shop_id !== shopId) {
+                clientHasChoicesFromDifferentShop = true;
+                break;
+            }
+        }
+
+        if (! clientHasChoicesFromDifferentShop) {
+            return quantityButtonOnClickHandler(newValue, addedValue);
+        }
+
+        Alert.alert(
+            translate('cart:empty:confirm:title', selectedLang),
+            translate('cart:empty:confirm:content', selectedLang),
+            [
+                {
+                    text: translate('common:confirm', selectedLang),
+                    style: 'destructive',
+                    onPress: () => {
+                        dispatch(emptyCart());
+                        quantityButtonOnClickHandler(newValue, addedValue);
+                    },
+                },
+                {
+                    text: translate('common:cancel', selectedLang),
+                    style: 'cancel',
+                },
+            ],
+            { cancelable: true, },
+        );
+    };
+
+    const quantityButtonOnClickHandler = (newValue, addedValue) => {
         if (data.type === TYPE_FIXED || data.type === TYPE_WEIGHTABLE) {
             return dispatch(createChoiceTypeFixed({ product_id: data.id, product_count: newValue, shop_id: shopId }));
         }
