@@ -76,6 +76,7 @@
     "option:min:count": "لازم تختار على الأقل ${optionCount} ${optionGroupName}",
     "option:max:count": "ما تنجمش تختار أكثر من ${optionCount} ${optionGroupName}",
 
+    "cart:service_fee:label": "تكلفة الخدمة",
     "cart:promo_code:label": "كود برومو",
     "cart:promo_code:free_delivery": "توصيل بلاش بالكود برومو",
     "cart:additional_note:label": "تزيدش توصي حاجة",

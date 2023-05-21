@@ -70,6 +70,7 @@
     "form:password:update:success": "Mot de passe tbadal",
     "form:password:update:error": "Erreur fi tabdil mot de passe",
 
+    "cart:service_fee:label": "Frais de service",
     "cart:promo_code:label": "Code promo",
     "cart:additional_note:label": "Tzidech twassi 7aja",
     "cart:promo_code:free_delivery": "Livraison gratuit bil code promo",

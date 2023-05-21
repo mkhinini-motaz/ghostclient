@@ -76,6 +76,7 @@
     "option:min:count": "You must select at least ${optionCount} ${optionGroupName}",
     "option:max:count": "You can't select more than ${optionCount} ${optionGroupName}",
 
+    "cart:service_fee:label": "Service fee",
     "cart:promo_code:label": "Promo Code",
     "cart:promo_code:free_delivery": "Free delivery with the promo code",
     "cart:delivery:label": "Delivery",

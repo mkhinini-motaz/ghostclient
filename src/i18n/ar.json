@@ -76,6 +76,7 @@
     "option:min:count": "يجب أن تختار على الأقل ${optionCount} ${optionGroupName}",
     "option:max:count": "لا تستطيع أن تختار أكثر من ${optionCount} ${optionGroupName}",
 
+    "cart:service_fee:label": "تكلفة الخدمة",
     "cart:promo_code:label": "برومو كود",
     "cart:promo_code:free_delivery": "توصيل مجاني مع البرومو كود",
     "cart:additional_note:label": "مذكرة إضافية",
