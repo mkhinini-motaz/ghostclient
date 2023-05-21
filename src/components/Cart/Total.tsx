@@ -42,10 +42,17 @@ export default function Total({ data, products, promoCode }: TotalProps): JSX.El
             }
 
             <LangAwareView style={styles.totalContainer}>
+                <TranslatableText data={'cart:service_fee:label'} style={styles.text} />
+                <Text style={styles.text} >:</Text>
+                {/* TODO: make service fee dynamic */}
+                <MoneyFormatter data={500} style={styles.money} />
+            </LangAwareView>
+
+            <LangAwareView style={styles.totalContainer}>
                 <TranslatableText data={'cart:delivery:label'} style={styles.text} />
                 <Text style={styles.text} >:</Text>
                 {/* TODO: make delivery fee dynamic */}
-                <MoneyFormatter data={50000} style={styles.money} />
+                <MoneyFormatter data={2000} style={styles.money} />
             </LangAwareView>
 
         </View>
