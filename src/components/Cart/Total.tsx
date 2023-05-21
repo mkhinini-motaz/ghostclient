@@ -25,6 +25,10 @@ export default function Total({ data, products, promoCode }: TotalProps): JSX.El
         totalProducts += productPrice(product, choice.product_count, choice.options);
     }
 
+    const deliveryFee = 2000; // TODO: make dynamic
+    const serviceFee = 500; // TODO: make dynamic
+    const totalToPay = totalProducts + serviceFee + deliveryFee - (! promoCode?.id ? 0 : - promoCode.reduction_amount);
+
     return (
         <View style={styles.container}>
             <LangAwareView style={styles.totalContainer}>
@@ -44,15 +48,19 @@ export default function Total({ data, products, promoCode }: TotalProps): JSX.El
             <LangAwareView style={styles.totalContainer}>
                 <TranslatableText data={'cart:service_fee:label'} style={styles.text} />
                 <Text style={styles.text} >:</Text>
-                {/* TODO: make service fee dynamic */}
-                <MoneyFormatter data={500} style={styles.money} />
+                <MoneyFormatter data={serviceFee} style={styles.money} />
             </LangAwareView>
 
             <LangAwareView style={styles.totalContainer}>
                 <TranslatableText data={'cart:delivery:label'} style={styles.text} />
                 <Text style={styles.text} >:</Text>
-                {/* TODO: make delivery fee dynamic */}
-                <MoneyFormatter data={2000} style={styles.money} />
+                <MoneyFormatter data={deliveryFee} style={styles.money} />
+            </LangAwareView>
+
+            <LangAwareView style={styles.totalContainer}>
+                <TranslatableText data={'form:total_to_pay:label'} style={styles.text} />
+                <Text style={styles.text} >:</Text>
+                <MoneyFormatter data={totalToPay} style={styles.money} />
             </LangAwareView>
 
         </View>
