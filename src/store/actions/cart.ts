@@ -60,7 +60,7 @@ export function setChoices(productInfos) {
     return { type: SET_CART_CHOICES, payload: productInfos };
 }
 
-export function setCartAddress(address) {
+export function setCartAddress(address: { lat: number, lng: number }) {
     return { type: SET_CART_ADDRESS, payload: address };
 }
 
