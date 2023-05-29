@@ -28,6 +28,8 @@
     "common:orders": "Commandes",
     "common:kg": "Kg",
     "common:g": "g",
+    "common:location:choose": "Choisir position",
+    "common:location:change": "Modifier position",
 
     "shop:closed": "Nous sommes ouvert du lundi au samedi de 12h jusqu'à minuit",
 
@@ -91,6 +93,8 @@
     "cart:empty:action": "Vider panier",
     "cart:empty:action:content": "Voulez-vous vraiment vider le panier ?",
     "cart:order:submit:content": "Vous ne serez plus capable de modifier votre commande après la validation",
+    "cart:empty:confirm:title": "Commencer une nouvelle commande",
+    "cart:empty:confirm:content": "Votre commande chez ${shopName} sera perdu",
 
     "order:empty": "Aucune commande effectué",
     "order:source": "Source",

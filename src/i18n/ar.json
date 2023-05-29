@@ -28,6 +28,8 @@
     "common:orders": "طلبات",
     "common:kg": "كغ",
     "common:g": "غ",
+    "common:location:choose": "إختيار المكان",
+    "common:location:change": "تغيير المكان",
 
     "shop:closed": "أوقات العمل من الاثنين إلى السبت من الساعة 12 ظهرًا حتى منتصف الليل",
 
@@ -91,6 +93,8 @@
     "cart:empty:action": "إفراغ عربة التسوق",
     "cart:empty:action:content": "هل أنت متأكد أنك تريد إفراغ عربة التسوق ؟",
     "cart:order:submit:content": "لن تتمكن من تعديل طلبك بعد تأكيده",
+    "cart:empty:confirm:title": "إبدأ طلب جديد",
+    "cart:empty:confirm:content": "الطلب من عند ${shopName} سوف يحذف",
 
     "order:empty": "لا توجد طلبات حتى الآن",
     "order:source": "المصدر",

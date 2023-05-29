@@ -28,6 +28,8 @@
     "common:orders": "Orders",
     "common:kg": "Kg",
     "common:g": "g",
+    "common:location:choose": "Choose location",
+    "common:location:change": "Change location",
 
     "shop:closed": "We are open from monday to saturday from 12am to 12pm",
 
@@ -91,6 +93,8 @@
     "cart:empty:action": "Empty cart",
     "cart:empty:action:content": "Are you sure you want to empty the shopping cart ?",
     "cart:order:submit:content": "You will no longer be able to modify your order after validation",
+    "cart:empty:confirm:title": "Start a new order",
+    "cart:empty:confirm:content": "Your order with ${shopName} will be cleared",
 
     "order:empty": "No orders yet",
     "order:source": "Source",

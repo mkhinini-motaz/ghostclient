@@ -28,6 +28,8 @@
     "common:orders": "Kmandet",
     "common:kg": "Kg",
     "common:g": "g",
+    "common:location:choose": "E5ter blassa",
+    "common:location:change": "Badal blassa",
 
     "shop:closed": "Ne5dmou men nhar lethni li nhar sebt men noss nhar li noss lil",
 
@@ -85,6 +87,8 @@
     "cart:empty:action": "Farragh panier",
     "cart:empty:action:content": "Mthabat t7eb tfaragh panier ?",
     "cart:order:submit:content": "Ma 3adch tnajam tbadal fi cmanda mta3ek ba3d ma tvalidaha",
+    "cart:empty:confirm:title": "Abda kmanda jdida",
+    "cart:empty:confirm:content": "El kmanda men 3and ${shopName} bech tetna7a",
 
     "option:quantity:1": "Chwaya",
     "option:quantity:2":  "3adi",

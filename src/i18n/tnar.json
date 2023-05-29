@@ -28,6 +28,8 @@
     "common:orders": "كماندات",
     "common:kg": "كغ",
     "common:g": "غ",
+    "common:location:choose": "إختار البلاصة",
+    "common:location:change": "تبديل البلاصة",
 
     "shop:closed": "نخدمو من الاثنين إلى السبت من نص نهار حتى نص الليل",
 
@@ -91,6 +93,8 @@
     "cart:empty:action": "إفراغ عربة التسوق",
     "cart:empty:action:content": "متأكد تحب تفرغ عربة التسوق ؟",
     "cart:order:submit:content": "ما تنجمش تبدل في الكماندا بعد التاكيد",
+    "cart:empty:confirm:title": "أبدا كماندا جديدة",
+    "cart:empty:confirm:content": "الكماندا من عند ${shopName} باش تتنحى",
 
     "order:empty": "مازال ما فما حتى كماندا",
     "order:source": "المصدر",

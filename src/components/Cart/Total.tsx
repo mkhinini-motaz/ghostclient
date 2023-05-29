@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     promoCode: {
-        fontSize: 18,
+        fontSize: 22,
+        fontWeight: '500',
         color: COLOR_PRIMARY,
     },
     money: {
