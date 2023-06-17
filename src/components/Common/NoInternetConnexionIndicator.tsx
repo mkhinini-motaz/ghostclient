@@ -1,6 +1,6 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, SafeAreaView} from 'react-native';
-import {useNetInfo} from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import TranslatableText from "./TranslatableText";
 import LangAwareView from "./LangAwareView";
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,10 +10,19 @@ interface NoInternetConnexionIndicatorProps {
 }
 
 function NoInternetConnexionIndicator({}: NoInternetConnexionIndicatorProps): JSX.Element {
-    const netInfo = useNetInfo();
-    if (netInfo.isConnected) {
+    const [isHidden, setIsHidden] = useState(true);
+
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(state => {
+            setIsHidden(state.isConnected);
+        });
+        return () => unsubscribe && unsubscribe();
+    }, []);
+
+    if (isHidden) {
         return <></>;
     }
+
     return (
         <SafeAreaView>
             <View style={styles.container}>
