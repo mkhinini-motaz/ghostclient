@@ -11,7 +11,7 @@ interface NoInternetConnexionIndicatorProps {
 
 function NoInternetConnexionIndicator({}: NoInternetConnexionIndicatorProps): JSX.Element {
     const netInfo = useNetInfo();
-    if (! netInfo.isConnected) {
+    if (netInfo.isConnected) {
         return <></>;
     }
     return (
