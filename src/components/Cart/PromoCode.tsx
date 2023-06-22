@@ -8,6 +8,7 @@ import {show} from "../../api/promoCode";
 import {COLOR_PRIMARY} from "../../constants";
 import Image from "../Common/Image";
 import LangAwareView from "../Common/LangAwareView";
+import {alertNetworkError} from "../../support/utils";
 
 interface PromoCodeProps {
 
@@ -16,12 +17,21 @@ interface PromoCodeProps {
 export default function PromoCode({}: PromoCodeProps): JSX.Element {
     const dispatch = useDispatch();
     const { promoCode } = useSelector(state => state.Cart);
-    const { selectedLangWriteFrom } = useLang();
+    const { selectedLang, selectedLangWriteFrom } = useLang();
     const [code, setCode] = useState(promoCode?.code);
     const [input, setInput] = useState(code);
 
     const promoCodeCallback = useCallback(show(code), [code]);
-    const { isLoading, error, data } = useQuery(['promoCode.show', code], promoCodeCallback, { enabled: !! code, onSuccess: (data) => dispatch(setCartPromoCode(data)) });
+    const { isLoading, error, data } = useQuery(['promoCode.show', code], promoCodeCallback, {
+        enabled: !! code,
+        onSuccess: (data) => dispatch(setCartPromoCode(data)),
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        }
+    });
 
 
     const timeoutId = useRef(0);

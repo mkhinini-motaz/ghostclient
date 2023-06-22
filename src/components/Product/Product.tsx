@@ -12,8 +12,12 @@ import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
-import {createChoiceTypeFixed, deleteChoiceTypeWithOptions, emptyCart} from "../../store/actions/cart";
+import {createChoiceTypeFixed, deleteChoiceTypeWithOptions, emptyCart, setCartShop} from "../../store/actions/cart";
 import {translate} from "../../i18n";
+import index from "../../api/service";
+import Shop from "../../classes/Shop";
+import {useQuery} from "react-query";
+import {alertNetworkError} from "../../support/utils";
 
 const Image = createImageProgress(FastImage);
 
@@ -25,7 +29,18 @@ export default function Product({ data }: ProductProps): JSX.Element {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const { selectedLangWriteFrom, selectedLang } = useLang();
-    const { shopId } = useSelector((state) => state.Cart);
+    const shopId = data.category.shop_id;
+    const { data: services } = useQuery('service.index', index, {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
+    const shops = services.map(service => service.shops).flat();
 
     const { productCount, choices, hasDifferentOptions = false } = useSelector(state => {
         if (data.type === TYPE_FIXED || data.type === TYPE_WEIGHTABLE) {

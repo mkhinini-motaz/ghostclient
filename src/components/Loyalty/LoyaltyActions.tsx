@@ -5,13 +5,23 @@ import {COLOR_PRIMARY} from "../../constants";
 import {useQuery} from "react-query";
 import {index} from "../../api/loyaltyAction";
 import LoyaltyAction from "./LoyaltyAction";
+import {alertNetworkError} from "../../support/utils";
+import {useLang} from "../../store/hooks";
 
 interface LoyaltyActionsProps {
 
 }
 
 function LoyaltyActions({}: LoyaltyActionsProps): JSX.Element {
-    const { isLoading, error, data } = useQuery('loyalty_action.index', index); // TODO: pagination
+    const { selectedLang } = useLang();
+    const { isLoading, error, data } = useQuery('loyalty_action.index', index, {
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        }
+    }); // TODO: pagination
 
     const loyaltyActionsComponents = [];
     if (! isLoading && ! error) {

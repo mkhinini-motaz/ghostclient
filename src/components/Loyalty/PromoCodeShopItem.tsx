@@ -9,6 +9,7 @@ import {useClient, useLang} from "../../store/hooks";
 import {translate} from "../../i18n";
 import {useMutation} from "react-query";
 import {create} from "../../api/promoCode";
+import {alertNetworkError} from "../../support/utils";
 
 interface PromoCodeShopItemProps {
     points: number,
@@ -19,7 +20,15 @@ function PromoCodeShopItem({ points, money }: PromoCodeShopItemProps): JSX.Eleme
     const client = useClient();
     const { selectedLang } = useLang();
 
-    const { mutate, isLoading } = useMutation({ mutationFn: create, });
+    const { mutate, isLoading } = useMutation({
+        mutationFn: create,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        }
+    });
 
     const onPress = () => {
         if (points > client.loyalty_points_count) {

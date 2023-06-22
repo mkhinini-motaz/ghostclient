@@ -13,7 +13,7 @@ import {
 } from "../../support/form";
 import {COLOR_PRIMARY} from "../../constants";
 import Form from "../Form/Form";
-import {formatDate, strToDate} from "../../support/utils";
+import {alertNetworkError, formatDate, strToDate} from "../../support/utils";
 import {translate} from "../../i18n";
 
 interface UpdateProfileProps {
@@ -36,6 +36,11 @@ function UpdateProfile({}: UpdateProfileProps): JSX.Element {
         mutationFn: updateProfile,
         onSuccess: (returnedClient) => authenticateClient({ ...client, ...returnedClient }),
         onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+            // TODO: implement
             console.log({ error: error.response.data})
         }
     });
