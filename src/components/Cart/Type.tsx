@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import RadioGroup from 'react-native-radio-buttons-group';
+import RadioGroup from 'react-native-radio-options-group';
 import {SHOWN_TYPES} from "../../classes/Order";
 import {translate} from "../../i18n";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
