@@ -4,9 +4,21 @@ import ServiceList from "../components/Service/ServiceList";
 import {useQuery} from "react-query";
 import index from "../api/service";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
+import {alertNetworkError} from "../support/utils";
+import {useLang} from "../store/hooks";
 
 export default function HomeScreen(): JSX.Element {
-    const { isLoading, error, data } = useQuery('service.index', index, { refetchOnMount: false, refetchOnWindowFocus: false });
+    const { selectedLang } = useLang();
+    const { isLoading, error, data } = useQuery('service.index', index, {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
 
     if (isLoading) {
         return <FullScreenLoader />;

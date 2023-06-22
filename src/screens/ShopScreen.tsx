@@ -3,9 +3,10 @@ import {StyleSheet, View, Text, SafeAreaView} from 'react-native';
 import {useQuery} from "react-query";
 import { category }from "../api/shop";
 import CategoryList from "../components/Category/CategoryList";
-import {useDispatch} from "../store/hooks";
+import {useDispatch, useLang} from "../store/hooks";
 import {setCartShop} from "../store/actions/cart";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
+import {alertNetworkError} from "../support/utils";
 
 interface ShopScreenProps {
     route: any,
@@ -13,8 +14,16 @@ interface ShopScreenProps {
 
 export default function ShopScreen({ route }: ShopScreenProps): JSX.Element {
     const dispatch = useDispatch();
+    const { selectedLang } = useLang();
     const shopId = route.params.shopId;
-    const { isLoading, error, data } = useQuery(['shop.category', shopId], category(shopId));
+    const { isLoading, error, data } = useQuery(['shop.category', shopId], category(shopId), {
+        onError: (error) => {
+        if (error.code === 'ERR_NETWORK') {
+            alertNetworkError(selectedLang);
+            return;
+        }
+    },
+    });
 
     useEffect(() => {
         dispatch(setCartShop(shopId));

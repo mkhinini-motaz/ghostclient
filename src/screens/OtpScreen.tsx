@@ -7,6 +7,7 @@ import {useMutation} from "react-query";
 import {register, requestOtp} from "../api/auth";
 import {translate} from "../i18n";
 import ButtonField from "../components/Form/ButtonField";
+import {alertNetworkError} from "../support/utils";
 
 interface OtpScreenProps {
     route: any,
@@ -28,6 +29,11 @@ function OtpScreen({ route }: OtpScreenProps): JSX.Element {
         mutationFn: register,
         onSuccess: authenticateClient,
         onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+
             const errorMsg = error.response.data?.message === 'phone.code' ? 'otp:validation:wrong' : 'otp:request:error:title';
             Alert.alert('', translate(errorMsg, selectedLang), [{ text: translate('common:ok', selectedLang), }],);
         }
