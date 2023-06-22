@@ -76,21 +76,24 @@ export default function Product({ data }: ProductProps): JSX.Element {
     };
 
     const quantityButtonOnClick = (newValue, addedValue) => {
-        let clientHasChoicesFromDifferentShop = false;
+        let theOtherShopId : number|undefined;
         for (let choice of choices) {
             if (choice.shop_id !== shopId) {
-                clientHasChoicesFromDifferentShop = true;
+                theOtherShopId = choice.shop_id;
                 break;
             }
         }
 
-        if (! clientHasChoicesFromDifferentShop) {
+        if (! theOtherShopId) {
             return quantityButtonOnClickHandler(newValue, addedValue);
         }
 
+        const shop = shops.filter((shop: Shop) => shop.id === theOtherShopId).pop();
+        const shopName = shop.description[selectedLang];
+
         Alert.alert(
             translate('cart:empty:confirm:title', selectedLang),
-            translate('cart:empty:confirm:content', selectedLang),
+            translate('cart:empty:confirm:content', selectedLang, { shopName }),
             [
                 {
                     text: translate('common:confirm', selectedLang),
