@@ -6,7 +6,7 @@ import Choice from "../../classes/Choice";
 import Product, { productPrice } from "../../classes/Product";
 import TranslatableText from "../Common/TranslatableText";
 import PromoCode from "../../classes/PromoCode";
-import { COLOR_PRIMARY } from "../../constants";
+import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 
 interface TotalProps {
     data: Choice[],
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     promoCode: {
         fontSize: 22,
         fontWeight: '500',
-        color: COLOR_PRIMARY,
+        color: COLOR_SECONDARY,
     },
     money: {
         fontSize: 18,
