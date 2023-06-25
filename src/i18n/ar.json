@@ -32,7 +32,7 @@
     "common:location:change": "تغيير المكان",
     "common:no_internet": "لا يوجد اتصال بالإنترنت",
 
-    "shop:closed": "أوقات العمل من الاثنين إلى السبت من الساعة 12 ظهرًا حتى منتصف الليل",
+    "shop:closed": "هذا المتجر مغلق",
 
     "otp:validation:title": "التحقق من صحة رقم الهاتف",
     "otp:validation:description": "ستتلقى رسالة نصية قصيرة تحتوي على رمز التأكيد الخاص بك",
@@ -96,6 +96,7 @@
     "cart:order:submit:content": "لن تتمكن من تعديل طلبك بعد تأكيده",
     "cart:empty:confirm:title": "إبدأ طلب جديد",
     "cart:empty:confirm:content": "الطلب من عند ${shopName} سوف يحذف",
+    "cart:address:missing:content": "يجب أن تختار مكان التوصيل",
 
     "order:empty": "لا توجد طلبات حتى الآن",
     "order:source": "المصدر",
@@ -130,6 +131,7 @@
     "validation:phone:invalid": "رقم الهاتف ليس صحيح",
     "validation:phone:used": "رقم الهاتف مستخدم",
     "validation:password:confirmation": "كلمات المرور ليست متطابقة",
+    "validation:current_password": "كلمة السر خاطئة",
 
     "profile:loyalty_points": "نقاط الوفاء",
     "profile:invite_code:copied:title": "تم نسخ الكود",

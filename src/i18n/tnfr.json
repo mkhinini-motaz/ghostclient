@@ -32,7 +32,7 @@
     "common:location:change": "Badal blassa",
     "common:no_internet": "Mafamech connexion internet",
 
-    "shop:closed": "Ne5dmou men nhar lethni li nhar sebt men noss nhar li noss lil",
+    "shop:closed": "Boutique msakar",
 
     "otp:validation:title": "Validation numéro téléphone",
     "otp:validation:description": "Bech ijik sms fih code de confirmation",
@@ -90,6 +90,7 @@
     "cart:order:submit:content": "Ma 3adch tnajam tbadal fi cmanda mta3ek ba3d ma tvalidaha",
     "cart:empty:confirm:title": "Abda kmanda jdida",
     "cart:empty:confirm:content": "El kmanda men 3and ${shopName} bech tetna7a",
+    "cart:address:missing:content": "Lazem te5ter adresse de livraison",
 
     "option:quantity:1": "Chwaya",
     "option:quantity:2":  "3adi",
@@ -129,6 +130,7 @@
     "validation:phone:invalid": "Noumrou telifoun mouch s7i7",
     "validation:phone:used": "Noumrou telifoun dèjà mosta3mal",
     "validation:password:confirmation": "Mot de passe mouch kif kif",
+    "validation:current_password": "Mot de passe ghalet",
 
     "profile:loyalty_points": "Poinet fidélité",
     "profile:invite_code:copied:title": "Code copié",

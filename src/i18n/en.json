@@ -32,7 +32,7 @@
     "common:location:change": "Change location",
     "common:no_internet": "No internet connexion",
 
-    "shop:closed": "We are open from monday to saturday from 12am to 12pm",
+    "shop:closed": "This shop is closed",
 
     "otp:validation:title": "Phone number validation",
     "otp:validation:description": "You will receive and sms containing your validation code",
@@ -96,6 +96,7 @@
     "cart:order:submit:content": "You will no longer be able to modify your order after validation",
     "cart:empty:confirm:title": "Start a new order",
     "cart:empty:confirm:content": "Your order with ${shopName} will be cleared",
+    "cart:address:missing:content": "You must choose a delivery location",
 
     "order:empty": "No orders yet",
     "order:source": "Source",
@@ -129,6 +130,7 @@
     "validation:phone:invalid": "The phone number is not valid",
     "validation:phone:used": "The phone number is already used",
     "validation:password:confirmation": "Passwords are not identical",
+    "validation:current_password": "Wrong password",
 
     "profile:loyalty_points": "Loyalty points",
     "profile:invite_code:copied:title": "Code copied",

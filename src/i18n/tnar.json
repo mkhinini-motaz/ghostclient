@@ -32,7 +32,7 @@
     "common:location:change": "تبديل البلاصة",
     "common:no_internet": "مافماش كونيكسيون إنترنت",
 
-    "shop:closed": "نخدمو من الاثنين إلى السبت من نص نهار حتى نص الليل",
+    "shop:closed": "بوتيك مسكر",
 
     "otp:validation:title": "تثبيت نمرو تليفون",
     "otp:validation:description": "بش يجيك sms فيه كود confirmation",
@@ -96,6 +96,7 @@
     "cart:order:submit:content": "ما تنجمش تبدل في الكماندا بعد التاكيد",
     "cart:empty:confirm:title": "أبدا كماندا جديدة",
     "cart:empty:confirm:content": "الكماندا من عند ${shopName} باش تتنحى",
+    "cart:address:missing:content": "لازم تختار بلاصت لفريزون",
 
     "order:empty": "مازال ما فما حتى كماندا",
     "order:source": "المصدر",
@@ -130,6 +131,7 @@
     "validation:phone:invalid": "نومرو تليفون موش صحيح",
     "validation:phone:used": "نومرو تليفون مستعمل",
     "validation:password:confirmation": "كلمات المرور ماهمش كيف كيف",
+    "validation:current_password": "كلمة السر غالطة",
 
     "profile:loyalty_points": "نقاط الوفاء",
     "profile:invite_code:copied:title": "تم نسخ الكود",
