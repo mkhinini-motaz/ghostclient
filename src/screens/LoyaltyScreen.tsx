@@ -1,11 +1,6 @@
-import React, {useCallback} from 'react';
-import {StyleSheet, View, Text, SafeAreaView, ScrollView} from 'react-native';
-import I18nSelect from "../components/Common/I18nSelect";
-import TranslatableText from "../components/Common/TranslatableText";
-import {COLOR_PRIMARY} from "../constants";
-import RNBounceable from "@freakycoder/react-native-bounceable";
-import {useClient, useSetClient} from "../store/hooks";
-import {setClientToken} from "../support/auth";
+import React from 'react';
+import {StyleSheet, View, SafeAreaView, ScrollView} from 'react-native';
+import {useLang, useSetClient} from "../store/hooks";
 import LoyaltyPoints from "../components/Loyalty/LoyaltyPoints";
 import PromoCodeShop from "../components/Loyalty/PromoCodeShop";
 import AvailablePromoCodes from "../components/Loyalty/AvailablePromoCodes";
@@ -13,10 +8,20 @@ import LoyaltyActions from "../components/Loyalty/LoyaltyActions";
 import {useQuery} from "react-query";
 import {profile} from "../api/auth";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
+import {alertNetworkError} from "../support/alert";
 
 export default function LoyaltyScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();
-    const { isLoading } = useQuery('profile', profile, { onSuccess: (data) => setClient(data) });
+    const { selectedLang } = useLang();
+    const { isLoading } = useQuery('profile', profile, {
+        onSuccess: (data) => setClient(data),
+        onError: (error) => {
+        if (error.code === 'ERR_NETWORK') {
+            alertNetworkError(selectedLang);
+            return;
+        }
+    },
+    });
 
     if (isLoading) {
         return <FullScreenLoader />
