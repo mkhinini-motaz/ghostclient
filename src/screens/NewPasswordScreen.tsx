@@ -11,11 +11,11 @@ import { FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_SUBMIT } from "../support/for
 import Form from "../components/Form/Form";
 import {alertNetworkError} from "../support/alert";
 
-interface OtpScreenProps {
+interface NewPasswordScreenProps {
     route: any,
 }
 
-function OtpScreen({ route }: OtpScreenProps): JSX.Element {
+function NewPasswordScreen({ route }: NewPasswordScreenProps): JSX.Element {
     const phone = route.params?.phone;
     const { selectedLang } = useLang();
     const authenticateClient = useAuthenticateClient();
@@ -31,6 +31,10 @@ function OtpScreen({ route }: OtpScreenProps): JSX.Element {
         mutationFn: resetPassword,
         onSuccess: authenticateClient,
         onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
             const errorMsg = error.response.data?.message === 'phone.code' ? 'otp:validation:wrong' : 'otp:request:error:title';
             Alert.alert('', translate(errorMsg, selectedLang), [{ text: translate('common:ok', selectedLang), }],);
         }
@@ -137,4 +141,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(OtpScreen);
+export default memo(NewPasswordScreen);

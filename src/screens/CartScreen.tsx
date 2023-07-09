@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {StyleSheet, View, Text, SafeAreaView,} from 'react-native';
 import { product } from "../api/shop";
 import { useQuery } from "react-query";
-import { useSelector } from "../store/hooks";
+import {useLang, useSelector} from "../store/hooks";
 import EmptyCart from "../components/Cart/EmptyCart";
 import Choices from "../components/Cart/Choices";
 import PromoCode from "../components/Cart/PromoCode";
@@ -15,17 +15,38 @@ import FullScreenLoader from "../components/Common/FullScreenLoader";
 import index from "../api/service";
 import TranslatableText from "../components/Common/TranslatableText";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../constants";
+import Submit from "../components/Cart/Submit";
+import {alertNetworkError} from "../support/alert";
 
 interface CartScreenProps {
     route: any,
+    navigation: any,
 }
 
-export default function CartScreen({ route }: CartScreenProps): JSX.Element {
+export default function CartScreen({ route, navigation }: CartScreenProps): JSX.Element {
+    const { selectedLang } = useLang();
     const { choices, promoCode } = useSelector((state) => state.Cart);
     const productIds = choices.map(choice => choice.product_id);
     const productCallback = useCallback(product(productIds), [productIds.join(',')]);
-    const { isLoading: servicesAreLoading, error: servicesError, data: services } = useQuery('service.index', index, { refetchOnMount: false, refetchOnWindowFocus: false });
-    const { isLoading, error, data = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, { enabled: choices.length > 0 });
+    const { isLoading: servicesAreLoading, error: servicesError, data: services } = useQuery('service.index', index, {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
+    const { isLoading, error, data = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, {
+        enabled: choices.length > 0,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
 
     if (choices.length === 0) {
         return <EmptyCart />;
