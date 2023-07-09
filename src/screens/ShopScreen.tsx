@@ -6,7 +6,7 @@ import CategoryList from "../components/Category/CategoryList";
 import {useDispatch, useLang} from "../store/hooks";
 import {setCartShop} from "../store/actions/cart";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
-import {alertNetworkError} from "../support/utils";
+import {alertNetworkError} from "../support/alert";
 
 interface ShopScreenProps {
     route: any,

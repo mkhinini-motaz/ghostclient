@@ -5,7 +5,7 @@ import {profile} from "../api/auth";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
 import {useQuery} from "react-query";
 import UpdateProfile from "../components/Auth/UpdateProfile";
-import {alertNetworkError} from "../support/utils";
+import {alertNetworkError} from "../support/alert";
 
 export default function ProfileScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();

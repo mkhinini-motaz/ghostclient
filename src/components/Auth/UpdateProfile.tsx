@@ -1,20 +1,14 @@
 import React, {memo, useMemo, useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
-import {useAuthenticateClient, useClient, useLang, useSetClient} from "../../store/hooks";
-import {profile, register, updateProfile} from "../../api/auth";
+import {StyleSheet, View} from 'react-native';
+import {useAuthenticateClient, useClient, useLang,} from "../../store/hooks";
+import {updateProfile} from "../../api/auth";
 import {useMutation} from "react-query";
-import FullScreenLoader from "../Common/FullScreenLoader";
 import {GENDERS} from "../../classes/Client";
-import {
-    FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_OTP,
-    FORM_FIELD_TYPE_PASSWORD,
-    FORM_FIELD_TYPE_PHONE,
-    FORM_FIELD_TYPE_RADIO, FORM_FIELD_TYPE_SUBMIT
-} from "../../support/form";
+import { FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_OTP, FORM_FIELD_TYPE_PHONE, FORM_FIELD_TYPE_RADIO, FORM_FIELD_TYPE_SUBMIT } from "../../support/form";
 import {COLOR_PRIMARY} from "../../constants";
 import Form from "../Form/Form";
-import {alertNetworkError, formatDate, strToDate} from "../../support/utils";
-import {translate} from "../../i18n";
+import {formatDate, strToDate} from "../../support/utils";
+import {alertNetworkError} from "../../support/alert";
 
 interface UpdateProfileProps {
 

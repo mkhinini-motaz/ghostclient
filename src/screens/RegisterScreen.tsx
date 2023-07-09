@@ -8,7 +8,8 @@ import {requestOtp} from "../api/auth";
 import {GENDERS} from "../classes/Client";
 import { FORM_FIELD_TYPE_BUTTON, FORM_FIELD_TYPE_DATE, FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_PHONE, FORM_FIELD_TYPE_RADIO, FORM_FIELD_TYPE_SUBMIT } from "../support/form";
 import Form from "../components/Form/Form";
-import {alertNetworkError, formatDate} from "../support/utils";
+import {formatDate} from "../support/utils";
+import {alertNetworkError} from "../support/alert";
 
 interface RegisterScreenProps {
     navigation: any,

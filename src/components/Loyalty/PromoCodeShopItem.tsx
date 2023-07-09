@@ -9,7 +9,7 @@ import {useClient, useLang} from "../../store/hooks";
 import {translate} from "../../i18n";
 import {useMutation} from "react-query";
 import {create} from "../../api/promoCode";
-import {alertNetworkError} from "../../support/utils";
+import {alertNetworkError} from "../../support/alert";
 
 interface PromoCodeShopItemProps {
     points: number,

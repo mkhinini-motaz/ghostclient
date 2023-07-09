@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import ProductWithOptions from "../components/Product/ProductWithOptions";
-import { RouteProp } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
-import {useLang, useSelector} from "../store/hooks";
+import {useLang} from "../store/hooks";
 import {translate} from "../i18n";
 import {COLOR_PRIMARY} from "../constants";
 

@@ -1,7 +1,6 @@
 import {defaultLang, translate} from "../i18n";
 import {LOCAL, LOCAL_CURRENCY} from "../constants";
 import Translatable from "../classes/Translatable";
-import {Alert} from "react-native";
 
 /**
  * @param amount                {number}
@@ -59,14 +58,6 @@ export const formatDateTime = (unixTimestamp: number) => {
 export const strToDate = (date: string, delimiter: string = '-') => {
     const [day, month, year] = date.split(delimiter);
     return new Date(year + '-' + month + '-' + day);
-};
-
-export const alertNetworkError = (selectedLang: keyof Translatable) => {
-        Alert.alert(
-            '',
-            translate('network:error', selectedLang),
-            [{ text: translate('common:ok', selectedLang), }],
-        );
 };
 
 /**

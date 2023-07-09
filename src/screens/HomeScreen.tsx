@@ -4,8 +4,8 @@ import ServiceList from "../components/Service/ServiceList";
 import {useQuery} from "react-query";
 import index from "../api/service";
 import FullScreenLoader from "../components/Common/FullScreenLoader";
-import {alertNetworkError} from "../support/utils";
 import {useLang} from "../store/hooks";
+import {alertNetworkError} from "../support/alert";
 
 export default function HomeScreen(): JSX.Element {
     const { selectedLang } = useLang();

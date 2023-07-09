@@ -12,7 +12,7 @@ import PhoneInput from "../components/Form/PhoneInput";
 import ButtonField from "../components/Form/ButtonField";
 import PhoneField from "../components/Form/PhoneField";
 import LangAwareView from "../components/Common/LangAwareView";
-import {alertNetworkError} from "../support/utils";
+import {alertNetworkError} from "../support/alert";
 
 interface LoginScreenProps {
     navigation: any,
@@ -20,7 +20,7 @@ interface LoginScreenProps {
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const [phone, setPhone] = React.useState('+21628852800'); // TODO: set to '+216 '
-    const [password, setPassword] = React.useState('moniabohlel');
+    const [password, setPassword] = React.useState('moniabohlel'); // TODo: set to ''
     const [forgotPhone, setForgotPhone] = React.useState('+216 ');
     const [modalIsVisible, setModalIsVisible] = useState(false);
 

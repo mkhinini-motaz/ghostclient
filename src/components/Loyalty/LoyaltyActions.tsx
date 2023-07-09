@@ -5,8 +5,8 @@ import {COLOR_PRIMARY} from "../../constants";
 import {useQuery} from "react-query";
 import {index} from "../../api/loyaltyAction";
 import LoyaltyAction from "./LoyaltyAction";
-import {alertNetworkError} from "../../support/utils";
 import {useLang} from "../../store/hooks";
+import {alertNetworkError} from "../../support/alert";
 
 interface LoyaltyActionsProps {
 

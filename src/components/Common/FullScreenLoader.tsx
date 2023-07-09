@@ -10,7 +10,6 @@ function FullScreenLoader({}: FullScreenLoaderProps): JSX.Element {
     return (
         <View style={styles.container}>
             <ActivityIndicator size={'large'} color={COLOR_PRIMARY} style={styles.indicator} />
-
         </View>
     );
 }

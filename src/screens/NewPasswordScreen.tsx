@@ -9,6 +9,7 @@ import {translate} from "../i18n";
 import ButtonField from "../components/Form/ButtonField";
 import { FORM_FIELD_TYPE_PASSWORD, FORM_FIELD_TYPE_SUBMIT } from "../support/form";
 import Form from "../components/Form/Form";
+import {alertNetworkError} from "../support/alert";
 
 interface OtpScreenProps {
     route: any,

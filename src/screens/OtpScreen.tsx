@@ -7,7 +7,7 @@ import {useMutation} from "react-query";
 import {register, requestOtp} from "../api/auth";
 import {translate} from "../i18n";
 import ButtonField from "../components/Form/ButtonField";
-import {alertNetworkError} from "../support/utils";
+import {alertNetworkError} from "../support/alert";
 
 interface OtpScreenProps {
     route: any,

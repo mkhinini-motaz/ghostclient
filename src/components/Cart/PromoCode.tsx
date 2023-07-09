@@ -8,7 +8,7 @@ import {show} from "../../api/promoCode";
 import {COLOR_PRIMARY} from "../../constants";
 import Image from "../Common/Image";
 import LangAwareView from "../Common/LangAwareView";
-import {alertNetworkError} from "../../support/utils";
+import {alertNetworkError} from "../../support/alert";
 
 interface PromoCodeProps {
 

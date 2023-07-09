@@ -17,7 +17,7 @@ import {translate} from "../../i18n";
 import index from "../../api/service";
 import Shop from "../../classes/Shop";
 import {useQuery} from "react-query";
-import {alertNetworkError} from "../../support/utils";
+import {alertNetworkError} from "../../support/alert";
 
 const Image = createImageProgress(FastImage);
 
