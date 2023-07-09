@@ -12,9 +12,10 @@ interface TextFieldProps {
     keyboardType?: KeyboardType,
     error?: boolean,
     helperText?: string,
+    multiline?: boolean
 }
 
-function TextField({ value, label, onChange, error = false, helperText = '', keyboardType = undefined }: TextFieldProps): JSX.Element {
+function TextField({ value, label, onChange, error = false, helperText = '', keyboardType = undefined, multiline = false }: TextFieldProps): JSX.Element {
     const { selectedLangWriteFrom } = useLang();
 
     return (
@@ -26,6 +27,7 @@ function TextField({ value, label, onChange, error = false, helperText = '', key
                 style={{ ...styles.textInput, ...(error ? styles.textInputError : {}) }}
                 textAlign={selectedLangWriteFrom}
                 keyboardType={keyboardType}
+                multiline={multiline}
             />
             {! helperText ? '' :
                 <TranslatableText data={helperText} style={styles.helperText} />
