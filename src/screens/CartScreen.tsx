@@ -62,6 +62,7 @@ export default function CartScreen({ route, navigation }: CartScreenProps): JSX.
         );
     }
 
+    // TODO: concider removing multishop support from this part of the code
     const shops = services.map(service => service.shops).flat();
     const choicesByShop = {};
     for (let choice of choices) {
@@ -91,8 +92,9 @@ export default function CartScreen({ route, navigation }: CartScreenProps): JSX.
                     {choicesOutput}
                     <PromoCode />
                     <Map />
-                    <Total data={choices} products={data} promoCode={promoCode} />
                     <AdditionalNote />
+                    <Total data={choices} products={data} promoCode={promoCode} />
+                    <Submit />
                 </View>
             </KeyboardAwareScrollView>
         </SafeAreaView>
