@@ -31,7 +31,7 @@ export const alertEmptyCartConfirm = (selectedLang: keyof Translatable, shopName
 
 export const alertPromptLocation = (selectedLang: keyof Translatable, shopName: string, onConfirm: () => {}) => {
     Alert.alert(
-        translate('cart:address:content', selectedLang, { shopName }),
+        translate('cart:address:missing:content', selectedLang, { shopName }),
         '',
         [
             {
