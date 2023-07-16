@@ -29,8 +29,6 @@ function EditPasswordScreen({ route, navigation }: EditPasswordScreenProps): JSX
 
         },
         onError: (error) => {
-            console.log({error: error.reponse, ...error}) // Todo: remove
-
             if (error.code === 'ERR_NETWORK') {
                 alertNetworkError(selectedLang);
                 return;
