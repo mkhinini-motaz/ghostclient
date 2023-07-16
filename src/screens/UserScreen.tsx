@@ -14,8 +14,13 @@ import {GENDER_FEMALE} from "../classes/Client";
 export default function UserScreen({ navigation }): JSX.Element {
     const setClient = useSetClient();
     const client = useClient();
+
     const onProfilePress = useCallback(() => {
         navigation.navigate('ProfileScreen');
+    }, []);
+
+    const onPasswordPress = useCallback(() => {
+        navigation.navigate('EditPasswordScreen');
     }, []);
 
     const onLoyaltyPress = useCallback(() => {
@@ -34,6 +39,12 @@ export default function UserScreen({ navigation }): JSX.Element {
                     <LangAwareView style={{ ...styles.card, alignItems: 'center', }}>
                         <SimpleLineIcon size={38} name={client.gender === GENDER_FEMALE ? 'user-female' : 'user'} color={COLOR_PRIMARY} />
                         <TranslatableText data={'common:profile'} style={styles.title} />
+                    </LangAwareView>
+                </RNBounceable>
+                <RNBounceable onPress={onPasswordPress}>
+                    <LangAwareView style={{ ...styles.card, alignItems: 'center', }}>
+                        <Icon size={38} name={'security'} color={COLOR_PRIMARY} />
+                        <TranslatableText data={'form:password:update:title'} style={styles.title} />
                     </LangAwareView>
                 </RNBounceable>
                 <RNBounceable onPress={onLoyaltyPress}>

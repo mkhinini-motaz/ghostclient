@@ -27,6 +27,13 @@ export function updateProfile({ first_name, last_name, gender, birth_date, phone
     });
 }
 
+export function updatePassword({ current_password, password, password_confirmation }) : Promise<Client> {
+    return getClientToken().then(token => {
+        return axios.post(API_CLIENT_URL + 'password', { current_password, password, password_confirmation }, { headers: { Authorization: 'Bearer ' + token }})
+        .then(response => response.data.data)
+    });
+}
+
 export function resetPassword({ password, password_confirmation, otp, phone }) : Promise<Client> {
     return axios.post(API_CLIENT_URL + 'password/reset', { password, password_confirmation, otp, phone })
         .then(response => response.data.data)

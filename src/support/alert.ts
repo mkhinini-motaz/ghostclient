@@ -72,3 +72,11 @@ export const alertShopClosed = (selectedLang: keyof Translatable) => {
         [{text: translate('common:ok', selectedLang),}],
     );
 };
+
+export const alertUpdatePasswordSuccess = (selectedLang: keyof Translatable) => {
+    Alert.alert(
+        '',
+        translate('form:password:update:success', selectedLang),
+        [{text: translate('common:ok', selectedLang),}],
+    );
+};
