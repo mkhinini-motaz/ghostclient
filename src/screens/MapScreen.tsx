@@ -53,11 +53,11 @@ export default function MapScreen({ route }: MapScreenProps): JSX.Element {
                         provider={PROVIDER_GOOGLE}
                         style={styles.map}
                         initialRegion={region}
-                        onRegionChangeComplete={(region) => {
-                            console.log(region);
-                            setRegion(region);
-                        }}
+                        onRegionChangeComplete={setRegion}
+                        userLocationUpdateInterval={2000}
                         zoomTapEnabled
+                        showsUserLocation
+                        followsUserLocation
                     >
                         <Polygon coordinates={polygon} fillColor={COLOR_PRIMARY + '22'} strokeColor={COLOR_PRIMARY} />
 
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     },
     markerFixed: {
         left: '50%',
-        marginLeft: -24, /// tODO: marker not 100% correct
+        marginLeft: -24,
         marginTop: -48,
         position: 'absolute',
         top: '50%'
