@@ -3,12 +3,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CartScreen from "../screens/CartScreen";
 import MapScreen from "../screens/MapScreen";
+import {COLOR_SECONDARY} from "../constants";
 
 export default function CartNavigator(): JSX.Element {
     const Stack = createNativeStackNavigator();
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, headerTintColor: COLOR_SECONDARY, }}>
             <Stack.Screen name="CartScreen" component={CartScreen} />
             <Stack.Screen name="MapScreen" component={MapScreen} />
         </Stack.Navigator>
