@@ -11,7 +11,7 @@ interface CategoryListProps {
 
 export default function CategoryList({ data }: CategoryListProps): JSX.Element {
     const { selectedLangWriteFrom } = useLang();
-    const horizontalFlatListRef = useRef();
+    const verticalFlatListRef = useRef();
     const renderVerticalItem = useCallback(({ item }) => <Category data={item} key={'category_' + item.id} />, []);
     const verticalKeyExtractor = useCallback(category => 'category_show_' + category.id, []);
     const getVerticalItemLayout = useCallback((data, index) => {
@@ -24,7 +24,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
     }, []);
 
     const renderHorizontalItem = useCallback(({ item, index }) => <CategoryHorizontal onPress={() => {
-        horizontalFlatListRef.current.scrollToIndex({index})
+        verticalFlatListRef.current.scrollToIndex({index})
     }} data={item} key={'category_text_' + item.id} />, []);
     const horizontalKeyExtractor = useCallback(category => 'category_show_' + category.id, []);
 
@@ -45,7 +45,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 renderItem={renderVerticalItem}
                 keyExtractor={verticalKeyExtractor}
                 getItemLayout={getVerticalItemLayout}
-                ref={horizontalFlatListRef}
+                ref={verticalFlatListRef}
                 contentContainerStyle={{ paddingBottom: 15, paddingTop: 50 }}
             />
         </View>
