@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text } from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons";
 import ButtonField from "../Form/ButtonField";
 import { useNavigation } from '@react-navigation/native';
 import {useSelector} from "../../store/hooks";
+import {COLOR_PRIMARY} from "../../constants";
 
 interface MapProps {
 
@@ -14,7 +16,7 @@ export default function Map({}: MapProps): JSX.Element {
 
     return (
         <View style={styles.container}>
-            <ButtonField label={!!address.lat ? 'common:location:change' : 'common:location:choose'} onPress={() => navigation.navigate('MapScreen')} buttonType={!!address.lat ? 'outlined' : 'contained'} />
+            <ButtonField label={!!address.lat ? 'common:location:change' : 'common:location:choose'} onPress={() => navigation.navigate('MapScreen')} buttonType={!!address.lat ? 'outlined' : 'contained'} icon={<Icon name={'map'} size={30} color={'white'} />} />
         </View>
     );
 };

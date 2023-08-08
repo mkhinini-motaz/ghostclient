@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
+import Icon from "react-native-vector-icons/MaterialIcons";
 import ButtonField from "../Form/ButtonField";
-import {translate} from "../../i18n";
 import {emptyCart} from "../../store/actions/cart";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import {useMutation, useQuery} from "react-query";
@@ -17,6 +17,7 @@ import {
     alertNetworkError,
     alertPromptLocation, alertShopClosed
 } from "../../support/alert";
+import LangAwareView from "../Common/LangAwareView";
 
 interface MapProps {
 }
@@ -45,7 +46,7 @@ export default function Submit({}: MapProps): JSX.Element {
         mutationFn: create,
         onSuccess: () => {
             dispatch(emptyCart());
-            navigation.navigate('OrdersScreen'); // TODO: implement
+            navigation.navigate('OrdersScreen');
         },
         onError: (error) => {
             if (error.code === 'ERR_NETWORK') {
@@ -87,11 +88,11 @@ export default function Submit({}: MapProps): JSX.Element {
             <View>
                 {isLoading ?
                     <ActivityIndicator size={'large'} color={COLOR_PRIMARY} /> :
-                    <ButtonField label={'cart:order:submit'} onPress={onSubmitPress} buttonType={'contained'} />
+                    <ButtonField label={'cart:order:submit'} onPress={onSubmitPress} buttonType={'contained'} icon={<Icon name={'shopping-cart'} size={30} color={'white'} />} />
                 }
             </View>
             <View style={styles.emptyCartContainer}>
-                <ButtonField label={'cart:empty:action'} onPress={onEmptyCartPress} buttonType={'outlined'} />
+                <ButtonField label={'cart:empty:action'} onPress={onEmptyCartPress} buttonType={'outlined'} icon={<Icon name={'remove-shopping-cart'} size={30} color={COLOR_PRIMARY} />} />
             </View>
 
         </View>
