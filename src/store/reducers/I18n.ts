@@ -10,7 +10,6 @@ export const initialI18nReducerState = {
 
 export default (state = initialI18nReducerState, action: Action) => {
     if (action.type === SET_LANG) {
-// TODO: replace        window[SELECTED_LANG_NAME_IN_WINDOW] = action.payload;
         const selectedLangWriteFrom = availableLangs[action.payload] ?
             availableLangs[action.payload].writeFrom :
             defaultLang.writeFrom;

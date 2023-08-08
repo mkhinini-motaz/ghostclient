@@ -1,11 +1,11 @@
-import React, {useCallback, useState} from 'react';
-import {StyleSheet, View, Text, SafeAreaView, Alert,} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, SafeAreaView, Alert,} from 'react-native';
 import Image from "../components/Common/Image";
 import { useNavigation } from '@react-navigation/native';
 
 import MapView, { Polygon, PROVIDER_GOOGLE } from "react-native-maps";
-import {COLOR_PRIMARY, COLOR_SECONDARY} from "../constants";
-import {useClient, useDispatch, useLang, useSelector} from "../store/hooks";
+import {COLOR_PRIMARY} from "../constants";
+import {useDispatch, useLang, useSelector} from "../store/hooks";
 import ButtonField from "../components/Form/ButtonField";
 import {setCartAddress} from "../store/actions/cart";
 import {pointInPolygon} from "../support/utils";
@@ -20,12 +20,17 @@ export default function MapScreen({ route }: MapScreenProps): JSX.Element {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const { selectedLang } = useLang();
-    const client = useClient();
-    const { address } = useSelector(state => state.Cart);
-    const polygon = client.shops[0].service_area.map(cordinate => ({ latitude: cordinate[0], longitude: cordinate[1] })); // TODO: service area should be moved elsewhere
+    const { address, serviceAreaPolygon, serviceArea } = useSelector(state => {
+        const { address, serviceArea } = state.Cart;
+        return {
+            address,
+            serviceArea,
+            serviceAreaPolygon: serviceArea.area.map(cordinate => ({ latitude: cordinate[0], longitude: cordinate[1] })),
+        }
+    });
 
     const onConfirm = () => {
-        if (! pointInPolygon(client.shops[0].service_area, [region.latitude, region.longitude])) {
+        if (! pointInPolygon(serviceArea.area, [region.latitude, region.longitude])) {
             Alert.alert(
                 '',
                 translate('cart:location:not_served', selectedLang),
@@ -59,7 +64,7 @@ export default function MapScreen({ route }: MapScreenProps): JSX.Element {
                         showsUserLocation
                         followsUserLocation
                     >
-                        <Polygon coordinates={polygon} fillColor={COLOR_PRIMARY + '22'} strokeColor={COLOR_PRIMARY} />
+                        <Polygon coordinates={serviceAreaPolygon} fillColor={COLOR_PRIMARY + '22'} strokeColor={COLOR_PRIMARY} />
 
                     </MapView>
                     <View style={styles.markerFixed}>
