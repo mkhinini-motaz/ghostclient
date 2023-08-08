@@ -16,7 +16,7 @@ interface EditPasswordScreenProps {
     navigation: any,
 }
 
-function EditPasswordScreen({ route, navigation }: EditPasswordScreenProps): JSX.Element {
+export default function EditPasswordScreen({ route, navigation }: EditPasswordScreenProps): JSX.Element {
     const { selectedLang } = useLang();
     const authenticateClient = useAuthenticateClient();
 
@@ -104,4 +104,3 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(EditPasswordScreen);
