@@ -1,10 +1,47 @@
 import Translatable from "./Translatable";
+import PromoCode from "./PromoCode";
+import Client from "./Client";
+import Choice from "./Choice";
+import Product from "./Product";
+import LoyaltyAction from "./LoyaltyAction";
 
 export default class Order {
     id: number;
+    type: 1|2|3;
+    source: 1|2|3;
+    status: number;
+    is_payed: 0|1;
+    total_price: number;
+    associated_phone: string;
+    delivery_latitude: number;
+    delivery_longitude: number;
+    delivery_fee: number;
+    created_at: number;
+    additional_note: string;
+    promo_code: PromoCode;
+    client: Client;
+    choices: Choice[];
+    products: Product[];
+    loyalty_action?: LoyaltyAction;
 
-    constructor(id: number, name: string, description: Translatable, photo: string, service_area: number[][], menu_displayed_lang: keyof Translatable) {
+    constructor(id: number, type: 1|2|3, source: 1|2|3, status: number, is_payed: 0|1, total_price: number, associated_phone: string, delivery_latitude: number, delivery_longitude: number, delivery_fee: number, created_at: number, additional_note: string, promo_code: PromoCode, client: Client, choices: Choice[], products: Product[], loyalty_action: LoyaltyAction) {
         this.id = id;
+        this.type = type;
+        this.source = source;
+        this.status = status;
+        this.is_payed = is_payed;
+        this.total_price = total_price;
+        this.associated_phone = associated_phone;
+        this.delivery_latitude = delivery_latitude;
+        this.delivery_longitude = delivery_longitude;
+        this.delivery_fee = delivery_fee;
+        this.created_at = created_at;
+        this.additional_note = additional_note;
+        this.promo_code = promo_code;
+        this.client = client;
+        this.choices = choices;
+        this.products = products;
+        this.loyalty_action = loyalty_action;
     }
 }
 
