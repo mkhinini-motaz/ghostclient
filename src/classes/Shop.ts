@@ -5,7 +5,6 @@ export default class Shop {
     name: string;
     description: Translatable;
     photo: string;
-    service_area: number[][];
     menu_displayed_lang: keyof Translatable;
     working_hours_today: number[];
 
