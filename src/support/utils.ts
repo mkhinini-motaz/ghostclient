@@ -86,3 +86,18 @@ export const pointInPolygon = function (polygon, point) {
     //If the number of crossings was odd, the point is in the polygon
     return odd;
 };
+
+type TimeoutId = ReturnType<typeof setTimeout>;
+
+export function debounce<T extends (...args: any[]) => any>(func: T, delay: number): (...args: Parameters<T>) => void {
+    return (...args: Parameters<T>): void => {
+        const context = this;
+        if (context.timeoutId) {
+            clearTimeout(context.timeoutId);
+        }
+
+        context.timeoutId = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
+}
