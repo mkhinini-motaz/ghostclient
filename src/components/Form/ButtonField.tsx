@@ -4,23 +4,35 @@ import RNBounceable from "@freakycoder/react-native-bounceable/build/dist/RNBoun
 import {COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
 import {capitalize} from "../../support/utils";
+import LangAwareView from "../Common/LangAwareView";
 
 interface ButtonFieldProps {
     label: string,
     isLoading?: boolean,
     onPress?: () => void,
     buttonType?: 'contained'|'outlined',
+    icon: any,
 }
 
-function ButtonField({ label, isLoading, onPress, buttonType = 'contained' }: ButtonFieldProps): JSX.Element {
+function ButtonField({ label, isLoading, onPress, buttonType = 'contained', icon = '' }: ButtonFieldProps): JSX.Element {
+    console.log({icon})
+    let output;
+    if (isLoading) {
+        output = <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} />;
+    } else {
+        output = <View style={styles['button' + capitalize(buttonType)]}>
+            <LangAwareView style={styles.textAndIconContainer}>
+                <TranslatableText style={styles['buttonText' + capitalize(buttonType)]} data={label} />
+                {icon || '' }
+            </LangAwareView>
+        </View>;
+    }
+
     return (
         <RNBounceable onPress={onPress} >
-            {isLoading ?
-                <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} /> :
-                <View style={styles['button' + capitalize(buttonType)]}>
-                    <TranslatableText style={styles['buttonText' + capitalize(buttonType)]} data={label} />
-                </View>
-            }
+            <View style={styles.container}>
+                {output}
+            </View>
         </RNBounceable>
     );
 };
@@ -35,6 +47,8 @@ const buttonStyle = {
     shadowOpacity: 0.35,
     shadowRadius: 2,
     elevation: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
 };
 
 const styles = StyleSheet.create({
@@ -60,6 +74,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
     },
+    textAndIconContainer: {
+        gap: 10,
+    }
 });
 
 export default memo(ButtonField);
