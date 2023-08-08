@@ -7,6 +7,7 @@ import Product, { productPrice } from "../../classes/Product";
 import TranslatableText from "../Common/TranslatableText";
 import PromoCode from "../../classes/PromoCode";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
+import {useSelector} from "../../store/hooks";
 
 interface TotalProps {
     data: Choice[],
@@ -25,8 +26,8 @@ export default function Total({ data, products, promoCode }: TotalProps): JSX.El
         totalProducts += productPrice(product, choice.product_count, choice.options);
     }
 
-    const deliveryFee = 2000; // TODO: make dynamic
-    const serviceFee = 500; // TODO: make dynamic
+    const { delivery_fee: deliveryFee, service_fee: serviceFee } = useSelector(state => state.Cart.serviceArea);
+
     const totalToPay = totalProducts + serviceFee + deliveryFee - (! promoCode?.id ? 0 : - promoCode.reduction_amount);
 
     return (

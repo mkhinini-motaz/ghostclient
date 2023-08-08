@@ -1,23 +1,7 @@
-import {
-    SET_CHOICE_TYPE_FIXED,
-    CREATE_CHOICE_TYPE_WITH_OPTIONS,
-    SET_CART_CHOICES,
-    SET_CART_ADDRESS,
-    SET_CART_PROMO_CODE,
-    SET_CART_PROMO_CODE_IS_LOADING,
-    DELETE_CART_CHOICE_TYPE_WITH_OPTIONS,
-    SET_ADDITIONAL_NOTE,
-    SET_ORDER_SUBMIT_IS_LOADING,
-    SET_ORDER_IN_PROGRESS,
-    EMPTY_CART,
-    UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS,
-    SET_TYPE, SET_CART_SHOP
-} from './types';
-import {Alert} from "react-native";
-import {useDispatch, useSelector} from "../hooks";
-import {translate} from "../../i18n";
+import { SET_CHOICE_TYPE_FIXED, CREATE_CHOICE_TYPE_WITH_OPTIONS, SET_CART_ADDRESS, SET_CART_PROMO_CODE, DELETE_CART_CHOICE_TYPE_WITH_OPTIONS, SET_ADDITIONAL_NOTE, EMPTY_CART, UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS, SET_TYPE, SET_CART_SHOP, SET_SERVICE_AREA } from './types';
 import Option from "../../classes/Option";
 import PromoCode from "../../classes/PromoCode";
+import ServiceArea from "../../classes/ServiceArea";
 
 export interface CartChoiceTypeFixedPayload {
     product_id: number,
@@ -56,10 +40,6 @@ export function updateCountChoiceTypeWithOptions(payload: CartChoiceUpdateTypeWi
     return { type: UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS, payload };
 }
 
-export function setChoices(productInfos) {
-    return { type: SET_CART_CHOICES, payload: productInfos };
-}
-
 export function setCartAddress(address: { lat: number, lng: number }) {
     return { type: SET_CART_ADDRESS, payload: address };
 }
@@ -68,24 +48,16 @@ export function setCartPromoCode(promoCode: PromoCode) {
     return { type: SET_CART_PROMO_CODE, payload: promoCode };
 }
 
-export function setCartPromoCodeIsLoading(status) {
-    return { type: SET_CART_PROMO_CODE_IS_LOADING, payload: status };
-}
-
 export function setOrderType(type) {
     return { type: SET_TYPE, payload: type };
 }
 
-export function setOrderSubmitIsLoading(status) {
-    return { type: SET_ORDER_SUBMIT_IS_LOADING, payload: status };
-}
-
-export function setAdditionalNote(additionalNote) {
+export function setAdditionalNote(additionalNote: string) {
     return { type: SET_ADDITIONAL_NOTE, payload: additionalNote };
 }
 
-export function setOrderInProgress(orderIsInProgress) {
-    return { type: SET_ORDER_IN_PROGRESS, payload: orderIsInProgress, };
+export function setServiceArea(serviceArea: ServiceArea) {
+    return { type: SET_SERVICE_AREA, payload: serviceArea };
 }
 
 export function emptyCart() {

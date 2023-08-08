@@ -2,7 +2,6 @@ import {
     SET_CHOICE_TYPE_FIXED,
     SET_CART_CHOICES,
     SET_CART_ADDRESS,
-    PERSIST_REHYDRATE,
     CREATE_CHOICE_TYPE_WITH_OPTIONS,
     DELETE_CART_CHOICE_TYPE_WITH_OPTIONS,
     SET_CART_PROMO_CODE,
@@ -12,7 +11,7 @@ import {
     EMPTY_CART,
     UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS,
     SET_TYPE,
-    SET_CART_SHOP
+    SET_CART_SHOP, SET_SERVICE_AREA, SET_SERVICE_FEE, SET_DELIVERY_FEE
 } from '../actions/types';
 import { TYPE_DELIVERY } from "../../classes/Order";
 import { Action } from "./index";
@@ -26,6 +25,7 @@ export const initialCartReducerState = {
     promoCodeIsLoading: false,
     orderSubmitIsLoading: false,
     additionalNote: '',
+    serviceArea: {},
 };
 
 export default (state = initialCartReducerState, action: Action) => {
@@ -89,10 +89,6 @@ export default (state = initialCartReducerState, action: Action) => {
         return { ...state, promoCode: action.payload};
     }
 
-    if (action.type === SET_CART_PROMO_CODE_IS_LOADING) {
-        return { ...state, promoCodeIsLoading: action.payload};
-    }
-
     if (action.type === SET_TYPE) {
         return { ...state, type: action.payload};
     }
@@ -101,8 +97,8 @@ export default (state = initialCartReducerState, action: Action) => {
         return { ...state, additionalNote: action.payload};
     }
 
-    if (action.type === SET_ORDER_IN_PROGRESS) {
-        return { ...state, orderInProgress: action.payload};
+    if (action.type === SET_SERVICE_AREA) {
+        return { ...state, serviceArea: action.payload};
     }
 
     if (action.type === EMPTY_CART) {
