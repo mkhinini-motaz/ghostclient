@@ -28,6 +28,7 @@
     "common:orders": "كماندات",
     "common:kg": "كغ",
     "common:g": "غ",
+    "common:location:view": "شوف البلاصة",
     "common:location:choose": "إختار البلاصة",
     "common:location:change": "تبديل البلاصة",
     "common:no_internet": "مافماش كونيكسيون إنترنت",
@@ -119,6 +120,9 @@
     "order:source:online": "بالانترنت",
     "order:source:on_site": "كاسة",
     "order:source:by_phone": "تليفون",
+
+    "order:empty:title": "مافما حتى كماندا",
+    "order:empty:description": "مافما حتى كماندا, إمشي page d'accueil بش تبدا تعبي في عربة التسوق",
 
     "lang:fr": "فرنسية",
     "lang:en": "إنجليزية",

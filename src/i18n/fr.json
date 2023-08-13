@@ -28,6 +28,7 @@
     "common:orders": "Commandes",
     "common:kg": "Kg",
     "common:g": "g",
+    "common:location:view": "Voir position",
     "common:location:choose": "Choisir position",
     "common:location:change": "Modifier position",
     "common:no_internet": "Pas de connexion internet",
@@ -119,6 +120,9 @@
     "order:source:online": "Online",
     "order:source:on_site": "Caisse",
     "order:source:by_phone": "Téléphone",
+
+    "order:empty:title": "Pas de commandes",
+    "order:empty:description": "Aucune commande disponible, commencez à remplir votre panier en accédant à la page d'accueil",
 
     "lang:fr": "Français",
     "lang:en": "Anglais",

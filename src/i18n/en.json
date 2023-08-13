@@ -28,6 +28,7 @@
     "common:orders": "Orders",
     "common:kg": "Kg",
     "common:g": "g",
+    "common:location:view": "View location",
     "common:location:choose": "Choose location",
     "common:location:change": "Change location",
     "common:no_internet": "No internet connexion",
@@ -119,6 +120,9 @@
     "order:source:online": "Online",
     "order:source:on_site": "Counter",
     "order:source:by_phone": "By Phone",
+
+    "order:empty:title": "No orders",
+    "order:empty:description": "No order is available, start filling out your cart by accessing the home page",
 
     "lang:fr": "French",
     "lang:en": "English",

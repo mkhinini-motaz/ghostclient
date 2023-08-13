@@ -28,6 +28,7 @@
     "common:orders": "طلبات",
     "common:kg": "كغ",
     "common:g": "غ",
+    "common:location:view": "شاهد المكان",
     "common:location:choose": "إختيار المكان",
     "common:location:change": "تغيير المكان",
     "common:no_internet": "لا يوجد اتصال بالإنترنت",
@@ -119,6 +120,9 @@
     "order:source:online": "عبر الانترنت",
     "order:source:on_site": "المطعم",
     "order:source:by_phone": "هاتف",
+
+    "order:empty:title": "لا يوجد أي طلب",
+    "order:empty:description": "لا يوجد أي طلب، ابدأ في ملئ عربة التسوق من خلال الذهاب إلى الصفحة الرئيسية",
 
     "lang:fr": "فرنسية",
     "lang:en": "إنجليزية",
