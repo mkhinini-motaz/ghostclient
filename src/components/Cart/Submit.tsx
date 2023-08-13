@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import ButtonField from "../Form/ButtonField";
 import {emptyCart} from "../../store/actions/cart";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
-import {useMutation, useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import {create} from "../../api/order";
 import index from "../../api/service";
 import Shop from "../../classes/Shop";
@@ -23,6 +23,7 @@ interface MapProps {
 }
 
 export default function Submit({}: MapProps): JSX.Element {
+    const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const { selectedLang } = useLang();
@@ -45,8 +46,9 @@ export default function Submit({}: MapProps): JSX.Element {
     const { mutate, isLoading } = useMutation({
         mutationFn: create,
         onSuccess: () => {
+            queryClient.invalidateQueries('order.index');
             dispatch(emptyCart());
-            navigation.navigate('OrdersScreen');
+            navigation.navigate('UserNavigator', { screen: 'OrdersScreen' });
         },
         onError: (error) => {
             if (error.code === 'ERR_NETWORK') {
