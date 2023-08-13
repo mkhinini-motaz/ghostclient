@@ -16,6 +16,7 @@ export default class Order {
     delivery_latitude: number;
     delivery_longitude: number;
     delivery_fee: number;
+    service_fee: number;
     created_at: number;
     additional_note: string;
     promo_code: PromoCode;
@@ -24,7 +25,7 @@ export default class Order {
     products: Product[];
     loyalty_action?: LoyaltyAction;
 
-    constructor(id: number, type: 1|2|3, source: 1|2|3, status: number, is_payed: 0|1, total_price: number, associated_phone: string, delivery_latitude: number, delivery_longitude: number, delivery_fee: number, created_at: number, additional_note: string, promo_code: PromoCode, client: Client, choices: Choice[], products: Product[], loyalty_action: LoyaltyAction) {
+    constructor(id: number, type: 1|2|3, source: 1|2|3, status: number, is_payed: 0|1, total_price: number, associated_phone: string, delivery_latitude: number, delivery_longitude: number, delivery_fee: number, service_fee: number, created_at: number, additional_note: string, promo_code: PromoCode, client: Client, choices: Choice[], products: Product[], loyalty_action: LoyaltyAction) {
         this.id = id;
         this.type = type;
         this.source = source;
@@ -35,6 +36,7 @@ export default class Order {
         this.delivery_latitude = delivery_latitude;
         this.delivery_longitude = delivery_longitude;
         this.delivery_fee = delivery_fee;
+        this.service_fee = service_fee;
         this.created_at = created_at;
         this.additional_note = additional_note;
         this.promo_code = promo_code;

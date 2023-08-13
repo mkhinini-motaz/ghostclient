@@ -14,7 +14,7 @@ export default class Product {
     price: number;
     added_loyalty_points: number;
 
-    constructor(id: number, name: Translatable, type: number, photo: string, category_id: number, category: Category, option_groups: OptionGroup[],price: number, added_loyalty_points: number) {
+    constructor(id: number, name: Translatable, type: number, photo: string, category_id: number, category: Category, option_groups: OptionGroup[], price: number, added_loyalty_points: number) {
         this.id = id;
         this.name = name;
         this.type = type;
