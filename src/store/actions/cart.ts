@@ -1,4 +1,17 @@
-import { SET_CHOICE_TYPE_FIXED, CREATE_CHOICE_TYPE_WITH_OPTIONS, SET_CART_ADDRESS, SET_CART_PROMO_CODE, DELETE_CART_CHOICE_TYPE_WITH_OPTIONS, SET_ADDITIONAL_NOTE, EMPTY_CART, UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS, SET_TYPE, SET_CART_SHOP, SET_SERVICE_AREA } from './types';
+import {
+    SET_CHOICE_TYPE_FIXED,
+    CREATE_CHOICE_TYPE_WITH_OPTIONS,
+    SET_CART_ADDRESS,
+    SET_CART_PROMO_CODE,
+    DELETE_CART_CHOICE_TYPE_WITH_OPTIONS,
+    SET_ADDITIONAL_NOTE,
+    EMPTY_CART,
+    UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS,
+    SET_TYPE,
+    SET_CART_SHOP,
+    SET_SERVICE_AREA,
+    CHANGE_SHOP
+} from './types';
 import Option from "../../classes/Option";
 import PromoCode from "../../classes/PromoCode";
 import ServiceArea from "../../classes/ServiceArea";
@@ -62,4 +75,8 @@ export function setServiceArea(serviceArea: ServiceArea) {
 
 export function emptyCart() {
     return { type: EMPTY_CART };
+}
+
+export function changeShop(shopId: number) {
+    return { type: CHANGE_SHOP, payload: shopId };
 }

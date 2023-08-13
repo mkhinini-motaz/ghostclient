@@ -12,7 +12,13 @@ import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
-import {createChoiceTypeFixed, deleteChoiceTypeWithOptions, emptyCart, setCartShop} from "../../store/actions/cart";
+import {
+    changeShop,
+    createChoiceTypeFixed,
+    deleteChoiceTypeWithOptions,
+    emptyCart,
+    setCartShop
+} from "../../store/actions/cart";
 import {translate} from "../../i18n";
 import index from "../../api/service";
 import Shop from "../../classes/Shop";
@@ -99,7 +105,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
                     text: translate('common:confirm', selectedLang),
                     style: 'destructive',
                     onPress: () => {
-                        dispatch(emptyCart());
+                        dispatch(changeShop(shopId));
                         quantityButtonOnClickHandler(newValue, addedValue);
                     },
                 },

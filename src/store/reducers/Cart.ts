@@ -11,7 +11,7 @@ import {
     EMPTY_CART,
     UPDATE_COUNT_CHOICE_TYPE_WITH_OPTIONS,
     SET_TYPE,
-    SET_CART_SHOP, SET_SERVICE_AREA, SET_SERVICE_FEE, SET_DELIVERY_FEE
+    SET_CART_SHOP, SET_SERVICE_AREA, SET_SERVICE_FEE, SET_DELIVERY_FEE, CHANGE_SHOP
 } from '../actions/types';
 import { TYPE_DELIVERY } from "../../classes/Order";
 import { Action } from "./index";
@@ -103,6 +103,10 @@ export default (state = initialCartReducerState, action: Action) => {
 
     if (action.type === EMPTY_CART) {
         return { ...initialCartReducerState };
+    }
+
+    if (action.type === CHANGE_SHOP) {
+        return { ...initialCartReducerState, shopId: action.payload, serviceArea: state.serviceArea };
     }
 
     return state;
