@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import Service  from "./Service";
 import ServiceClass from "../../classes/Service";
 import LangAwareView from "../Common/LangAwareView";
+import ProductSearchBar from "../Product/ProductSearchBar";
 
 interface ServiceListProps {
     data: ServiceClass[],
@@ -20,10 +21,9 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
                     <Service data={data[2]} />
                     <Service data={data[4]} />
                 </View>
-                <View style={{...styles.sectionContainer, marginTop: 30}}>
+                <View style={{...styles.sectionContainer, marginTop: 100}}>
                     <Service data={data[1]} />
                     <Service data={data[3]} />
-                    <Service data={loyaltyService}/>
                 </View>
             </LangAwareView>
         </ScrollView>
@@ -33,6 +33,7 @@ export default function ServiceList(props: ServiceListProps): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 5,
+        marginTop: 20,
     },
     sectionContainer: {
         flexBasis: 1,
