@@ -16,7 +16,7 @@ export default function Map({}: MapProps): JSX.Element {
 
     return (
         <View style={styles.container}>
-            <ButtonField label={!!address.lat ? 'common:location:change' : 'common:location:choose'} onPress={() => navigation.navigate('MapScreen')} buttonType={!!address.lat ? 'outlined' : 'contained'} icon={<Icon name={'map'} size={30} color={'white'} />} />
+            <ButtonField label={!!address.lat ? 'common:location:change' : 'common:location:choose'} onPress={() => navigation.navigate('MapScreen')} buttonType={!!address.lat ? 'outlined' : 'contained'} icon={<Icon name={!!address.lat ? 'edit' : 'map'} size={30} color={!!address.lat ? COLOR_PRIMARY : 'white'} />} />
         </View>
     );
 };

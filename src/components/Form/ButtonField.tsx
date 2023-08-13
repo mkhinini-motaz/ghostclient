@@ -15,7 +15,6 @@ interface ButtonFieldProps {
 }
 
 function ButtonField({ label, isLoading, onPress, buttonType = 'contained', icon = '' }: ButtonFieldProps): JSX.Element {
-    console.log({icon})
     let output;
     if (isLoading) {
         output = <ActivityIndicator size="large" color={COLOR_PRIMARY} animating={isLoading} />;
@@ -76,6 +75,7 @@ const styles = StyleSheet.create({
     },
     textAndIconContainer: {
         gap: 10,
+        alignItems: 'center',
     }
 });
 
