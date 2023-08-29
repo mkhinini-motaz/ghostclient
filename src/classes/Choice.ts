@@ -5,7 +5,7 @@ export default class Choice {
     id?: number;
     product_id: number;
     product_count: number;
-    shop_id: number;
+    shop_id?: number;
     product?: Product;
     options?: Option[];
 

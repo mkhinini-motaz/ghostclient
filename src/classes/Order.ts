@@ -4,6 +4,7 @@ import Client from "./Client";
 import Choice from "./Choice";
 import Product from "./Product";
 import LoyaltyAction from "./LoyaltyAction";
+import Shop from "./Shop";
 
 export default class Order {
     id: number;
@@ -19,13 +20,14 @@ export default class Order {
     service_fee: number;
     created_at: number;
     additional_note: string;
+    shop: Shop;
     promo_code: PromoCode;
     client: Client;
     choices: Choice[];
     products: Product[];
     loyalty_action?: LoyaltyAction;
 
-    constructor(id: number, type: 1|2|3, source: 1|2|3, status: number, is_payed: 0|1, total_price: number, associated_phone: string, delivery_latitude: number, delivery_longitude: number, delivery_fee: number, service_fee: number, created_at: number, additional_note: string, promo_code: PromoCode, client: Client, choices: Choice[], products: Product[], loyalty_action: LoyaltyAction) {
+    constructor(id: number, type: 1|2|3, source: 1|2|3, status: number, is_payed: 0|1, total_price: number, associated_phone: string, delivery_latitude: number, delivery_longitude: number, delivery_fee: number, service_fee: number, created_at: number, additional_note: string, shop: Shop, promo_code: PromoCode, client: Client, choices: Choice[], products: Product[], loyalty_action: LoyaltyAction) {
         this.id = id;
         this.type = type;
         this.source = source;
@@ -39,6 +41,7 @@ export default class Order {
         this.service_fee = service_fee;
         this.created_at = created_at;
         this.additional_note = additional_note;
+        this.shop = shop;
         this.promo_code = promo_code;
         this.client = client;
         this.choices = choices;
