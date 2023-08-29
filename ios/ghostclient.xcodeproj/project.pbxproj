@@ -540,6 +540,7 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H3VUH7H2US;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ghostclient/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -573,6 +574,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = H3VUH7H2US;
 				INFOPLIST_FILE = ghostclient/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
