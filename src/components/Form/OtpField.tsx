@@ -37,7 +37,6 @@ function OtpField({ value, label, onChange, withRequestButton = false, phone = u
                 timeoutIdRef.current = setTimeout(() => setRequestOtpIsActive(true), 60000)
             })
             .catch((error) => {
-console.log({ phone})
                 Alert.alert(
                     translate('otp:request:error:title', selectedLang),
                     translate('otp:request:error:message', selectedLang),

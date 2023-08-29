@@ -35,7 +35,6 @@ export default function ProductWithOptions({ data, onConfirm }: ProductWithOptio
         let newOptions = [];
         options.forEach(option => {
             const newOption = { ...option };
-            console.log('condition : ', newOption.id === selectedOption.id)
             if (newOption.id === selectedOption.id) {
                 newOption.quantity = quantity;
             }
