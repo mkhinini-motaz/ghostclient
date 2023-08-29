@@ -1,5 +1,5 @@
 import Translatable from "./Translatable";
-import Shop from "./Shop";
+import Shop, {shopIsOpen} from "./Shop";
 
 export default class Service {
     name: Translatable;
@@ -12,3 +12,12 @@ export default class Service {
         this.shops = shops;
     }
 }
+
+export const serviceIsOpen = (service: Service) => {
+    for (let shop of service.shops) {
+        if (shopIsOpen(shop)) {
+            return true;
+        }
+    }
+    return false;
+};

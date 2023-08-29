@@ -1,14 +1,16 @@
 import Translatable from "./Translatable";
+import ServiceArea from "./ServiceArea";
 
 export default class Shop {
     id: number;
     name: string;
     description: Translatable;
     photo: string;
+    service_area: ServiceArea;
     menu_displayed_lang: keyof Translatable;
     working_hours_today: number[];
 
-    constructor(id: number, name: string, description: Translatable, photo: string, service_area: number[][], menu_displayed_lang: keyof Translatable, working_hours_today: number[]) {
+    constructor(id: number, name: string, description: Translatable, photo: string, service_area: ServiceArea, menu_displayed_lang: keyof Translatable, working_hours_today: number[]) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -18,3 +20,9 @@ export default class Shop {
         this.working_hours_today = working_hours_today;
     }
 }
+
+export const shopIsOpen = (shop: Shop) : boolean => {
+    const time = Date.now() / 1000;
+    return time >= shop.working_hours_today[0] && time < shop.working_hours_today[0];
+};
+

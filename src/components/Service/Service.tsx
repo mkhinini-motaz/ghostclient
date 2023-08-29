@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
-import ServiceClass from "../../classes/Service";
+import ServiceClass, {serviceIsOpen} from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
 import {useLang, useSelector} from "../../store/hooks";
@@ -13,10 +13,11 @@ interface ServiceProps {
 }
 
 export default function Service(props: ServiceProps): JSX.Element {
-    const { data } = props;
     const navigation = useNavigation();
+    const { data } = props;
     const { selectedLangWriteFrom } = useLang();
     const { choices } = useSelector((state) => state.Cart);
+
     const shopIds = data.shops.map(shop => shop.id);
     let countInCart = 0;
     for (let choice of choices) {
@@ -41,10 +42,18 @@ export default function Service(props: ServiceProps): JSX.Element {
                         <TranslatableText style={styles.text} data={data.name} />
                     </View>
                 </View>
+
                 <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+
                 {countInCart === 0 ? '' :
                     <View style={{ ...styles.badge, [selectedLangWriteFrom]: -10 }}>
                         <Text style={styles.badgeText}>{countInCart}</Text>
+                    </View>
+                }
+
+                {serviceIsOpen(data) ? '' :
+                    <View style={{ ...styles.closedContainer, transform: [{ rotate: (selectedLangWriteFrom === 'left' ? '' : '-') + '45deg'}]}}>
+                        <TranslatableText data={'common:closed'} style={styles.closedText} />
                     </View>
                 }
             </View>
@@ -102,5 +111,23 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: '600',
-    }
+    },
+    closedContainer: {
+        position: 'absolute',
+        zIndex: 2,
+        backgroundColor: '#33333399',
+        padding: 5,
+        marginTop: 60,
+        marginLeft: -25,
+        width: '129%',
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    closedText: {
+        color: 'white',
+        fontSize: 27,
+        fontWeight: '600',
+    },
 });
