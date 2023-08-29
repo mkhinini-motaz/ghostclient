@@ -9,6 +9,7 @@
     "common:login": "S'authentifier",
     "common:logout": "Se déconnecter",
     "common:logout:message": "Vous êtes déconnecté",
+    "common:logout:confirm": "Confirmez la déconnexion",
     "common:forgot-password?": "Mot de passe oublié ?",
     "common:profile": "Profil",
     "common:language": "Langue",
@@ -32,6 +33,7 @@
     "common:location:choose": "Choisir position",
     "common:location:change": "Modifier position",
     "common:no_internet": "Pas de connexion internet",
+    "common:closed": "Fermé",
 
     "shop:closed": "Ce boutique est fermé",
 
@@ -95,6 +97,9 @@
     "cart:empty:action": "Vider panier",
     "cart:empty:action:content": "Voulez-vous vraiment vider le panier ?",
     "cart:order:submit:content": "Vous ne serez plus capable de modifier votre commande après la validation",
+    "cart:order:replay:submit": "Valider commande",
+    "cart:order:replay:submit:content": "Les produits de cette commande seront ajoutés à votre panier",
+
     "cart:empty:confirm:title": "Commencer une nouvelle commande",
     "cart:empty:confirm:content": "Votre commande chez ${shopName} sera perdu",
     "cart:address:missing:content": "Vous devez choisir une adresse de livraison",
@@ -126,8 +131,8 @@
 
     "lang:fr": "Français",
     "lang:en": "Anglais",
-    "lang:tnar": "Tunisien en arabe",
-    "lang:tnfr": "Tunisien en français",
+    "lang:tnar": "Derja en arabe",
+    "lang:tnfr": "Derja en français",
     "lang:ar": "Arabe",
 
     "validation:required": "Ce champ est obligatoire",

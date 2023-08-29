@@ -9,6 +9,7 @@
     "common:login": "Login",
     "common:logout": "Logout",
     "common:logout:message": "You are logged out",
+    "common:logout:confirm": "Confirm logout",
     "common:forgot-password?": "Forgot password ?",
     "common:profile": "Profile",
     "common:language": "Language",
@@ -32,6 +33,7 @@
     "common:location:choose": "Choose location",
     "common:location:change": "Change location",
     "common:no_internet": "No internet connexion",
+    "common:closed": "Closed",
 
     "shop:closed": "This shop is closed",
 
@@ -95,6 +97,8 @@
     "cart:empty:action": "Empty cart",
     "cart:empty:action:content": "Are you sure you want to empty the shopping cart ?",
     "cart:order:submit:content": "You will no longer be able to modify your order after validation",
+    "cart:order:replay:submit": "Submit order",
+    "cart:order:replay:submit:content": "The products in this order will be added to your cart",
     "cart:empty:confirm:title": "Start a new order",
     "cart:empty:confirm:content": "Your order with ${shopName} will be cleared",
     "cart:address:missing:content": "You must choose a delivery location",
@@ -126,8 +130,8 @@
 
     "lang:fr": "French",
     "lang:en": "English",
-    "lang:tnar": "Tunisian in arabic",
-    "lang:tnfr": "Tunisian in french",
+    "lang:tnar": "Derja in arabic",
+    "lang:tnfr": "Derja in french",
     "lang:ar": "Arabic",
 
     "validation:required": "This field is mandatory",

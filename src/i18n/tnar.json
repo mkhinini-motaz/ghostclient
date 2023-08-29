@@ -9,6 +9,7 @@
     "common:login": "تسجيل الدخول",
     "common:logout": "تسجيل خروج",
     "common:logout:message": "لقد قمت بتسجيل الخروج",
+    "common:logout:confirm": "تأكيد  الخروج",
     "common:forgot-password?": "نسيت كلمة المرور ؟",
     "common:profile": "الحساب الشخصي",
     "common:language": "لغة",
@@ -32,6 +33,7 @@
     "common:location:choose": "إختار البلاصة",
     "common:location:change": "تبديل البلاصة",
     "common:no_internet": "مافماش كونيكسيون إنترنت",
+    "common:closed": "مسكر",
 
     "shop:closed": "بوتيك مسكر",
 
@@ -95,6 +97,8 @@
     "cart:empty:action": "إفراغ عربة التسوق",
     "cart:empty:action:content": "متأكد تحب تفرغ عربة التسوق ؟",
     "cart:order:submit:content": "ما تنجمش تبدل في الكماندا بعد التاكيد",
+    "cart:order:replay:submit": "تأكيد الكماندا",
+    "cart:order:replay:submit:content": "المنتوجات في الكماندا هاذي بش يتحطو في عربة التسوق",
     "cart:empty:confirm:title": "أبدا كماندا جديدة",
     "cart:empty:confirm:content": "الكماندا من عند ${shopName} باش تتنحى",
     "cart:address:missing:content": "لازم تختار بلاصت لفريزون",
@@ -126,8 +130,8 @@
 
     "lang:fr": "فرنسية",
     "lang:en": "إنجليزية",
-    "lang:tnar": "تونسي بالعربي",
-    "lang:tnfr": "تونسي بالفرنسي",
+    "lang:tnar": "دارجة بالعربي",
+    "lang:tnfr": "دارجة بالفرنسي",
     "lang:ar": "عربية",
     "TND": "د ت",
 
