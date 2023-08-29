@@ -50,13 +50,17 @@ export const indexOptionsByGroup = (options: Option[]) => {
  * @returns {string}
  */
 export const optionOutput = (option: Option, selectedLang: keyof Translatable, selectedLangWriteFrom: 'left'|'right') => {
-    let optionOutput = translate(option.name, selectedLang);
-    if (option.quantity) {
-        optionOutput += ' ' + '+'.repeat(option.quantity);
+    let optionOutput = '';
+    if (option.quantity && option.quantity !== DEFAULT_QUANTITY) {
+        optionOutput += translate('option:quantity:' + option.quantity, selectedLang) + ' ';
     }
+
+    optionOutput += translate(option.name, selectedLang);
+
     if (option.price) {
         optionOutput += ' (+' + formatMoneyDisplay(option.price, selectedLang, selectedLangWriteFrom) + ')';
     }
+
     return optionOutput;
 };
 
