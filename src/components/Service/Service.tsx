@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 
@@ -7,6 +7,7 @@ import ServiceClass, {serviceIsOpen} from "../../classes/Service";
 import {API_URL, COLOR_PRIMARY} from "../../constants";
 import TranslatableText from "../Common/TranslatableText";
 import {useLang, useSelector} from "../../store/hooks";
+import Image from "../Common/Image";
 
 interface ServiceProps {
     data: ServiceClass,
@@ -43,7 +44,7 @@ export default function Service(props: ServiceProps): JSX.Element {
                     </View>
                 </View>
 
-                <Image source={{ uri: API_URL + data.photo }} style={styles.image} />
+                <Image source={{ uri: API_URL + data.photo }} style={styles.image} imageStyle={styles.image} />
 
                 {countInCart === 0 ? '' :
                     <View style={{ ...styles.badge, [selectedLangWriteFrom]: -10 }}>
@@ -52,8 +53,10 @@ export default function Service(props: ServiceProps): JSX.Element {
                 }
 
                 {serviceIsOpen(data) ? '' :
-                    <View style={{ ...styles.closedContainer, transform: [{ rotate: (selectedLangWriteFrom === 'left' ? '' : '-') + '45deg'}]}}>
-                        <TranslatableText data={'common:closed'} style={styles.closedText} />
+                    <View style={styles.closedContainer}>
+                        <View style={styles.closedSubContainer}>
+                            <TranslatableText data={'common:closed'} style={styles.closedText} />
+                        </View>
                     </View>
                 }
             </View>
@@ -115,15 +118,17 @@ const styles = StyleSheet.create({
     closedContainer: {
         position: 'absolute',
         zIndex: 2,
-        backgroundColor: '#33333399',
-        padding: 5,
-        marginTop: 60,
-        marginLeft: -25,
-        width: '129%',
-        height: 50,
-        borderRadius: 25,
+        height: '100%',
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    closedSubContainer: {
+        height: 50,
+        backgroundColor: '#33333399',
+        borderRadius: 8,
+        paddingVertical: 5,
+        paddingHorizontal: 30,
     },
     closedText: {
         color: 'white',
