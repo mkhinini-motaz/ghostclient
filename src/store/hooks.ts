@@ -1,10 +1,14 @@
-import { useContext } from "react";
+import {useCallback, useContext} from "react";
 import StoreContext from "./context/StoreContext";
 import I18nContext from "./context/I18nContext";
 import {availableLangs} from "../i18n";
 import AuthContext from "./context/AuthContext";
 import Client from "../classes/Client";
 import {setClientToken} from "../support/auth";
+import {product} from "../api/shop";
+import index from "../api/service";
+import {alertNetworkError} from "../support/alert";
+import {useQuery} from "react-query";
 
 export function useStoreContext() {
     return useContext(StoreContext);
@@ -64,4 +68,40 @@ export function useAuthenticateClient() {
         setClient(client);
         return setClientToken(client.access_token);
     }
-};
+}
+
+export function useCartData() {
+    const { selectedLang } = useLang();
+    const { choices, promoCode } = useSelector((state) => state.Cart);
+    const productIds = choices.map(choice => choice.product_id);
+    const productCallback = useCallback(product(productIds), [productIds.join(',')]);
+    const { isLoading: servicesAreLoading, error: servicesError, data: services } = useQuery('service.index', index, {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
+    const { isLoading: productsAreLoading, error: productsError, data: products = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, {
+        enabled: choices.length > 0,
+        onError: (error) => {
+            if (error.code === 'ERR_NETWORK') {
+                alertNetworkError(selectedLang);
+                return;
+            }
+        },
+    });
+
+    // TODO: concider removing multishop support from this part of the code
+    const shops = services.map(service => service.shops).flat();
+    const choicesByShop = {};
+    for (let choice of choices) {
+        choicesByShop[choice.shop_id] = choicesByShop[choice.shop_id] || [];
+        choicesByShop[choice.shop_id].push(choice);
+    }
+
+    return { choices, promoCode, productsAreLoading, productsError, products, shops, servicesAreLoading, servicesError, choicesByShop };
+}

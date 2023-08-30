@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {StyleSheet, View, Text, SafeAreaView,} from 'react-native';
 import { product } from "../api/shop";
 import { useQuery } from "react-query";
-import {useLang, useSelector} from "../store/hooks";
+import {useCartData, useLang, useSelector} from "../store/hooks";
 import EmptyCart from "../components/Cart/EmptyCart";
 import Choices from "../components/Cart/Choices";
 import PromoCode from "../components/Cart/PromoCode";
@@ -24,51 +24,22 @@ interface CartScreenProps {
 }
 
 export default function CartScreen({ route, navigation }: CartScreenProps): JSX.Element {
-    const { selectedLang } = useLang();
-    const { choices, promoCode } = useSelector((state) => state.Cart);
-    const productIds = choices.map(choice => choice.product_id);
-    const productCallback = useCallback(product(productIds), [productIds.join(',')]);
-    const { isLoading: servicesAreLoading, error: servicesError, data: services } = useQuery('service.index', index, {
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        onError: (error) => {
-            if (error.code === 'ERR_NETWORK') {
-                alertNetworkError(selectedLang);
-                return;
-            }
-        },
-    });
-    const { isLoading, error, data = [] } = useQuery(['shop.product', productIds.join(',')], productCallback, {
-        enabled: choices.length > 0,
-        onError: (error) => {
-            if (error.code === 'ERR_NETWORK') {
-                alertNetworkError(selectedLang);
-                return;
-            }
-        },
-    });
-
+    const { choices, promoCode, productsAreLoading, productsError, products, shops, servicesAreLoading, servicesError, choicesByShop } = useCartData();
     if (choices.length === 0) {
         return <EmptyCart />;
     }
 
-    if (isLoading || servicesAreLoading) {
+    if (productsAreLoading || servicesAreLoading) {
         return <FullScreenLoader />;
     }
 
-    if (error || servicesError) {
+    if (productsError || servicesError) {
+        // tODO: implement
         return (
-            <Text>{JSON.stringify(error)}</Text>
+            <Text>{JSON.stringify(productsError)}</Text>
         );
     }
 
-    // TODO: concider removing multishop support from this part of the code
-    const shops = services.map(service => service.shops).flat();
-    const choicesByShop = {};
-    for (let choice of choices) {
-        choicesByShop[choice.shop_id] = choicesByShop[choice.shop_id] || [];
-        choicesByShop[choice.shop_id].push(choice);
-    }
     const choicesOutput = [];
     for (let shop of shops) {
         if (! choicesByShop[shop.id]) {
@@ -80,7 +51,7 @@ export default function CartScreen({ route, navigation }: CartScreenProps): JSX.
             </View>
             <Choices
                 data={choicesByShop[shop.id]}
-                products={data}
+                products={products}
             />
         </View>);
     }
