@@ -80,3 +80,43 @@ export const alertUpdatePasswordSuccess = (selectedLang: keyof Translatable) => 
         [{text: translate('common:ok', selectedLang),}],
     );
 };
+
+export const alertConfirmConfirmOrderReplay = (selectedLang: keyof Translatable, shopName: string, onConfirm: () => {}) => {
+    Alert.alert(
+        translate('cart:order:replay:submit', selectedLang),
+        translate('cart:order:replay:submit:content', selectedLang, { shopName }),
+        [
+            {
+                text: translate('common:cancel', selectedLang),
+                style: 'destructive',
+
+            },
+            {
+                text: translate('common:confirm', selectedLang),
+                onPress: onConfirm,
+            },
+        ],
+        { cancelable: true, },
+    );
+};
+
+
+export const alertConfirmLogout = (selectedLang: keyof Translatable, onConfirm: () => {}) => {
+    Alert.alert(
+        translate('common:logout:confirm', selectedLang),
+        '',
+        [
+            {
+                text: translate('common:cancel', selectedLang),
+                style: 'cancel',
+
+            },
+            {
+                text: translate('common:confirm', selectedLang),
+                style: 'destructive',
+                onPress: onConfirm,
+            },
+        ],
+        { cancelable: true, },
+    );
+};
