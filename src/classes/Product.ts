@@ -31,6 +31,8 @@ export const TYPE_FIXED = 1;
 export const TYPE_WITH_OPTIONS = 2;
 export const TYPE_WEIGHTABLE = 3;
 
+export const WEIGHTABLE_DEFAULT_STEP = 200;
+
 export const productPrice = (product: Product, count: number, options: Option[]) : number => {
     let price = product.price;
     if (product.type === TYPE_WITH_OPTIONS) {

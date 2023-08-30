@@ -6,6 +6,7 @@ import LangAwareView from "./LangAwareView";
 import {translate} from "../../i18n";
 import {useLang, useSelector} from "../../store/hooks";
 import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
+import {WEIGHTABLE_DEFAULT_STEP} from "../../classes/Product";
 
 interface QuantityButtonProps {
     data: number,
@@ -17,7 +18,7 @@ interface QuantityButtonProps {
 
 export default function QuantityButton({ data, onPress, hideCount = false, forWeight = false, style }: QuantityButtonProps): JSX.Element {
     const { selectedLang } = useLang();
-    const step = forWeight ? 200 : 1;
+    const step = forWeight ? WEIGHTABLE_DEFAULT_STEP : 1;
 
     const icons = [];
     if (data > 0) {

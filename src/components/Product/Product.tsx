@@ -6,7 +6,12 @@ import FastImage from 'react-native-fast-image'
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import TranslatableText from "../Common/TranslatableText";
-import ProductClass, {TYPE_FIXED, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../../classes/Product";
+import ProductClass, {
+    TYPE_FIXED,
+    TYPE_WEIGHTABLE,
+    TYPE_WITH_OPTIONS,
+    WEIGHTABLE_DEFAULT_STEP
+} from "../../classes/Product";
 import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
@@ -77,7 +82,7 @@ export default function Product({ data }: ProductProps): JSX.Element {
     });
 
     const onPress = () => {
-        const addedValue = data.type === TYPE_WEIGHTABLE ? 200 : 1;
+        const addedValue = data.type === TYPE_WEIGHTABLE ? WEIGHTABLE_DEFAULT_STEP : 1;
         quantityButtonOnClick(productCount + addedValue, addedValue);
     };
 

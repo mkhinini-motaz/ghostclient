@@ -1,7 +1,7 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {Alert, Button, SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
 import OptionGroup from "../../classes/OptionGroup";
-import Product, {productPrice, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS} from "../../classes/Product";
+import Product, {productPrice} from "../../classes/Product";
 import OptionClass, {DEFAULT_QUANTITY, indexOptionsByGroup} from "../../classes/Option";
 import TranslatableText from "../Common/TranslatableText";
 import {COLOR_PRIMARY} from "../../constants";
@@ -12,11 +12,7 @@ import LangAwareView from "../Common/LangAwareView";
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import QuantityButton from "../Common/QuantityButton";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
-import {
-    createChoiceTypeFixed,
-    createChoiceTypeWithOptions,
-    deleteChoiceTypeWithOptions
-} from "../../store/actions/cart";
+import {createChoiceTypeWithOptions,} from "../../store/actions/cart";
 
 interface ProductWithOptionsProps {
     data: Product,

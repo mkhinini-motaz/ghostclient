@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR_PRIMARY,
     },
     borderColorPrimary: {
+        zIndex: 10,
         borderColor: COLOR_PRIMARY,
     }
 });

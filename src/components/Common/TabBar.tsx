@@ -4,6 +4,7 @@ import posed from "react-native-pose";
 import { COLOR_PRIMARY, } from "../../constants";
 import { useSelector } from "../../store/hooks";
 import TabBarItem from "./TabBarItem";
+import {choicesCount} from "../../classes/Choice";
 
 const WINDOW_WIDTH = Dimensions.get("window").width;
 const TAB_WIDTH = WINDOW_WIDTH / 3;
@@ -35,7 +36,7 @@ const TabBar = props => {
                                        isRouteActive={isRouteActive}
                                        tintColor={isRouteActive ? activeTintColor : inactiveTintColor}
                                        navigation={navigation}
-                                       badgeCount={choices.length === 0 || route.name !== 'CartNavigator' ? ''  : choices.length}
+                                       badgeCount={choices.length === 0 || route.name !== 'CartNavigator' ? '' : choicesCount(choices)}
                     />;
                 })}
             </View>
