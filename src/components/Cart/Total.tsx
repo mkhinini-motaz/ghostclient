@@ -10,14 +10,14 @@ import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../constants";
 import {useSelector} from "../../store/hooks";
 
 interface TotalProps {
-    data: Choice[],
+    choices: Choice[],
     products: Product[],
     promoCode?: PromoCode,
 }
 
-export default function Total({ data, products, promoCode }: TotalProps): JSX.Element {
+export default function Total({ choices, products, promoCode }: TotalProps): JSX.Element {
     let totalProducts = 0;
-    for (let choice of data) {
+    for (let choice of choices) {
         const product = products.filter(product => product.id === choice.product_id)
             .shift();
         if (! product) {

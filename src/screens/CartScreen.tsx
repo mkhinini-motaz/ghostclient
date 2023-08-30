@@ -93,7 +93,7 @@ export default function CartScreen({ route, navigation }: CartScreenProps): JSX.
                     <PromoCode />
                     <Map />
                     <AdditionalNote />
-                    <Total data={choices} products={data} promoCode={promoCode} />
+                    <Total choices={choices} products={products} promoCode={promoCode} />
                     <Submit />
                 </View>
             </KeyboardAwareScrollView>
