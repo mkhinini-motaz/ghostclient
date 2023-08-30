@@ -46,8 +46,8 @@ export default function MapScreen({ route }: MapScreenProps): JSX.Element {
     const [region, setRegion] = useState({
         latitude: address.lat || 35.734103,
         longitude: address.lng || 10.583407,
-        latitudeDelta: 0.03922,
-        longitudeDelta: 0.03421,
+        latitudeDelta: 0.00922,
+        longitudeDelta: 0.00421,
     });
 
     return (
