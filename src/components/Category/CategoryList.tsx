@@ -4,6 +4,8 @@ import CategoryClass from "../../classes/Category";
 import Category from "./Category";
 import CategoryHorizontal from "./CategoryHorizontal";
 import { useLang, } from "../../store/hooks";
+import {CART_DISPLAY_HEIGHT} from "../../constants";
+import CartDisplay from "../Cart/CartDisplay";
 
 interface CategoryListProps {
     data: CategoryClass[],
@@ -30,6 +32,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
 
     return (
         <View style={{position: 'relative'}}>
+            <CartDisplay />
             <FlatList
                 data={data}
                 renderItem={renderHorizontalItem}
@@ -46,7 +49,7 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
                 keyExtractor={verticalKeyExtractor}
                 getItemLayout={getVerticalItemLayout}
                 ref={verticalFlatListRef}
-                contentContainerStyle={{ paddingBottom: 15, paddingTop: 50 }}
+                contentContainerStyle={{ paddingBottom: CART_DISPLAY_HEIGHT + 15, paddingTop: 50 }}
             />
         </View>
     );

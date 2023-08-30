@@ -7,7 +7,7 @@ import ShopScreen from "../screens/ShopScreen";
 import ProductWithOptionsScreen from "../screens/ProductWithOptionsScreen";
 import {COLOR_SECONDARY} from "../constants";
 
-export default function HomeNavigator({ navigation }): JSX.Element {
+export default function HomeNavigator({ }): JSX.Element {
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator screenOptions={{

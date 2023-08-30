@@ -13,3 +13,5 @@ export const COLOR_SECONDARY = "#FF2400";
 export const LOCAL = "tn-TN";
 export const LOCAL_CURRENCY = "TND";
 export const PHONE_REGEX = /^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/;
+
+export const CART_DISPLAY_HEIGHT = 85;
