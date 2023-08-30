@@ -5,16 +5,18 @@ import ChoiceClass from "../../classes/Choice";
 import TranslatableText from "../Common/TranslatableText";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import {productPrice, TYPE_WEIGHTABLE} from "../../classes/Product";
-import Option from "./Option";
 import {translate} from "../../i18n";
 import {useLang} from "../../store/hooks";
+import Image from "../Common/Image";
+import {API_URL} from "../../constants";
+import {optionOutput} from "../../classes/Option";
 
 interface ChoiceProps {
     data: ChoiceClass
 }
 
 function Choice({ data }: ChoiceProps): JSX.Element {
-    const { selectedLang } = useLang();
+    const { selectedLang, selectedLangWriteFrom } = useLang();
     const totalPrice = productPrice(data.product, data.product_count, data.options);
     const quantity = data.product.type !== TYPE_WEIGHTABLE ? data.product_count :
         (data.product_count > 999 ?
@@ -29,35 +31,59 @@ function Choice({ data }: ChoiceProps): JSX.Element {
         ).join(' ');
 
     return (
-        <View style={styles.container}>
-            <LangAwareView style={styles.subContainer}>
+        <LangAwareView style={styles.container}>
+            <View style={styles.imageContainer}>
+                <Image
+                    source={{ uri: API_URL + data.product.photo }}
+                    style={styles.image}
+                    imageStyle={styles.image}
+                />
+            </View>
+
+            <View style={styles.subContainer}>
                 <LangAwareView style={styles.nameContainer} >
+                    <TranslatableText data={data.product.category.name} style={styles.text} />
+                    <Text style={styles.text}> - </Text>
+                    <TranslatableText data={data.product.name} style={styles.text} />
+                </LangAwareView>
+
+                <LangAwareView>
                     <Text style={styles.text}>{quantity}</Text>
-                    <Text style={styles.text}> X </Text>
-                    <View>
-                        <TranslatableText data={data.product.category.name} style={styles.text} />
-                        <TranslatableText data={data.product.name} style={styles.text} />
-                    </View>
+                    <Text style={styles.text}> - </Text>
+                    <MoneyFormatter data={totalPrice} style={styles.text} />
+                </LangAwareView>
+                <LangAwareView>
+                    <MoneyFormatter data={data.product.price} style={styles.money} />
+                    {data.product.type !== TYPE_WEIGHTABLE ? '' : <>
+                        <Text style={styles.money}> / </Text>
+                        <TranslatableText data={'common:kg'} style={styles.money} />
+                    </>}
                 </LangAwareView>
 
-                <MoneyFormatter data={totalPrice} style={styles.text} />
-            </LangAwareView>
-
-            {! data.options || data.options.length === 0 ? '' :
-                <LangAwareView style={styles.optionsContainer}>
-                    {data.options.map(
-                        option => <Option data={option} key={'order_product_option_' + option.id} />
-                    )}
-                </LangAwareView>
-            }
-        </View>
+                {! data.options || data.options.length === 0 ? '' :
+                    <LangAwareView style={{ ...styles.optionsContainer, alignSelf: 'flex-' + selectedLangWriteFrom === 'right' ? 'end' : 'end'}}>
+                        <Text style={{ ...styles.text, textAlign: selectedLangWriteFrom }}>
+                            {data.options.map(option => optionOutput(option, selectedLang, selectedLangWriteFrom)
+                            ).join(', ')}
+                        </Text>
+                    </LangAwareView>
+                }
+            </View>
+        </LangAwareView>
     );
 }
 
 const styles = StyleSheet.create({
+    image: {
+        minHeight: 80,
+        flex: 1,
+        borderRadius: 20,
+    },
+    imageContainer: {
+        padding: 5,
+        width: '30%',
+    },
     subContainer: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
     },
     nameContainer: {
         alignItems: 'center',
@@ -65,10 +91,19 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
+        fontWeight: '500',
+    },
+    money: {
+        fontSize: 16,
+        fontWeight: '500',
     },
     optionsContainer: {
+        width: '87%',
         flexWrap: 'wrap',
-        gap: 10,
+    },
+    optionsText: {
+        fontSize: 18,
+        fontWeight: '500',
     }
 });
 

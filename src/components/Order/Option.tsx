@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {translate} from "../../i18n";
-import OptionClass from "../../classes/Option";
+import OptionClass, {DEFAULT_QUANTITY} from "../../classes/Option";
 import {useLang} from "../../store/hooks";
 import {formatMoneyDisplay} from "../../support/utils";
 
@@ -12,10 +12,12 @@ interface OptionProps {
 function Option({ data }: OptionProps): JSX.Element {
     const { selectedLang, selectedLangWriteFrom } = useLang();
 
-    let optionOutput = translate(data.name, selectedLang);
-    if (data.quantity) {
-        optionOutput += ' ' + '+'.repeat(data.quantity);
+    let optionOutput = '';
+    if (data.quantity && data.quantity !== DEFAULT_QUANTITY) {
+        optionOutput += translate('option:quantity:' + data.quantity, selectedLang) + ' ';
     }
+
+    optionOutput += translate(data.name, selectedLang);
     if (data.price) {
         optionOutput += ' (+' + formatMoneyDisplay(data.price, selectedLang, selectedLangWriteFrom) + ')';
     }
@@ -30,6 +32,7 @@ function Option({ data }: OptionProps): JSX.Element {
 const styles = StyleSheet.create({
     text: {
         fontSize: 17,
+        flexWrap: 'wrap',
     },
 });
 
