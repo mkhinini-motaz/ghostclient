@@ -102,7 +102,7 @@ export default (state = initialCartReducerState, action: Action) => {
     }
 
     if (action.type === EMPTY_CART) {
-        return { ...initialCartReducerState };
+        return { ...initialCartReducerState, serviceArea: state.serviceArea };
     }
 
     if (action.type === CHANGE_SHOP) {
