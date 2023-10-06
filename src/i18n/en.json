@@ -156,8 +156,9 @@
     "loyalty_action:type:1": "Registration",
     "loyalty_action:type:2": "Loyalty bonus",
     "loyalty_action:type:3": "Friend invitation",
-    "loyalty_action:type:10": "Promo code purchase",
-    "loyalty_action:type:11": "Order reward",
+    "loyalty_action:type:4": "Order reward",
+    "loyalty_action:type:5": "Promo code purchase",
+    "loyalty_action:type6": "Birthday gift",
 
     "promo_code:expires_at": "Expires at",
     "promo_code:create": "Promo code purchase",

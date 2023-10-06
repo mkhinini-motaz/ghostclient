@@ -156,8 +156,9 @@
     "loyalty_action:type:1": "Inscription",
     "loyalty_action:type:2": "Bonus fidélité",
     "loyalty_action:type:3": "Invitation ami",
-    "loyalty_action:type:10": "Charyen code promo",
-    "loyalty_action:type:11": "Poinet kmanda",
+    "loyalty_action:type:4": "Poinet kmanda",
+    "loyalty_action:type:5": "Charyen code promo",
+    "loyalty_action:type:6": "Cadeau d'anniversaire",
 
     "promo_code:expires_at": "Yexpiri fi",
     "promo_code:create": "Charyen code promo",

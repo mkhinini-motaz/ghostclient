@@ -157,8 +157,9 @@
     "loyalty_action:type:1": "تسجيل",
     "loyalty_action:type:2": "مكافأة الولاء",
     "loyalty_action:type:3": "دعوة صديق",
-    "loyalty_action:type:10": "شريان كود برومو",
-    "loyalty_action:type:11": "مكافأة الكماندا",
+    "loyalty_action:type:4": "مكافأة الكماندا",
+    "loyalty_action:type:5": "شريان كود برومو",
+    "loyalty_action:type6": "هدية عيد ميلاد",
 
     "promo_code:expires_at": "يكسبيري في",
     "promo_code:create": "شريان كود برومو",

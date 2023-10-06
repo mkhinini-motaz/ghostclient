@@ -157,8 +157,9 @@
     "loyalty_action:type:1": "تسجيل",
     "loyalty_action:type:2": "مكافأة الولاء",
     "loyalty_action:type:3": "دعوة صديق",
-    "loyalty_action:type:10": "شراء برومو كود",
-    "loyalty_action:type:11": "مكافأة الطلب",
+    "loyalty_action:type:4": "مكافأة الطلب",
+    "loyalty_action:type:5": "شراء برومو كود",
+    "loyalty_action:type6": "هدية عيد ميلاد",
 
     "promo_code:expires_at": "تنتهي صلاحيته في",
     "promo_code:create": "شراء برومو كود",
