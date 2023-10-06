@@ -12,6 +12,8 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {API_CLIENT_URL, COLOR_PRIMARY} from "../constants";
 import SearchBar from "../components/Common/SearchBar";
 import axios from "axios";
+import CategoryCardList from "../components/Category/CategoryCardList";
+import {translate} from "../i18n";
 
 interface ShopScreenProps {
     route: any,
@@ -22,7 +24,19 @@ export default function ShopScreen({ route, navigation }: ShopScreenProps): JSX.
     const dispatch = useDispatch();
     const { selectedLang } = useLang();
     const [search, setSearch] = useState('');
-    const shopId = route.params.shopId;
+    const { shopId, shopName } = route.params;
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: translate(shopName, selectedLang),
+            headerTitleStyle: {
+                color: COLOR_PRIMARY,
+                fontSize: 25,
+                fontWeight: '600'
+            },
+        });
+    }, [selectedLang]);
+
     const { isLoading, error, data } = useQuery(
         ['shop.category', shopId, search],
         () => axios.get(API_CLIENT_URL + 'shop/' + shopId + '/category?search=' + search)
@@ -77,9 +91,11 @@ export default function ShopScreen({ route, navigation }: ShopScreenProps): JSX.
         );
     }
 
+    // TODO: no results from search
+
     return (
         <SafeAreaView style={styles.container}>
-            <CategoryList data={data || []} />
+            <CategoryCardList data={data || []} />
         </SafeAreaView>
     );
 };

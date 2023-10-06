@@ -17,7 +17,7 @@ export default function ShopCard(props: ShopProps): JSX.Element {
     const navigation = useNavigation();
 
     return (
-        <RNBounceable onPress={() => navigation.navigate('Shop', { shopId: data.id })}>
+        <RNBounceable onPress={() => navigation.navigate('Shop', { shopId: data.id, shopName: data.description })}>
             <View style={styles.container}>
                 <View style={styles.textContainer}>
                     <View style={styles.textBackground}>
