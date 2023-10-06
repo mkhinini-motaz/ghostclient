@@ -78,18 +78,19 @@ export default function Choice({ data, product }: ChoiceProps): JSX.Element {
             </View>
             <View style={styles.textContainer}>
                 <Text style={{ ...styles.text, textAlign: selectedLangWriteFrom }} >{productName}</Text>
-                <LangAwareView>
-                    <Text style={styles.quantity}>{quantity}</Text>
-                    <Text style={styles.quantity}> - </Text>
-                    <MoneyFormatter data={productPrice(product, data.product_count, data.options)} style={styles.money} />
+
+                <LangAwareView >
+                    <MoneyFormatter data={product.price} style={styles.money} />
+                    {product.type !== TYPE_WEIGHTABLE ? '' : <>
+                        <Text style={styles.money}> / </Text>
+                        <TranslatableText data={'common:kg'} style={styles.money} />
+                    </>}
                 </LangAwareView>
                 <LangAwareView style={styles.quantityContainer}>
-                    <LangAwareView >
-                        <MoneyFormatter data={product.price} style={styles.money} />
-                        {product.type !== TYPE_WEIGHTABLE ? '' : <>
-                            <Text style={styles.money}> / </Text>
-                            <TranslatableText data={'common:kg'} style={styles.money} />
-                        </>}
+                    <LangAwareView>
+                        <Text style={styles.quantity}>{quantity}</Text>
+                        <Text style={styles.quantity}> - </Text>
+                        <MoneyFormatter data={productPrice(product, data.product_count, data.options)} style={styles.money} />
                     </LangAwareView>
                     <QuantityButton key={"quantity-button-" + data.id}
                                     data={data.product_count}

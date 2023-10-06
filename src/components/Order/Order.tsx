@@ -34,7 +34,7 @@ function Order({ data }: OrderProps): JSX.Element {
     const dispatch = useDispatch();
 
     const onShopNamePress = () => navigation.navigate('HomeNavigator', { screen: 'Shop', params: { shopId: data.shop.id } });
-    const onMapIconPress = () => navigation.navigate('LocationShowMapScreen', { location: {
+    const onMapIconPress = () => navigation.navigate('LocationShowMap', { location: {
         latitude: data.delivery_latitude, longitude: data.delivery_longitude
         } });
 

@@ -56,7 +56,9 @@ function CartDisplay({}: CartDisplayProps): JSX.Element {
 
                 <RNBounceable onPress={navigateToCart}>
                     <View style={styles.moneyContainer}>
-                        <MoneyFormatter data={totalToPay} style={styles.money} />
+                        {0 >= totalProducts ? '' :
+                            <MoneyFormatter data={totalToPay} style={styles.money} />
+                        }
                     </View>
                 </RNBounceable>
             </LangAwareView>
