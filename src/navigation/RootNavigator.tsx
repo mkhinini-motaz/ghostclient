@@ -1,9 +1,9 @@
 import React from 'react';
-import AuthenticatedNavigator from "./AuthenticatedNavigator";
 import {useClient} from "../store/hooks";
 import LoginNavigator from "./LoginNavigator";
 import { NavigationContainer } from '@react-navigation/native';
 import {StatusBar, View} from "react-native";
+import HomeNavigator from "./HomeNavigator";
 
 export default function RootNavigator(): JSX.Element {
     const client = useClient();
@@ -13,7 +13,7 @@ export default function RootNavigator(): JSX.Element {
             <StatusBar barStyle={'dark-content'} backgroundColor="white" />
             <NavigationContainer >{
                 !!client.id ?
-                    <AuthenticatedNavigator/> :
+                    <HomeNavigator/> :
                     <LoginNavigator/>
             }</NavigationContainer>
         </View>
