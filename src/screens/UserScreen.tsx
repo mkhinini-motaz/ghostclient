@@ -34,7 +34,6 @@ export default function UserScreen({ navigation }): JSX.Element {
         navigation.navigate('OrdersScreen');
     }, []);
 
-
     const onLogoutPress = useCallback(() => {
         alertConfirmLogout(
             selectedLang,

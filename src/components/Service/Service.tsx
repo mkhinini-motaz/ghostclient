@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
@@ -18,6 +18,25 @@ export default function Service(props: ServiceProps): JSX.Element {
     const { data } = props;
     const { selectedLangWriteFrom } = useLang();
     const { choices } = useSelector((state) => state.Cart);
+    const [serviceIsOpenState, setServiceIsOpenState] = useState(() => serviceIsOpen(data));
+
+    useEffect(() => {
+        let intervalId;
+        const date = new Date();
+        const timeoutId = setTimeout(() => {
+            intervalId = setInterval(() => {
+                const newServiceIsOpenState = serviceIsOpen(data);
+                if (newServiceIsOpenState !== serviceIsOpenState) {
+                    setServiceIsOpenState(newServiceIsOpenState)
+                }
+            }, 1000 * 60);
+        }, (60 - date.getSeconds()) * 1000);
+
+        return () => {
+            clearTimeout(timeoutId);
+            clearInterval(intervalId);
+        };
+    },[]);
 
     const shopIds = data.shops.map(shop => shop.id);
     let countInCart = 0;
@@ -29,7 +48,7 @@ export default function Service(props: ServiceProps): JSX.Element {
 
     const navigate = () => {
         if (data.shops.length === 1) {
-            navigation.navigate('Shop', { shopId: data.shops[0].id });
+            navigation.navigate('Shop', { shopId: data.shops[0].id, shopName: data.shops[0].description });
         } else {
             navigation.navigate('ShopList', { service: data });
         }
@@ -52,7 +71,7 @@ export default function Service(props: ServiceProps): JSX.Element {
                     </View>
                 }
 
-                {serviceIsOpen(data) ? '' :
+                {serviceIsOpenState ? '' :
                     <View style={styles.closedContainer}>
                         <View style={styles.closedSubContainer}>
                             <TranslatableText data={'common:closed'} style={styles.closedText} />

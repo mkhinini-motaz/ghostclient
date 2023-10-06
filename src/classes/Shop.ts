@@ -23,6 +23,6 @@ export default class Shop {
 
 export const shopIsOpen = (shop: Shop) : boolean => {
     const time = Date.now() / 1000;
-    return time >= shop.working_hours_today[0] && time < shop.working_hours_today[0];
+    return time >= shop.working_hours_today[0] && time < shop.working_hours_today[1];
 };
 

@@ -1,13 +1,12 @@
 import React, {useEffect, useMemo, useReducer, useState} from "react";
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import StoreContext from './context/StoreContext'
 import I18nContext from './context/I18nContext'
 import AuthContext from './context/AuthContext'
 import reducer from "./reducers";
 import {defaultLang} from "../i18n";
 import {profile} from "../api/auth";
-import {useDispatch} from "./hooks";
-import {setDeliveryFee, setServiceArea, setServiceFee} from "./actions/cart";
+import { setServiceArea, } from "./actions/cart";
 
 interface StoreProps {
     children: any,
