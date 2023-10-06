@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default memo(Category, (prevProps, nextProps) => prevProps.data.id !== nextProps.data.id);
+export default Category;

@@ -17,10 +17,10 @@ export default function CategoryList({ data }: CategoryListProps): JSX.Element {
     const renderVerticalItem = useCallback(({ item }) => <Category data={item} key={'category_' + item.id} />, []);
     const verticalKeyExtractor = useCallback(category => 'category_show_' + category.id, []);
     const getVerticalItemLayout = useCallback((data, index) => {
-        const length = 67 + 130 * data[index].products.length;
+        const length = 67 + 140 * data[index].products.length;
         let offset = 0;
         for (let i = 0; i < index; i++) {
-            offset +=  67 + 140 * data[i].products.length;
+            offset +=  67 + 150 * data[i].products.length;
         }
         return { length, offset, index };
     }, []);

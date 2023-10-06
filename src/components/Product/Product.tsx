@@ -1,29 +1,18 @@
 import React, { useMemo } from 'react';
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import {StyleSheet, View, Text, Alert, ViewStyle} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RNBounceable from "@freakycoder/react-native-bounceable";
 import FastImage from 'react-native-fast-image'
 import { createImageProgress } from 'react-native-image-progress';
 import * as Progress from 'react-native-progress';
 import TranslatableText from "../Common/TranslatableText";
-import ProductClass, {
-    TYPE_FIXED,
-    TYPE_WEIGHTABLE,
-    TYPE_WITH_OPTIONS,
-    WEIGHTABLE_DEFAULT_STEP
-} from "../../classes/Product";
+import ProductClass, { TYPE_FIXED, TYPE_WEIGHTABLE, TYPE_WITH_OPTIONS, WEIGHTABLE_DEFAULT_STEP } from "../../classes/Product";
 import { API_URL, COLOR_PRIMARY } from "../../constants";
 import MoneyFormatter from "../Common/MoneyFormatter";
 import LangAwareView from "../Common/LangAwareView";
 import {useDispatch, useLang, useSelector} from "../../store/hooks";
 import QuantityButton from "../Common/QuantityButton";
-import {
-    changeShop,
-    createChoiceTypeFixed,
-    deleteChoiceTypeWithOptions,
-    emptyCart,
-    setCartShop
-} from "../../store/actions/cart";
+import { changeShop, createChoiceTypeFixed, } from "../../store/actions/cart";
 import {translate} from "../../i18n";
 import index from "../../api/service";
 import Shop from "../../classes/Shop";
@@ -33,10 +22,11 @@ import {alertNetworkError} from "../../support/alert";
 const Image = createImageProgress(FastImage);
 
 interface ProductProps {
-    data: ProductClass
+    data: ProductClass,
+    style?: ViewStyle,
 }
 
-export default function Product({ data }: ProductProps): JSX.Element {
+export default function Product({ data, style = {} }: ProductProps): JSX.Element {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const { selectedLangWriteFrom, selectedLang } = useLang();
@@ -148,13 +138,30 @@ export default function Product({ data }: ProductProps): JSX.Element {
         return { ...styles.image, ...dynamicStyle, };
     }, [selectedLangWriteFrom]);
 
-    let productName = [ translate(data.category.name, selectedLang), '-', translate(data.name, selectedLang) ];
+    const containerStyle = 0 >= productCount ? {} :
+        { shadowColor: '#ffd700', shadowOpacity: 0.6, shadowOffset: { width: 0, height: 0, }, };
 
     return (
-        <RNBounceable onPress={onPress}>
-            <LangAwareView style={styles.container}>
+        <RNBounceable style={style} onPress={onPress}>
+            <View style={{ ...styles.container, ...containerStyle, }}>
+                <View style={styles.imageContainer}>
+                    <Image source={{ uri: API_URL + data.photo }}
+                           style={styles.image}
+                           imageStyle={imageStyle}
+                           renderIndicator={() => <Progress.Circle size={100} fill={'white'} thickness={15} showsText color={COLOR_PRIMARY} borderWidth={0} />}
+                    />
+                    <View style={styles.quantityButtonContainer}>
+                        <View style={styles.quantityButtonSubContainer}>
+                            <QuantityButton key={"product-quantity-button-" + data.id}
+                                            data={productCount}
+                                            onPress={quantityButtonOnClick}
+                                            forWeight={data.type === TYPE_WEIGHTABLE}
+                            />
+                        </View>
+                    </View>
+                </View>
                 <View style={styles.textContainer}>
-                    <Text style={{ ...styles.nameText, textAlign: selectedLangWriteFrom }} >{productName.join(' ')}</Text>
+                    <TranslatableText data={data.name} style={styles.nameText} />
                     <LangAwareView>
                         <MoneyFormatter data={data.price} style={styles.money} />
                         {data.type !== TYPE_WEIGHTABLE ? '' : <>
@@ -162,19 +169,8 @@ export default function Product({ data }: ProductProps): JSX.Element {
                             <TranslatableText data={'common:kg'} style={styles.money} />
                         </>}
                     </LangAwareView>
-                    <QuantityButton key={"product-quantity-button-" + data.id}
-                                    data={productCount}
-                                    onPress={quantityButtonOnClick}
-                                    forWeight={data.type === TYPE_WEIGHTABLE}/>
                 </View>
-                <View style={styles.imageContainer}>
-                    <Image source={{ uri: API_URL + data.photo }}
-                           style={styles.image}
-                           imageStyle={imageStyle}
-                           renderIndicator={() => <Progress.Circle size={100} fill={'white'} thickness={15} showsText color={COLOR_PRIMARY} borderWidth={0} />}
-                    />
-                </View>
-            </LangAwareView>
+            </View>
         </RNBounceable>
     );
 };
@@ -190,13 +186,16 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 14,
         borderRadius: 20,
-        margin: 5,
+        marginHorizontal: 5,
+        marginVertical: 5,
+        flexGrow: 1,
     },
     nameContainer: {
         flexWrap: 'wrap',
     },
     nameText: {
-        fontSize: 18,
+        fontSize: 20,
+        fontWeight: '500',
     },
     textContainer: {
         padding: 10,
@@ -207,13 +206,26 @@ const styles = StyleSheet.create({
     imageContainer: {
         flexBasis: 1,
         flexGrow: 1,
+        padding: 5,
+        position: 'relative',
     },
     image: {
         minHeight: 130,
         width: '100%',
     },
     money: {
-        fontSize: 20,
-        fontWeight: '500',
+        fontSize: 18,
     },
+    quantityButtonContainer: {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    quantityButtonSubContainer: {
+        backgroundColor: '#eeeeeebb',
+        borderRadius: 20,
+        padding: 10,
+    }
 });
